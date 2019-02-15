@@ -15,4 +15,3 @@ class TestFirstAttack(TestCase):
     @patch('dungeonsanddragons.roll_die', side_effect=[8, 8, 15, 5])
     def test_first_attack_roll_same_number(self, mock_roll_die):
         self.assertTrue(dungeonsanddragons.determine_order())
-

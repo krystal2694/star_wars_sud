@@ -95,15 +95,18 @@ class_initial_hd = {"barbarian": 12, "bard": 8, "cleric": 8, "druid": 8, "fighte
 def select_class():
     """Return user's selection of their desired class."""
 
-    classes = ["barbarian", "bard", "cleric", "druid", "fighter", "monk",
-               "paladin", "ranger", "rogue", "sorcerer", "warlock", "wizard"]
+    classes = {1: "barbarian", 2: "bard", 3: "cleric", 4: "druid", 5: "fighter", 6: "monk",
+               7: "paladin", 8: "ranger", 9: "rogue", 10: "sorcerer", 11: "warlock", 12: "wizard"}
     print("------------------------------------------------")
-    print("Choose your new character's class from the following list.")
-    print(classes)
+    print("Choose your new character's class by entering the class's corresponding number.")
+    for key, value in classes.items():
+        print(key, value)
 
-    character_class = input("Enter your selection here: ").lower()
-    if character_class in classes:
-        return character_class
+    print("------------------------------------------------")
+    selection = int(input("Enter your selection here: ").strip())
+    for number, char_class in classes.items():
+        if selection == number:
+            return char_class
     else:
         print("You must choose a class from the list above.")
         return select_class()
@@ -168,26 +171,22 @@ def combat_round(opponent_one, opponent_two):
     first_attack = determine_order()
 
     if first_attack is True:
-        print(opponent_one["Name"] + " goes first:")
-        opponent_two = attack(opponent_one, opponent_two)
-        if opponent_two["HP"] > 0:
-            print(opponent_two["Name"] + "'s turn:")
-            opponent_one = attack(opponent_two, opponent_one)
-            if opponent_one["HP"] > 0:
-                print("End of round -->",
-                      opponent_one["Name"] + "'s HP is " + str(opponent_one["HP"]) + ".",
-                      opponent_two["Name"] + "'s HP is " + str(opponent_two["HP"]) + ".")
+        attacker = opponent_one
+        defender = opponent_two
 
     else:
-        print(opponent_two["Name"] + " goes first:")
-        opponent_one = attack(opponent_two, opponent_one)
-        if opponent_one["HP"] > 0:
-            print(opponent_one["Name"] + "'s turn:")
-            opponent_two = attack(opponent_one, opponent_two)
-            if opponent_two["HP"] > 0:
-                print("End of round --> ",
-                      opponent_one["Name"] + "'s HP is " + str(opponent_one["HP"]) + ".",
-                      opponent_two["Name"] + "'s HP is " + str(opponent_two["HP"]) + ".")
+        attacker = opponent_two
+        defender = opponent_one
+
+    print(attacker["Name"] + " goes first:")
+    defender = attack(attacker, defender)
+    if defender["HP"] > 0:
+            print(defender["Name"] + "'s turn:")
+            attacker = attack(defender, attacker)
+            if attacker["HP"] > 0:
+                print("End of round -->",
+                      attacker["Name"] + "'s HP is " + str(attacker["HP"]) + ".",
+                      defender["Name"] + "'s HP is " + str(defender["HP"]) + ".")
 
 
 def attack(offence_char, defence_char):
@@ -231,7 +230,7 @@ def print_character(character):
 
     print("Here is your new character!")
     for key, value in character.items():
-        print(key + ":" + str(value))
+        print(key + ": " + str(value))
 
 
 def main():
