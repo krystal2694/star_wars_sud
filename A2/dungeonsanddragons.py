@@ -6,14 +6,23 @@ import random
 
 
 def roll_die(number_of_rolls, number_of_sides):
-    """Calculate the result of rolling a die of a specified size a specified number of times.
+    """Calculate the result of rolling a multi-sided die a specified number of times.
 
     PARAM: number_of_rolls, an integer
     PARAM: number_of_sides, an integer
     PRECONDITION: number_of_rolls must be a positive integer
     PRECONDITION: number_of_sides must be a positive integer
     POSTCONDITION: correctly calculate the sum of the dice rolls
-    RETURN: the sum of the dice rolls"""
+    RETURN: the sum of the dice rolls
+
+    >>> random.seed(9)
+    >>> roll_die(1, 20)
+    15
+    >>> random.seed(78)
+    >>> roll_die(3, 6)
+    6
+    >>> random.seed()
+    """
 
     if number_of_sides <= 0 or number_of_rolls <= 0:
         return 0
@@ -32,7 +41,18 @@ def choose_inventory(inventory, selection):
     PRECONDITION: inventory must be a list
     PRECONDITION: selection must be a positive integer
     POSTCONDITION: generate a sorted list of the specified number of randomly selected elements
-    RETURN: a sorted list with specified number of elements"""
+    RETURN: a sorted list with specified number of elements
+
+    >>> my_list = ['c', 'b', 'a', 'f', 'd', 'e']
+    >>> choose_inventory(my_list, 0)
+    []
+    >>> choose_inventory(my_list, 6)
+    ['a', 'b', 'c', 'd', 'e', 'f']
+    >>> random.seed(25)
+    >>> choose_inventory(my_list, 3)
+    ['b', 'c', 'f']
+    >>> random.seed()
+    """
 
     if len(inventory) == 0 and selection == 0:
         return []
@@ -46,12 +66,18 @@ def choose_inventory(inventory, selection):
         new_list = inventory[:]
         return sorted(new_list)
     else:
-        new_list = random.sample(inventory, selection)
-        return sorted(new_list)
+        new_list = sorted(random.sample(inventory, selection))
+        return new_list
 
 
 def generate_vowel():
-    """Generate a random vowel."""
+    """Generate a random vowel.
+
+    >>> random.seed(36)
+    >>> generate_vowel()
+    'i'
+    >>> random.seed()
+    """
 
     vowels = ['a', 'e', 'i', 'o', 'u', 'y']
     random_vowel = random.choice(vowels)
@@ -59,7 +85,13 @@ def generate_vowel():
 
 
 def generate_consonant():
-    """Generate a random consonant."""
+    """Generate a random consonant.
+
+    >>> random.seed(54)
+    >>> generate_consonant()
+    'g'
+    >>> random.seed()
+    """
 
     consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n',
                   'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z']
@@ -68,7 +100,14 @@ def generate_consonant():
 
 
 def generate_syllable():
-    """Concatenate a randomly generated consonant with a randomly generated vowel."""
+    """Concatenate a randomly generated consonant with a randomly generated vowel.
+
+    >>> random.seed(33)
+    >>> generate_syllable()
+    'xe'
+    >>> random.seed()
+
+    """
 
     random_syllable = generate_consonant() + generate_vowel()
     return random_syllable
@@ -80,16 +119,24 @@ def generate_name(num_syllables):
     PARAM: num_syllables, an integer
     PRECONDITION: num_syllables must be a positive integer
     POSTCONDITION: generate a random name with the specified number of syllables
-    RETURN: a randomized string in title case"""
+    RETURN: a randomized string in title case
+
+    >>> random.seed(64)
+    >>> generate_name(3)
+    'Tazuqu'
+    >>> random.seed(11)
+    >>> generate_name(1)
+    'Su'
+    >>> random.seed(53)
+    >>> generate_name(10)
+    'Yesutyvisybahigiceci'
+    >>> random.seed()
+    """
 
     num_syllables = [generate_syllable() for _ in range(num_syllables)]
     name = "".join(num_syllables)
     name = name.title()
     return name
-
-
-class_initial_hd = {"barbarian": 12, "bard": 8, "cleric": 8, "druid": 8, "fighter": 10, "monk": 8,
-                    "paladin": 10, "ranger": 10, "rogue": 8, "sorcerer": 6, "warlock": 8, "wizard": 6}
 
 
 def select_class():
@@ -110,6 +157,10 @@ def select_class():
     else:
         print("You must choose a class from the list above.")
         return select_class()
+
+
+class_initial_hd = {"barbarian": 12, "bard": 8, "cleric": 8, "druid": 8, "fighter": 10, "monk": 8,
+                    "paladin": 10, "ranger": 10, "rogue": 8, "sorcerer": 6, "warlock": 8, "wizard": 6}
 
 
 def create_character(syllables):
@@ -147,7 +198,15 @@ def create_character(syllables):
 
 
 def determine_order():
-    """Determine which character attacks first by rolling a 20 sided die once each."""
+    """Determine which character attacks first by rolling a 20 sided die once each.
+
+    >>> random.seed(27)
+    >>> determine_order()
+    True
+    >>> random.seed(8)
+    >>> determine_order()
+    False
+    """
 
     opponent_one_roll = roll_die(1, 20)
     opponent_two_roll = roll_die(1, 20)
@@ -211,7 +270,7 @@ def attack(offence_char, defence_char):
         print(defence_char["Name"] + " has taken a " + str(damage) + " point hit!")
         if defence_char["HP"] <= 0:
             print(defence_char["Name"] + " has perished.")
-            print("End of round. " + offence_char["Name"] + " is the winner!")
+            print("End of round --> " + offence_char["Name"] + " is the winner!")
         else:
             print(defence_char["Name"] + "'s HP has dropped to " + str(defence_char["HP"]) + ".")
     else:

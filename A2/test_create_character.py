@@ -37,32 +37,32 @@ class TestCreateCharacter(TestCase):
         for key in character.keys():
             self.assertIn(key, character_keys)
 
-    @patch('dungeonsanddragons.select_class', return_value="bard")
+    @patch('dungeonsanddragons.select_class', return_value="rogue")
     def test_create_character_strength_within_boundaries(self, mock_select_class):
         character = dungeonsanddragons.create_character(2)
         self.assertTrue(3 <= character["Strength"] <= 18)
 
-    @patch('dungeonsanddragons.select_class', return_value="bard")
-    def test_create_character_dexteirty_within_boundaries(self, mock_select_class):
+    @patch('dungeonsanddragons.select_class', return_value="monk")
+    def test_create_character_dexterity_within_boundaries(self, mock_select_class):
         character = dungeonsanddragons.create_character(2)
         self.assertTrue(3 <= character["Dexterity"] <= 18)
 
-    @patch('dungeonsanddragons.select_class', return_value="bard")
+    @patch('dungeonsanddragons.select_class', return_value="warlock")
     def test_create_character_constitution_within_boundaries(self, mock_select_class):
         character = dungeonsanddragons.create_character(2)
         self.assertTrue(3 <= character["Constitution"] <= 18)
 
-    @patch('dungeonsanddragons.select_class', return_value="bard")
+    @patch('dungeonsanddragons.select_class', return_value="fighter")
     def test_create_character_intelligence_within_boundaries(self, mock_select_class):
         character = dungeonsanddragons.create_character(2)
         self.assertTrue(3 <= character["Intelligence"] <= 18)
 
-    @patch('dungeonsanddragons.select_class', return_value="bard")
+    @patch('dungeonsanddragons.select_class', return_value="wizard")
     def test_create_character_wisdom_within_boundaries(self, mock_select_class):
         character = dungeonsanddragons.create_character(2)
         self.assertTrue(3 <= character["Wisdom"] <= 18)
 
-    @patch('dungeonsanddragons.select_class', return_value="bard")
+    @patch('dungeonsanddragons.select_class', return_value="cleric")
     def test_create_character_charisma_within_boundaries(self, mock_select_class):
         character = dungeonsanddragons.create_character(2)
         self.assertTrue(3 <= character["Charisma"] <= 18)
