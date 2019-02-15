@@ -24,17 +24,17 @@ class TestPrintCharacter(TestCase):
                      "XP": 0,
                      "Inventory": []}
         expected_output = "Here is your new character!\n" \
-                          "Name:Azazi\n" \
-                          "Class:bard\n" \
-                          "HP:5\n" \
-                          "Strength:18\n"\
-                          "Dexterity:3\n" \
-                          "Constitution:12\n"\
-                          "Intelligence:6\n"\
-                          "Wisdom:12\n"\
-                          "Charisma:12\n"\
-                          "XP:0\n"\
-                          "Inventory:[]\n"
+                          "Name: Azazi\n" \
+                          "Class: bard\n" \
+                          "HP: 5\n" \
+                          "Strength: 18\n"\
+                          "Dexterity: 3\n" \
+                          "Constitution: 12\n"\
+                          "Intelligence: 6\n"\
+                          "Wisdom: 12\n"\
+                          "Charisma: 12\n"\
+                          "XP: 0\n"\
+                          "Inventory: []\n"
         dungeonsanddragons.print_character(character)
         self.assertEqual(mock_stdout.getvalue(), expected_output)
 
@@ -52,16 +52,16 @@ class TestPrintCharacter(TestCase):
                      "XP": 0,
                      "Inventory": []}
         expected_output = "Here is your new character!\n" \
-                          "Name:Azazi\n" \
-                          "Class:bard\n" \
-                          "HP:5\n" \
-                          "Strength:18\n"\
-                          "Dexterity:3\n" \
-                          "Constitution:12\n"\
-                          "Intelligence:6\n"\
-                          "Wisdom:12\n"\
-                          "Charisma:12\n"\
-                          "XP:0\n"\
-                          "Inventory:[]\n"
+                          "Name: Azazi\n" \
+                          "Class: bard\n" \
+                          "HP: 5\n" \
+                          "Strength: 18\n"\
+                          "Dexterity: 3\n" \
+                          "Constitution: 12\n"\
+                          "Intelligence: 6\n"\
+                          "Wisdom: 12\n"\
+                          "Charisma: 12\n"\
+                          "XP: 0\n"\
+                          "Inventory: []\n"
         dungeonsanddragons.print_character(character)
         self.assertIsInstance(mock_stdout.getvalue(), str)

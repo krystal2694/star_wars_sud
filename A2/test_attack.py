@@ -118,7 +118,7 @@ class TestAttack(TestCase):
         expected_output = "Kelabi strikes!\n" \
                           "Helano has taken a 12 point hit!\n"\
                           "Helano has perished.\n"\
-                          "End of round. Kelabi is the winner!\n"
+                          "End of round --> Kelabi is the winner!\n"
         dungeonsanddragons.attack(good_fighter, bad_defender)
         self.assertEqual(mock_stdout.getvalue(), expected_output)
 
