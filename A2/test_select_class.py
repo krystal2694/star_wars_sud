@@ -19,11 +19,22 @@ class TestSelectClass(TestCase):
         self.assertEqual(dungeonsanddragons.select_class(), dungeonsanddragons.select_class().lower())
 
     @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
-    @patch('builtins.input', return_value="fighter")
+    @patch('builtins.input', return_value="3")
     def test_select_class_expected_output(self, mock_input, mock_stdout):
         expected_output = "------------------------------------------------\n" \
-                          "Choose your new character's class from the following list.\n" \
-                          "['barbarian', 'bard', 'cleric', 'druid', 'fighter', 'monk', 'paladin', " \
-                          "'ranger', 'rogue', 'sorcerer', 'warlock', 'wizard']\n"
+                          "Choose your new character's class by entering the class's corresponding number.\n"\
+                          "1 barbarian\n" \
+                          "2 bard\n" \
+                          "3 cleric\n" \
+                          "4 druid\n" \
+                          "5 fighter\n" \
+                          "6 monk\n" \
+                          "7 paladin\n" \
+                          "8 ranger\n" \
+                          "9 rogue\n" \
+                          "10 sorcerer\n" \
+                          "11 warlock\n" \
+                          "12 wizard\n" \
+                          "------------------------------------------------\n"
         dungeonsanddragons.select_class()
         self.assertEqual(mock_stdout.getvalue(), expected_output)
