@@ -293,6 +293,7 @@ def print_character(character):
 
 
 def main():
+    """One round of combat in Dungeons and Dragons, Woo!"""
     print("------------------------------------------------\n"
           "Welcome to Dungeons and Dragons!\n" 
           "------------------------------------------------")
