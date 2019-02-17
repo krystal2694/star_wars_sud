@@ -3,10 +3,11 @@
 # A01089672
 # 08/02/2019
 import random
+import doctest
 
 
 def roll_die(number_of_rolls, number_of_sides):
-    """Calculate the result of rolling a multi-sided die a specified number of times.
+    """Calculate the sum of rolling a multi-sided die a specified number of times.
 
     PARAM: number_of_rolls, an integer
     PARAM: number_of_sides, an integer
@@ -142,6 +143,7 @@ def generate_name(num_syllables):
 def select_class():
     """Return user's selection of their desired class."""
 
+    # provide user with information needed to make their choice
     classes = {1: "barbarian", 2: "bard", 3: "cleric", 4: "druid", 5: "fighter", 6: "monk",
                7: "paladin", 8: "ranger", 9: "rogue", 10: "sorcerer", 11: "warlock", 12: "wizard"}
     print("------------------------------------------------")
@@ -190,6 +192,7 @@ def create_character(syllables):
                  "XP": 0,
                  "Inventory": []}
 
+    # determine character's initial hit points
     for ch_class, initial_hd in class_initial_hd.items():
         if character_class == ch_class:
             character["HP"] = roll_die(1, initial_hd)
@@ -206,6 +209,7 @@ def determine_order():
     >>> random.seed(8)
     >>> determine_order()
     False
+    >>> random.seed()
     """
 
     opponent_one_roll = roll_die(1, 20)
@@ -255,10 +259,12 @@ def attack(offence_char, defence_char):
     PARAM: defence_chr, a dictionary
     PRECONDITION: offence_char must be a dictionary containing a complete character
     PRECONDITION: defence_char must be a dictionary containing a complete character
-    POSTCONDITION: determine if the attack was successful, modify defence_char's HP if it was
+    POSTCONDITION: determine if the attack was successful, modify defence_char's HP accordingly
     RETURN: defence_char as a dictionary """
 
     print(offence_char["Name"] + " strikes!")
+
+    # determine the magnitude of the damage dealt if the hit is successful
     damage = 0
     for ch_class, initial_hd in class_initial_hd.items():
         if offence_char["Class"] == ch_class:
@@ -325,6 +331,8 @@ def main():
     print("Time for combat!")
     print("------------------------------------------------")
     combat_round(char_1, char_2)
+
+    doctest.testmod()
 
 
 if __name__ == '__main__':

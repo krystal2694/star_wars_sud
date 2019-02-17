@@ -1,6 +1,5 @@
 from unittest import TestCase
 from unittest.mock import patch
-import unittest.mock
 import io
 import dungeonsanddragons
 
@@ -33,7 +32,7 @@ class TestAttack(TestCase):
         defender_after_attack = dungeonsanddragons.attack(bad_fighter, good_defender)
         self.assertTrue(good_defender["HP"] == defender_after_attack["HP"])
 
-    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    @patch('sys.stdout', new_callable=io.StringIO)
     @patch('dungeonsanddragons.roll_die', side_effect=[4, 1])
     def test_attack_miss_output(self, mock_roll_die, mock_stdout):
         bad_fighter = {"Name": "Monoza",
@@ -90,7 +89,7 @@ class TestAttack(TestCase):
         defender_after_attack = dungeonsanddragons.attack(good_fighter, bad_defender)
         self.assertTrue(defender_after_attack["HP"] <= 0)
 
-    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    @patch('sys.stdout', new_callable=io.StringIO)
     @patch('dungeonsanddragons.roll_die', side_effect=[12, 20])
     def test_attack_hit_defender_dies_output(self, mock_roll_die, mock_stdout):
         good_fighter = {"Name": "Kelabi",
@@ -150,7 +149,7 @@ class TestAttack(TestCase):
         defender_after_attack = dungeonsanddragons.attack(good_fighter, bad_defender)
         self.assertTrue(defender_after_attack["HP"] < bad_defender_initial_hp)
 
-    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    @patch('sys.stdout', new_callable=io.StringIO)
     @patch('dungeonsanddragons.roll_die', side_effect=[5, 20])
     def test_attack_hit_defender_lives_output(self, mock_roll_die, mock_stdout):
         good_fighter = {"Name": "Kelabi",

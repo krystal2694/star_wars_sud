@@ -1,12 +1,11 @@
 from unittest import TestCase
 from unittest.mock import patch
-import unittest.mock
 import io
 import dungeonsanddragons
 
 
 class TestCombatRound(TestCase):
-    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    @patch('sys.stdout', new_callable=io.StringIO)
     @patch('dungeonsanddragons.roll_die', side_effect=[10, 5, 4, 1, 6, 1])
     def test_attack_miss_miss_both_survive(self, mock_roll_die, mock_stdout):
         bad_fighter = {"Name": "Monoza",
@@ -41,7 +40,7 @@ class TestCombatRound(TestCase):
         dungeonsanddragons.combat_round(bad_fighter, bad_fighter_2)
         self.assertEqual(mock_stdout.getvalue(), expected_output)
 
-    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    @patch('sys.stdout', new_callable=io.StringIO)
     @patch('dungeonsanddragons.roll_die', side_effect=[10, 5, 4, 1, 3, 20])
     def test_attack_miss_hit_both_survive(self, mock_roll_die, mock_stdout):
         bad_fighter = {"Name": "Monoza",
@@ -77,7 +76,7 @@ class TestCombatRound(TestCase):
         dungeonsanddragons.combat_round(bad_fighter, mediocre_fighter)
         self.assertEqual(mock_stdout.getvalue(), expected_output)
 
-    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    @patch('sys.stdout', new_callable=io.StringIO)
     @patch('dungeonsanddragons.roll_die', side_effect=[10, 5, 3, 20, 3, 1])
     def test_attack_hit_miss_both_survive(self, mock_roll_die, mock_stdout):
         bad_fighter = {"Name": "Monoza",
@@ -113,7 +112,7 @@ class TestCombatRound(TestCase):
         dungeonsanddragons.combat_round(mediocre_fighter, bad_fighter)
         self.assertEqual(mock_stdout.getvalue(), expected_output)
 
-    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    @patch('sys.stdout', new_callable=io.StringIO)
     @patch('dungeonsanddragons.roll_die', side_effect=[10, 5, 3, 20, 2, 20])
     def test_attack_hit_hit_both_survive(self, mock_roll_die, mock_stdout):
         mediocre_fighter_2 = {"Name": "Monoza",
@@ -150,7 +149,7 @@ class TestCombatRound(TestCase):
         dungeonsanddragons.combat_round(mediocre_fighter, mediocre_fighter_2)
         self.assertEqual(mock_stdout.getvalue(), expected_output)
 
-    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    @patch('sys.stdout', new_callable=io.StringIO)
     @patch('dungeonsanddragons.roll_die', side_effect=[10, 5, 3, 20, 4, 20])
     def test_attack_hit_hit_opponent_one_dies(self, mock_roll_die, mock_stdout):
         good_fighter = {"Name": "Monoza",
@@ -187,7 +186,7 @@ class TestCombatRound(TestCase):
         dungeonsanddragons.combat_round(bad_fighter, good_fighter)
         self.assertEqual(mock_stdout.getvalue(), expected_output)
 
-    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    @patch('sys.stdout', new_callable=io.StringIO)
     @patch('dungeonsanddragons.roll_die', side_effect=[10, 5, 3, 1, 4, 20])
     def test_attack_miss_hit_opponent_one_dies(self, mock_roll_die, mock_stdout):
         good_fighter = {"Name": "Monoza",
@@ -223,7 +222,7 @@ class TestCombatRound(TestCase):
         dungeonsanddragons.combat_round(bad_fighter, good_fighter)
         self.assertEqual(mock_stdout.getvalue(), expected_output)
 
-    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    @patch('sys.stdout', new_callable=io.StringIO)
     @patch('dungeonsanddragons.roll_die', side_effect=[10, 5, 6, 20])
     def test_attack_hit_opponent_two_dies(self, mock_roll_die, mock_stdout):
         bad_fighter = {"Name": "Monoza",

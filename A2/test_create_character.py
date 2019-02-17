@@ -1,6 +1,5 @@
 from unittest import TestCase
 from unittest.mock import patch
-import unittest
 import io
 import dungeonsanddragons
 
@@ -22,7 +21,7 @@ class TestCreateCharacter(TestCase):
     def test_create_character_syllable_less_than_0(self, mock_select_class):
         self.assertEqual(dungeonsanddragons.create_character(-2), None)
 
-    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    @patch('sys.stdout', new_callable=io.StringIO)
     @patch('dungeonsanddragons.select_class', return_valuet="paladin")
     def test_create_character_syllable_less_or_equal_0_expected_output(self, mock_select_class, mock_stdout):
         expected_output = "syllables must be a positive integer!\n"

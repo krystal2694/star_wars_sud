@@ -1,6 +1,5 @@
 from unittest import TestCase
 from unittest.mock import patch
-import unittest.mock
 import io
 import dungeonsanddragons
 
@@ -62,7 +61,7 @@ class TestSelectClass(TestCase):
     def test_select_class_lower_case(self, mock_input):
         self.assertEqual(dungeonsanddragons.select_class(), dungeonsanddragons.select_class().lower())
 
-    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    @patch('sys.stdout', new_callable=io.StringIO)
     @patch('builtins.input', return_value="4")
     def test_select_class_expected_output(self, mock_input, mock_stdout):
         expected_output = "------------------------------------------------\n" \
