@@ -165,8 +165,8 @@ class_initial_hd = {"barbarian": 12, "bard": 8, "cleric": 8, "druid": 8, "fighte
                     "paladin": 10, "ranger": 10, "rogue": 8, "sorcerer": 6, "warlock": 8, "wizard": 6}
 
 
-def create_character(syllables):
-    """Create a Dungeons and Dragons character.
+def generate_character(syllables):
+    """Generate a Dungeons and Dragons character.
 
     PARAM: syllables, an integer
     PRECONDITION: syllables must be a positive integer
@@ -308,7 +308,7 @@ def main():
              "The Rod of Seven Parts", "The Sphere of Annihilation", "The Deck of Many Things",
              "The Staff of Magi", "The Black Rose", "The Belmont Whip"]
 
-    char_1 = create_character(int(input("How many syllables would you like you first character's name to be? ")))
+    char_1 = generate_character(int(input("How many syllables would you like you first character's name to be? ")))
     print("------------------------------------------------")
     char_1_items = int(input("There are 10 items in the store, how many would you like to select? "))
     char_1_inventory = choose_inventory(store, char_1_items)
@@ -318,7 +318,7 @@ def main():
     print_character(char_1)
 
     print("------------------------------------------------")
-    char_2 = create_character(int(input("How many syllables would you like you second character's name to be? ")))
+    char_2 = generate_character(int(input("How many syllables would you like you second character's name to be? ")))
     print("------------------------------------------------")
     char_2_items = int(input("There are 10 items in the store, how many would you like to select? "))
     char_2_inventory = choose_inventory(store, char_2_items)
