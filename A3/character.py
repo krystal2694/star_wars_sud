@@ -49,3 +49,16 @@ def create_pokemon(name):
 
     return pokemon
 
+
+def print_pokemon(pokemon):
+    """Print the parameter.
+
+    PARAM: character, a dictionary
+    PRECONDITION: character must be a dictionary
+    POSTCONDITION: print contents of parameter in a nice format
+    RETURN: a nicely formatted string
+    """
+
+    for key, value in pokemon.items():
+        print(key + ": " + str(value))
+
