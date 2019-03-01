@@ -36,6 +36,7 @@ def create_game_map(coordinates):
 
     return game_map
 
+
 def print_game_map(game_map):
     print("-" * 17)
     for i in game_map:
@@ -44,6 +45,42 @@ def print_game_map(game_map):
             print(x, end="")
         print("|")
     print("-" * 17)
+
+
+def move_character(coordinates):
+    decision = input().strip().lower()
+    print("------------------------------------------------")
+    boundary_reached = "you've reached the edge of the forest, you cannot go this way."
+    if decision == "n":
+        if coordinates[0] != 0:
+            coordinates[0] -= 1
+        else:
+            print(boundary_reached)
+            return move_character(coordinates)
+    elif decision == "s":
+        if coordinates[0] != 4:
+            coordinates[0] += 1
+        else:
+            print(boundary_reached)
+            return move_character(coordinates)
+    elif decision == "e":
+        if coordinates[1] != 4:
+            coordinates[1] += 1
+        else:
+            print(boundary_reached)
+            return move_character(coordinates)
+    elif decision == "w":
+        if coordinates[1] != 0:
+            coordinates[1] -= 1
+        else:
+            print(boundary_reached)
+            return move_character(coordinates)
+    else:
+        print("I do not understand.")
+        return coordinates
+
+    print_game_map(create_game_map(coordinates))
+    return coordinates
 
 
 def main():
@@ -56,8 +93,7 @@ def main():
     # print("Fantastic! We've been looking for a %s type Pokémon to join us!" % pokemon_type)
     coordinates = [2, 2]
     print_game_map(create_game_map(coordinates))
-
-
+    move_character(coordinates)
 
 
 if __name__ == '__main__':
