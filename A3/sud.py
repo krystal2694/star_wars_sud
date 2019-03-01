@@ -1,5 +1,6 @@
 """A Pokemon SUD Game."""
 from random import randint
+import battle
 import character
 # A01089672
 # Krystal Wong
@@ -23,7 +24,7 @@ QMMMMMb  "MMX       MMMMMMP !MX' :M~   MMM MMM  .oo. XMMM 'MMM
     """
 
 
-def create_game_map(coordinates):
+def create_game_map(pokemon):
     game_map = []
     for _ in range(5):
         row = []
@@ -32,7 +33,7 @@ def create_game_map(coordinates):
             row.append("   ")
 
     pokemon_symbol = "(@)"
-    game_map[coordinates[0]][coordinates[1]] = pokemon_symbol
+    game_map[pokemon["Coordinates"][0]][pokemon["Coordinates"][1]] = pokemon_symbol
 
     return game_map
 
@@ -55,27 +56,29 @@ def instructions():
           "Type 'w' to move west.")
 
 
-def move_character(coordinates):
+def move_character(pokemon):
     directions = ["n", "s", "e", "w"]
     decision = input().strip().lower()
     if decision not in directions:
         print("I do not understand.")
-        return coordinates
+        return pokemon
 
-    if decision == "n" and coordinates[0] != 0:
-            coordinates[0] -= 1
-    elif decision == "s" and coordinates[0] != 4:
-            coordinates[0] += 1
-    elif decision == "e" and coordinates[1] != 4:
-            coordinates[1] += 1
-    elif decision == "w" and coordinates[1] != 0:
-            coordinates[1] -= 1
+    if decision == "n" and pokemon["Coordinates"][0] != 0:
+            pokemon["Coordinates"][0] -= 1
+    elif decision == "s" and pokemon["Coordinates"][0] != 4:
+            pokemon["Coordinates"][0] += 1
+    elif decision == "e" and pokemon["Coordinates"][1] != 4:
+            pokemon["Coordinates"][1] += 1
+    elif decision == "w" and pokemon["Coordinates"][1] != 0:
+            pokemon["Coordinates"][1] -= 1
     else:
         print("you've reached the edge of the forest, you cannot go this way.")
-        return move_character(coordinates)
+        return move_character(pokemon)
 
-    print_game_map(create_game_map(coordinates))
-    return coordinates
+    print_game_map(create_game_map(pokemon))
+    return pokemon
+
+
 
 
 def main():
@@ -87,9 +90,8 @@ def main():
     # pokemon_type = character.choose_pokemon_type()
     # print("Fantastic! We've been looking for a %s type Pokémon to join us!" % pokemon_type)
     instructions()
-    coordinates = [2, 2]
-    print_game_map(create_game_map(coordinates))
-    move_character(coordinates)
+    pikachu = {"Name": "Pikachu", "Type": "electric", "HP": 10, "Dexterity": 10, "Coordinates": [2, 2]}
+    print_game_map(create_game_map(pikachu))
 
 
 if __name__ == '__main__':
