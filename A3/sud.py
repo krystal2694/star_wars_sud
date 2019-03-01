@@ -1,4 +1,5 @@
 """A Pokemon SUD Game."""
+from random import randint
 import character
 # A01089672
 # Krystal Wong
@@ -22,3 +23,33 @@ QMMMMMb  "MMX       MMMMMMP !MX' :M~   MMM MMM  .oo. XMMM 'MMM
     """
 
 
+def create_game_map(coordinates):
+    game_map = []
+    for _ in range(5):
+        row = []
+        game_map.append(row)
+        for _ in range(5):
+            row.append("   ")
+
+    pokemon_symbol = "(@)"
+    game_map[coordinates[0]][coordinates[1]] = pokemon_symbol
+
+    return game_map
+
+
+def main():
+    print(pokemon_art)
+    print("Welcome to the world of Pokémon!")
+    print("------------------------------------------------")
+    name = character.choose_character_name()
+    print("Hello, %s! What type of Pokémon are you?" % name)
+    pokemon_type = character.choose_class()
+    print("Fantastic! We've been looking for a %s type Pokémon to join us!" % pokemon_type)
+    coordinates = [2, 2]
+    print(create_game_map(coordinates))
+
+
+
+
+if __name__ == '__main__':
+    main()
