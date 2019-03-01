@@ -36,17 +36,26 @@ def create_game_map(coordinates):
 
     return game_map
 
+def print_game_map(game_map):
+    print("-" * 17)
+    for i in game_map:
+        print("|", end="")
+        for x in i:
+            print(x, end="")
+        print("|")
+    print("-" * 17)
+
 
 def main():
-    print(pokemon_art)
-    print("Welcome to the world of Pokémon!")
-    print("------------------------------------------------")
-    name = character.choose_character_name()
-    print("Hello, %s! What type of Pokémon are you?" % name)
-    pokemon_type = character.choose_class()
-    print("Fantastic! We've been looking for a %s type Pokémon to join us!" % pokemon_type)
+    # print(pokemon_art)
+    # print("Welcome to the world of Pokémon!")
+    # print("------------------------------------------------")
+    # name = character.choose_pokemon_name()
+    # print("Hello, %s! What type of Pokémon are you?" % name)
+    # pokemon_type = character.choose_pokemon_type()
+    # print("Fantastic! We've been looking for a %s type Pokémon to join us!" % pokemon_type)
     coordinates = [2, 2]
-    print(create_game_map(coordinates))
+    print_game_map(create_game_map(coordinates))
 
 
 
