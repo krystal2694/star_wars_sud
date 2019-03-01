@@ -48,36 +48,23 @@ def print_game_map(game_map):
 
 
 def move_character(coordinates):
+    directions = ["n", "s", "e", "w"]
     decision = input().strip().lower()
-    print("------------------------------------------------")
-    boundary_reached = "you've reached the edge of the forest, you cannot go this way."
-    if decision == "n":
-        if coordinates[0] != 0:
-            coordinates[0] -= 1
-        else:
-            print(boundary_reached)
-            return move_character(coordinates)
-    elif decision == "s":
-        if coordinates[0] != 4:
-            coordinates[0] += 1
-        else:
-            print(boundary_reached)
-            return move_character(coordinates)
-    elif decision == "e":
-        if coordinates[1] != 4:
-            coordinates[1] += 1
-        else:
-            print(boundary_reached)
-            return move_character(coordinates)
-    elif decision == "w":
-        if coordinates[1] != 0:
-            coordinates[1] -= 1
-        else:
-            print(boundary_reached)
-            return move_character(coordinates)
-    else:
+    if decision not in directions:
         print("I do not understand.")
         return coordinates
+
+    if decision == "n" and coordinates[0] != 0:
+            coordinates[0] -= 1
+    elif decision == "s" and coordinates[0] != 4:
+            coordinates[0] += 1
+    elif decision == "e" and coordinates[1] != 4:
+            coordinates[1] += 1
+    elif decision == "w" and coordinates[1] != 0:
+            coordinates[1] -= 1
+    else:
+        print("you've reached the edge of the forest, you cannot go this way.")
+        return move_character(coordinates)
 
     print_game_map(create_game_map(coordinates))
     return coordinates
