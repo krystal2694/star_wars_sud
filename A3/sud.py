@@ -47,6 +47,14 @@ def print_game_map(game_map):
     print("-" * 17)
 
 
+def instructions():
+    print("This is your map. '(@)' represents where you are on the map.\n"
+          "Type 'n' to move north.\n"
+          "Type 's' to move south.\n"
+          "Type 'e' to move east.\n"
+          "Type 'w' to move west.")
+
+
 def move_character(coordinates):
     directions = ["n", "s", "e", "w"]
     decision = input().strip().lower()
@@ -78,6 +86,7 @@ def main():
     # print("Hello, %s! What type of Pokémon are you?" % name)
     # pokemon_type = character.choose_pokemon_type()
     # print("Fantastic! We've been looking for a %s type Pokémon to join us!" % pokemon_type)
+    instructions()
     coordinates = [2, 2]
     print_game_map(create_game_map(coordinates))
     move_character(coordinates)
