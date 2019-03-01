@@ -45,7 +45,8 @@ def create_pokemon(name):
     pokemon = {"Name": name,
                "Type": pokemon_type,
                "HP": 10,
-               "Dexterity": randint(1, 5)}
+               "Dexterity": randint(1, 5),
+               "Coordinates": [2, 2]}
 
     return pokemon
 
