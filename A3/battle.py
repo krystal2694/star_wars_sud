@@ -51,3 +51,38 @@ def attack(offence_char, defence_char):
     return defence_char
 
 
+def combat_round(opponent_one, opponent_two):
+    """ Allow user to play one single round of combat.
+
+    PARAM: opponent_one, a dictionary
+    PARAM: opponent_two, a dictionary
+    PRECONDITION: opponent_one must be a dictionary containing a complete pokemon
+    PRECONDITION: opponent_two must be a dictionary containing a complete pokemon
+    """
+
+    first_attack = determine_order()
+    if first_attack is True:
+        attacker = opponent_one
+        defender = opponent_two
+    else:
+        attacker = opponent_two
+        defender = opponent_one
+
+    print(attacker["Name"] + " goes first:")
+    while attacker["HP"] > 0 and defender["HP"] > 0:
+        defender = attack(attacker, defender)
+        if defender["HP"] <= 0:
+            break
+        else:
+            attacker = attack(defender, attacker)
+
+
+def main():
+    pikachu = {"Name": "Pikachu", "Type": "electric", "HP": 10, "Dexterity": 3}
+    jigglypuff = {"Name": "Jigglypuff", "Type": "fairy", "HP": 10, "Dexterity": 2}
+    combat_round(pikachu, jigglypuff)
+
+
+if __name__ == '__main__':
+    main()
+
