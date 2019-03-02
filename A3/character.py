@@ -9,21 +9,22 @@ def choose_pokemon_name():
     return name.title()
 
 
+pokemon_types_dict = {1: "Normal", 2: "Fire", 3: "Electric", 4: "Fairy", 5: "Psychic", 6: "Ice",
+                      7: "Grass", 8: "Poison", 9: "Ghost", 10: "Water", 11: "Bug", 12: "Dark"}
+
+
 def choose_pokemon_type():
     """Return user's selection of their desired Pokémon type."""
 
     print("What type of Pokemon are you?")
     # provide user with information needed to make their choice
-    classes = {1: "Normal", 2: "Fire", 3: "Electric", 4: "Fairy", 5: "Psychic", 6: "Ice",
-               7: "Grass", 8: "Poison", 9: "Ghost", 10: "Water", 11: "Bug", 12: "Dark"}
     print("------------------------------------------------")
-
-    for key, value in classes.items():
+    for key, value in pokemon_types_dict.items():
         print(key, value)
 
     selection = int(input("Enter the corresponding number: ").strip())
     print("------------------------------------------------")
-    for number, char_class in classes.items():
+    for number, char_class in pokemon_types_dict.items():
         if selection == number:
             return char_class
     else:
@@ -62,4 +63,3 @@ def print_pokemon(pokemon):
 
     for key, value in pokemon.items():
         print(key + ": " + str(value))
-
