@@ -1,5 +1,6 @@
 """Battle between two Pokemon."""
 from random import randint
+import sud
 
 
 def attack(offence_char, defence_char):
@@ -15,7 +16,7 @@ def attack(offence_char, defence_char):
     print(offence_char["Name"] + " strikes!")
     damage = randint(1, 6)
 
-    offence_attack = randint(1, 10)
+    offence_attack = randint(1, 20)
     if offence_attack > defence_char["Dexterity"]:
         defence_char["HP"] -= damage
         print(defence_char["Name"] + " has taken a " + str(damage) + " point hit!")
@@ -23,9 +24,9 @@ def attack(offence_char, defence_char):
             print(defence_char["Name"] + " has perished.")
             print(offence_char["Name"] + " is the winner!")
         else:
-            print(defence_char["Name"] + "'s HP has dropped to " + str(defence_char["HP"]) + ".")
+            print("Their HP has dropped to " + str(defence_char["HP"]) + ".")
     else:
-        print(offence_char["Name"] + " missed!")
+        print("They missed!")
     return defence_char
 
 
@@ -39,20 +40,20 @@ def combat_round(pokemon, wild_pokemon):
     """
 
     while pokemon["HP"] > 0 and wild_pokemon["HP"] > 0:
-        wild_pokemon = attack(pokemon, wild_pokemon)
-        if wild_pokemon["HP"] <= 0:
+        pokemon = attack(wild_pokemon, pokemon)
+        if pokemon["HP"] <= 0:
             break
         else:
-            pokemon = attack(wild_pokemon, pokemon)
+            wild_pokemon = attack(pokemon, wild_pokemon)
 
     return pokemon
 
 
-pokedex = [{"Name": "Snorlax", "Type": "Normal", "HP": 5, "Dexterity": 1},
-           {"Name": "Jiggly Puff", "Type": "Fairy", "HP": 5, "Dexterity": 2},
-           {"Name": "Rattata", "Type": "Normal", "HP": 5, "Dexterity": 2},
-           {"Name": "Ghastly", "Type": "Ghost", "HP": 5, "Dexterity": 1},
-           {"Name": "Charmander", "Type": "Fire", "HP": 5, "Dexterity": 4}]
+pokedex = [{"Name": "Snorlax", "Type": "Normal", "HP": 5, "Dexterity": 7},
+           {"Name": "Jiggly Puff", "Type": "Fairy", "HP": 5, "Dexterity": 7},
+           {"Name": "Rattata", "Type": "Normal", "HP": 5, "Dexterity": 6},
+           {"Name": "Ghastly", "Type": "Ghost", "HP": 5, "Dexterity": 6},
+           {"Name": "Charmander", "Type": "Fire", "HP": 5, "Dexterity": 9}]
 
 
 def encounter_pokemon(pokemon):
@@ -62,7 +63,9 @@ def encounter_pokemon(pokemon):
         if fight_or_run == "f":
             combat_round(pokemon, wild_pokemon)
             if pokemon["HP"] <= 0:
-                print("GAME OVER")
+                return pokemon
+            else:
+                print("%s's HP is %d." % (pokemon["Name"], pokemon["HP"]))
         elif fight_or_run == "r":
             if randint(1, 10) == 1:
                 damage = randint(1, 4)
@@ -71,14 +74,15 @@ def encounter_pokemon(pokemon):
                       % (wild_pokemon["Name"], pokemon["Name"], pokemon["HP"]))
             else:
                 print("You have fled successfully!")
+        sud.print_game_map(sud.create_game_map(pokemon))
     return pokemon
 
 
 def main():
-    pikachu = {"Name": "Pikachu", "Type": "electric", "HP": 10, "Dexterity": 3}
-    # jigglypuff = {"Name": "Jigglypuff", "Type": "fairy", "HP": 10, "Dexterity": 2}
-    # combat_round(pikachu, jigglypuff)
-    encounter_pokemon(pikachu)
+    pikachu = {"Name": "Pikachu", "Type": "electric", "HP": 10, "Dexterity": 2}
+    jigglypuff = {"Name": "Jigglypuff", "Type": "fairy", "HP": 10, "Dexterity": 2}
+    combat_round(pikachu, jigglypuff)
+    # encounter_pokemon(pikachu)
 
 
 if __name__ == '__main__':

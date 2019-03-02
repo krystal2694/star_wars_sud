@@ -56,28 +56,43 @@ def instructions():
           "Type 'w' to move west.")
 
 
-def move_character(pokemon):
-    directions = ["n", "s", "e", "w"]
-    decision = input().strip().lower()
-    if decision not in directions:
-        print("I do not understand.")
-        return pokemon
-
-    if decision == "n" and pokemon["Coordinates"][0] != 0:
+def move_character(pokemon, direction):
+    if direction == "n" and pokemon["Coordinates"][0] != 0:
             pokemon["Coordinates"][0] -= 1
-    elif decision == "s" and pokemon["Coordinates"][0] != 4:
+    elif direction == "s" and pokemon["Coordinates"][0] != 4:
             pokemon["Coordinates"][0] += 1
-    elif decision == "e" and pokemon["Coordinates"][1] != 4:
+    elif direction == "e" and pokemon["Coordinates"][1] != 4:
             pokemon["Coordinates"][1] += 1
-    elif decision == "w" and pokemon["Coordinates"][1] != 0:
+    elif direction == "w" and pokemon["Coordinates"][1] != 0:
             pokemon["Coordinates"][1] -= 1
     else:
         print("you've reached the edge of the forest, you cannot go this way.")
-        return move_character(pokemon)
 
     print_game_map(create_game_map(pokemon))
     return pokemon
 
+
+
+
+def game_play(pokemon):
+    commands = ["q", "n", "s", "w", "e", "f", "r"]
+    directions = ["n", "s", "e", "w"]
+    action = 0
+    while action != "q":
+        action = input().strip().lower()
+        if action not in commands:
+            print("I do not understand.")
+        if action in directions:
+            pokemon = move_character(pokemon, action)
+            pokemon = battle.encounter_pokemon(pokemon)
+            if pokemon["HP"] <= 0:
+                play_again = input("GAME OVER. Play again? (y/n): ")
+                if play_again == "n":
+                    action = "q"
+                elif play_again == "y":
+                    pokemon["HP"] = 10
+                    pokemon["Coordinates"] = [2, 2]
+                    print_game_map(create_game_map(pokemon))
 
 
 
@@ -89,9 +104,10 @@ def main():
     # print("Hello, %s! What type of Pokémon are you?" % name)
     # pokemon_type = character.choose_pokemon_type()
     # print("Fantastic! We've been looking for a %s type Pokémon to join us!" % pokemon_type)
-    instructions()
-    pikachu = {"Name": "Pikachu", "Type": "electric", "HP": 10, "Dexterity": 10, "Coordinates": [2, 2]}
-    print_game_map(create_game_map(pikachu))
+    # instructions()
+    pikachu = {"Name": "Pikachu", "Type": "electric", "HP": 1, "Dexterity": 6, "Coordinates": [2, 2]}
+    # print_game_map(create_game_map(pikachu))
+    game_play(pikachu)
 
 
 if __name__ == '__main__':
