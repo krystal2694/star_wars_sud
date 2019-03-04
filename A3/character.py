@@ -1,58 +1,55 @@
-"""Create a Pokemon Character."""
+"""Create a Star Wars Character."""
 from random import randint
 # A01089672
 # Krystal Wong
 
 
-def choose_pokemon_name():
-    name = input("What is your name? ")
+def choose_name():
+    name = input("What is your name, young one? ")
     return name.title()
 
 
-pokemon_types_dict = {1: "Normal", 2: "Fire", 3: "Electric", 4: "Fairy", 5: "Psychic", 6: "Ice",
-                      7: "Grass", 8: "Poison", 9: "Ghost", 10: "Water", 11: "Bug", 12: "Dark"}
+rebel_class_dict = {1: ["My knowledge", "jedi"], 2: ["My strength", "rebel fighter"], 3: ["my wit", "Smuggler"]}
 
 
-def choose_pokemon_type():
-    """Return user's selection of their desired Pokémon type."""
+def choose_rebel_class():
+    """Return user's selection of their desired rebel class."""
 
-    print("What type of Pokemon are you?")
-    # provide user with information needed to make their choice
     print("------------------------------------------------")
-    for key, value in pokemon_types_dict.items():
-        print(key, value)
+    for key, value in rebel_class_dict.items():
+        print(key, value[0])
 
     selection = int(input("Enter the corresponding number: ").strip())
     print("------------------------------------------------")
-    for number, char_class in pokemon_types_dict.items():
+    for number, rebel_class in rebel_class_dict.items():
         if selection == number:
-            return char_class
+            return rebel_class[1]
     else:
-        print("You must choose a Pokémon type from the list above.")
-        return choose_pokemon_type()
+        print("You must choose one from the list above.")
+        return choose_rebel_class()
 
 
-def create_pokemon(name, pokemon_type):
-    """Create a Pokemon.
+def create_rebel(name, rebel_class):
+    """Create a member of the Rebellion.
 
     PARAM: name, a string
-    PARAM: pokemon type, a string
+    PARAM: rebel class, a string
     PRECONDITION: name must be a string
-    PRECONDITION: pokemon type must be a string
-    POSTCONDITION: create a Pokemon complete with name, Type, HP, Dexterity
-    RETURN: a dictionary consisting of all information required for a new Pokemon
+    PRECONDITION: rebel class must be a string
+    POSTCONDITION: create a rebel complete with name, Type, HP, Dexterity
+    RETURN: a dictionary consisting of all information required for a new member of the Rebellion
     """
 
-    pokemon = {"Name": name,
-               "Type": pokemon_type,
-               "HP": 10,
-               "Dexterity": randint(1, 10),
-               "Coordinates": [5, 5]}
+    rebel = {"Name": name,
+             "Class": rebel_class,
+             "HP": 10,
+             "Dexterity": randint(1, 10),
+             "Coordinates": [5, 5]}
 
-    return pokemon
+    return rebel
 
 
-def print_pokemon(pokemon):
+def print_rebel(rebel):
     """Print the parameter.
 
     PARAM: character, a dictionary
@@ -61,5 +58,13 @@ def print_pokemon(pokemon):
     RETURN: a nicely formatted string
     """
 
-    for key, value in pokemon.items():
+    for key, value in rebel.items():
         print(key + ": " + str(value))
+
+
+def main():
+    print(choose_rebel_class())
+
+
+if __name__ == '__main__':
+    main()

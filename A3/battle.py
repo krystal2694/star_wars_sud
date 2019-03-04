@@ -1,4 +1,4 @@
-"""Battle between two Pokemon."""
+"""Battle between two Star Wars characters."""
 from random import randint
 import sud
 
@@ -30,62 +30,61 @@ def attack(offence_char, defence_char):
     return defence_char
 
 
-def combat_round(pokemon, wild_pokemon):
+def combat_round(rebel, imperial):
     """ Allow user to play one single round of combat.
 
     PARAM: opponent_one, a dictionary
     PARAM: opponent_two, a dictionary
-    PRECONDITION: opponent_one must be a dictionary containing a complete pokemon
-    PRECONDITION: opponent_two must be a dictionary containing a complete pokemon
+    PRECONDITION: opponent_one must be a dictionary containing a complete jedi
+    PRECONDITION: opponent_two must be a dictionary containing a complete jedi
     """
-    while pokemon["HP"] > 0 and wild_pokemon["HP"] > 0:
-        pokemon = attack(wild_pokemon, pokemon)
-        if pokemon["HP"] <= 0:
+    while rebel["HP"] > 0 and imperial["HP"] > 0:
+        rebel = attack(imperial, rebel)
+        if rebel["HP"] <= 0:
             break
         else:
-            wild_pokemon = attack(pokemon, wild_pokemon)
+            imperial = attack(rebel, imperial)
 
-    if pokemon["HP"] > 0:
-        print("%s's HP is %d." % (pokemon["Name"], pokemon["HP"]))
-    wild_pokemon["HP"] = 5
-    return pokemon
-
-
-pokedex = [{"Name": "Snorlax", "Type": "Normal", "HP": 5, "Dexterity": 5},
-           {"Name": "Jiggly Puff", "Type": "Fairy", "HP": 5, "Dexterity": 6},
-           {"Name": "Rattata", "Type": "Normal", "HP": 5, "Dexterity": 4},
-           {"Name": "Ghastly", "Type": "Ghost", "HP": 5, "Dexterity": 6},
-           {"Name": "Charmander", "Type": "Fire", "HP": 5, "Dexterity": 9}]
+    if rebel["HP"] > 0:
+        print("%s's HP is %d." % (rebel["Name"], rebel["HP"]))
+    imperial["HP"] = 5
+    return rebel
 
 
-def encounter_pokemon(pokemon):
+imperial_forces = [{"Name": "Stormtrooper", "HP": 5, "Dexterity": 5},
+                   {"Name": "Shocktrooper", "HP": 5, "Dexterity": 6},
+                   {"Name": "Imperial Officer", "HP": 5, "Dexterity": 4},
+                   {"Name": "Bounty Hunter", "HP": 5, "Dexterity": 6},
+                   {"Name": "Imperial Spy", "HP": 5, "Dexterity": 6},
+                   {"Name": "Sith Lord", "HP": 5, "Dexterity": 9},
+                   {"Name": "AT-AT Walker", "HP": 5, "Dexterity": 9}]
+
+
+def encounter_imperial(rebel):
     if randint(1, 10) == 1:
-        wild_pokemon = pokedex[randint(0, 4)]
+        imperial = imperial_forces[randint(0, 4)]
         fight_or_run = 0
         while fight_or_run != "f" and fight_or_run != "r":
-            fight_or_run = input("A wild %s appeared! Your current have %dHP. 'f' to fight, 'r' to run: "
-                                 % (wild_pokemon["Name"], pokemon["HP"])).strip().lower()
+            fight_or_run = input("You have encountered a(n) %s! Your current have %dHP. 'f' to fight, 'r' to run: "
+                                 % (imperial["Name"], rebel["HP"])).strip().lower()
             if fight_or_run == "f":
-                combat_round(pokemon, wild_pokemon)
-                if pokemon["HP"] <= 0:
-                    return pokemon
+                combat_round(rebel, imperial)
+                if rebel["HP"] <= 0:
+                    return rebel
             elif fight_or_run == "r":
                 if randint(1, 10) == 1:
                     damage = randint(1, 4)
-                    pokemon["HP"] -= damage
+                    rebel["HP"] -= damage
                     print("%s struck you as you fled! %s has taken a %d point hit."
-                          % (wild_pokemon["Name"], pokemon["Name"], pokemon["HP"]))
+                          % (imperial["Name"], rebel["Name"], rebel["HP"]))
                 else:
                     print("You have fled successfully!")
-        sud.print_game_map(sud.create_game_map(pokemon))
-    return pokemon
+        sud.print_game_map(sud.create_game_map(rebel))
+    return rebel
 
 
 def main():
-    pikachu = {"Name": "Pikachu", "Type": "electric", "HP": 10, "Dexterity": 2}
-    jigglypuff = {"Name": "Jigglypuff", "Type": "fairy", "HP": 10, "Dexterity": 2}
-    combat_round(pikachu, jigglypuff)
-    # encounter_pokemon(pikachu)
+    pass
 
 
 if __name__ == '__main__':
