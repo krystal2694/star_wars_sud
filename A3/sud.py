@@ -5,7 +5,9 @@ import character
 # Krystal Wong
 
 
-starwars_art = """
+line = "-------------------------------------------------------------------\n" \
+
+introduction = """
   .       .     o88888888888888  d88b  .  8888888b.  .       .      
       .     .   Y88<88888888888 j8PY8i    888   )88      .     .
 .   .   .    .   Y8b.   888    ,8P  Y8, . 88888888'    .     .   .
@@ -16,18 +18,15 @@ __________________Y88b  888 .  88888888   888  Y8b________________
 ___________88ij8888ij88' j8PY8i    888   )88  Y88<88888___________
  .     .   '8888PY8888' ,8P  Y8,   88888888'   Y8b.   .      .   
     .     . Y88P  Y88P  88888888 . 888  Y8b_____>88b     .      .
-  .      .   Y8"  "8P  d8P    Y8b  888   Y888888888P  .     .    . 
-"""
-
-line = "-------------------------------------------------------------------\n" \
-
-introduction = line + "\nCloaked Figure: Wake up! Wake up!\n\n" \
+  .      .   Y8"  "8P  d8P    Y8b  888   Y888888888P  .     .    . \n
+""" + line + "\nCloaked Figure: Wake up! Wake up!\n\n" \
                "You: ..huh? Who are you? What are you doing in my home?!\n\n" \
                "Cloaked Figure: There's no time, you must come with me.\n\n" \
                "You: I'm not going anywhere with you until you tell me who you are!\n\n" \
                "*The cloaked figure removes his hood*\n\n" \
                "Cloaked Figure: I.. am Luke Skywalker. I sense that you are strong\n" \
                "with The Force, and I need your help.\n\n" + line
+
 
 instructions = "This is your map. '⛒' represents where you are on the map.\n" \
                "\n" \
@@ -91,14 +90,17 @@ def move_character(rebel, direction):
     return rebel
 
 
+def reset_game(rebel):
+    rebel["HP"] = 10
+    rebel["Coordinates"] = [5, 5]
+    print_game_map(create_game_map(rebel))
+    return rebel
+
+
 def main():
-    print(starwars_art)
     print(introduction)
     name = character.choose_name()
-    print("\n" + line + "\nTell me, %s, what do you consider to be your most valuable trait?\n" % name)
-    rebel_class = character.choose_rebel_class()
-    print("Ah! You would make a great.. %s!\n" % rebel_class +
-          "\nNow, come with me %s.\n\nWe have a galaxy to save.\n\n" % name + line)
+    rebel_class = character.choose_rebel_class(name)
     rebel = character.create_rebel(name, rebel_class)
     print(instructions)
     print_game_map(create_game_map(rebel))
@@ -107,7 +109,7 @@ def main():
         action = input().strip().lower()
         if action not in commands:
             print("I do not understand.")
-        if action in directions:
+        elif action in directions:
             temp = rebel["Coordinates"][:]
             rebel = move_character(rebel, action)
             if temp[0] != rebel["Coordinates"][0] or temp[1] != rebel["Coordinates"][1]:
@@ -119,9 +121,7 @@ def main():
                     if play_again == "n":
                         action = "quit"
                     elif play_again == "y":
-                        rebel["HP"] = 10
-                        rebel["Coordinates"] = [5, 5]
-                        print_game_map(create_game_map(rebel))
+                        rebel = reset_game(rebel)
     print("\n" + line + "\nThe Rebellion thanks you for your service.\n"
                         "\nReturn soon, the battle against the Dark Side has only just begun.\n\n" + line)
 
