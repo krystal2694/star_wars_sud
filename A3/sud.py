@@ -1,5 +1,4 @@
 """A Pokemon SUD Game."""
-from random import randint
 import battle
 import character
 # A01089672
@@ -32,20 +31,20 @@ def create_game_map(pokemon):
         for _ in range(11):
             row.append("   ")
 
-    pokemon_symbol = "(@)"
+    pokemon_symbol = " ⛒"
     game_map[pokemon["Coordinates"][0]][pokemon["Coordinates"][1]] = pokemon_symbol
 
     return game_map
 
 
 def print_game_map(game_map):
-    print("-" * 35)
+    print("\n" + "🌲" * 22)
     for i in game_map:
-        print("|", end="")
+        print("🌲", end="")
         for x in i:
             print(x, end="")
-        print("|")
-    print("-" * 35)
+        print(" 🌲")
+    print("🌲" * 22 + "\n")
 
 
 def instructions():
@@ -57,11 +56,14 @@ def instructions():
           "BEWARE: The forrest is full of wild Pokemon..\n")
 
 
-def move_character(pokemon, direction):
+def heal_pokemon(pokemon):
     if pokemon["HP"] < 10:
         pokemon["HP"] += 1
-        print("You're healing! Your HP is %d" % pokemon["HP"])
+        print("You're healing! Your HP is %d." % pokemon["HP"])
+    return pokemon
 
+
+def move_character(pokemon, direction):
     if direction == "n" and pokemon["Coordinates"][0] != 0:
             pokemon["Coordinates"][0] -= 1
     elif direction == "s" and pokemon["Coordinates"][0] != 10:
@@ -72,31 +74,10 @@ def move_character(pokemon, direction):
             pokemon["Coordinates"][1] -= 1
     else:
         print("you've reached the edge of the forest, you cannot go this way.")
-        # pokemon["HP"] -= 1
+        return pokemon
 
     print_game_map(create_game_map(pokemon))
     return pokemon
-
-
-def game_play(pokemon):
-    commands = ["q", "n", "s", "w", "e"]
-    directions = ["n", "s", "e", "w"]
-    action = 0
-    while action != "q":
-        action = input().strip().lower()
-        if action not in commands:
-            print("I do not understand.")
-        if action in directions:
-            pokemon = move_character(pokemon, action)
-            pokemon = battle.encounter_pokemon(pokemon)
-            if pokemon["HP"] <= 0:
-                play_again = input("GAME OVER. Play again? (y/n): ")
-                if play_again == "n":
-                    action = "q"
-                elif play_again == "y":
-                    pokemon["HP"] = 10
-                    pokemon["Coordinates"] = [5, 5]
-                    print_game_map(create_game_map(pokemon))
 
 
 def main():
@@ -110,11 +91,31 @@ def main():
     print("------------------------------------------------")
     pokemon = character.create_pokemon(name, pokemon_type)
     instructions()
-    # pikachu = {"Name": "Pikachu", "Type": "electric", "HP": 1, "Dexterity": 6, "Coordinates": [5, 5]}
     print_game_map(create_game_map(pokemon))
-    game_play(pokemon)
+    commands = ["quit", "n", "s", "w", "e"]
+    directions = ["n", "s", "e", "w"]
+    action = 0
+    while action != "quit":
+        action = input().strip().lower()
+        if action not in commands:
+            print("I do not understand.")
+        if action in directions:
+            temp = pokemon["Coordinates"][:]
+            pokemon = move_character(pokemon, action)
+            if temp[0] != pokemon["Coordinates"][0] or temp[1] != pokemon["Coordinates"][1]:
+                pokemon = heal_pokemon(pokemon)
+                pokemon = battle.encounter_pokemon(pokemon)
+                if pokemon["HP"] <= 0:
+                    print("------------------------------------------------")
+                    play_again = input("GAME OVER. Play again? (y/n): ")
+                    if play_again == "n":
+                        action = "quit"
+                    elif play_again == "y":
+                        pokemon["HP"] = 10
+                        pokemon["Coordinates"] = [5, 5]
+                        print_game_map(create_game_map(pokemon))
+    print("------------------------------------------------")
     print("Thanks for playing, see you next time!")
-    # print_game_map(create_game_map(pikachu))
 
 
 if __name__ == '__main__':
