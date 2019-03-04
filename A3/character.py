@@ -12,7 +12,7 @@ def choose_name():
     return name.title()
 
 
-rebel_class_dict = {1: ["Knowledge", "Jedi"], 2: ["Strength", "Rebel Fighter"], 3: ["Wit", "Smuggler"]}
+rebel_class_dict = {"1": ["Knowledge", "Jedi"], "2": ["Strength", "Rebel Fighter"], "3": ["Wit", "Smuggler"]}
 
 
 def choose_rebel_class(name):
@@ -22,7 +22,7 @@ def choose_rebel_class(name):
                                     "1 Knowledge\n2 Strength\n3 Wit\n\nEnter the corresponding number: " % name).strip()
 
     for number, rebel_class in rebel_class_dict.items():
-        if int(selection) == number:
+        if selection == number:
             print("\n" + line + "\nAh! You would make a great.. %s!\n" % rebel_class[1] +
                   "\nNow, come with me %s.\n\nWe have a galaxy to save!\n\n" % name + line)
             return rebel_class[1]
@@ -51,22 +51,9 @@ def create_rebel(name, rebel_class):
     return rebel
 
 
-def print_rebel(rebel):
-    """Print the parameter.
-
-    PARAM: character, a dictionary
-    PRECONDITION: character must be a dictionary
-    POSTCONDITION: print contents of parameter in a nice format
-    RETURN: a nicely formatted string
-    """
-
-    for key, value in rebel.items():
-        print(key + ": " + str(value))
-
-
 def main():
-    # print(choose_rebel_class())
-    pass
+    choose_rebel_class("Kylo")
+
 
 if __name__ == '__main__':
     main()
