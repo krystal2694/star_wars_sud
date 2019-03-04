@@ -6,29 +6,28 @@ import character
 
 
 starwars_art = """
-.       .     o88888888888888  d88b  .  8888888b.  .       .       
-      .       Y88<88888888888 j8PY8i    888   )88      .       
-  .        .   Y8b.   888    ,8P  Y8, . 88888888'    .     .
-________________Y88b  888 .  88888888   888  Y8b______________
-::::::::88888888888P  888   d8Y    Y8b  888   Y888888:::::::::
-::::::::    .     .         .             .      .   :::::::::
-::::::::Y8b  d88b  d8P  d88b   . 8888888b.  o88888888:::::::::
-_________88ij8888ij88' j8PY8i    888   )88  Y88<88888_________
-.     .  '8888PY8888' ,8P  Y8,   88888888'   Y8b.   .      .   
-   .      Y88P  Y88P  88888888 . 888  Y8b_____>88b     .      .
- .      .  Y8"  "8P  d8P    Y8b  888   Y888888888P  .     .     
+  .       .     o88888888888888  d88b  .  8888888b.  .       .      
+      .     .   Y88<88888888888 j8PY8i    888   )88      .     .
+.   .   .    .   Y8b.   888    ,8P  Y8, . 88888888'    .     .   .
+__________________Y88b  888 .  88888888   888  Y8b________________
+::::::::::88888888888P  888   d8Y    Y8b  888   Y888888:::::::::::
+::::::::::    .     .         .             .      .   :::::::::::
+::::::::::Y8b  d88b  d8P  d88b   . 8888888b.  o88888888:::::::::::
+___________88ij8888ij88' j8PY8i    888   )88  Y88<88888___________
+ .     .   '8888PY8888' ,8P  Y8,   88888888'   Y8b.   .      .   
+    .     . Y88P  Y88P  88888888 . 888  Y8b_____>88b     .      .
+  .      .   Y8"  "8P  d8P    Y8b  888   Y888888888P  .     .    . 
 """
 
+line = "-------------------------------------------------------------------\n" + "\n" \
 
-introduction = "------------------------------------------------\n" + "\n" \
-               "Cloaked Figure: Wake up! Wake up!\n" + "\n" \
+introduction = line + "Cloaked Figure: Wake up! Wake up!\n" + "\n" \
                "You: ..huh? Who are you? What are you doing in my home?!\n" + "\n" \
                "Cloaked Figure: There's no time, you must come with me.\n" + "\n" \
                "You: I'm not going anywhere with you until you tell me who you are!\n" + "\n" \
                "*The cloaked figure removes his hood*\n" + "\n" \
                "Cloaked Figure: I.. am Luke Skywalker. I sense that you are strong\n" \
-               "with The Force, and I need your help.\n" + "\n" \
-               "------------------------------------------------" + "\n"
+               "with The Force, and I need your help.\n" + "\n" + line
 
 instructions = "This is your map. '⛒' represents where you are on the map.\n" \
                "\n" \
