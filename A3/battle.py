@@ -48,27 +48,27 @@ def combat_round(rebel, imperial):
             imperial = attack(rebel, imperial)
 
     if rebel["HP"] > 0:
-        print("%s's HP is %d.\n" % (rebel["Name"], rebel["HP"]) + line + "\n")
+        print("%s's HP is %d.\n\n" % (rebel["Name"], rebel["HP"]) + line + "\n")
     imperial["HP"] = 5
     return rebel
 
 
 imperial_forces = [{"Name": "Stormtrooper", "HP": 5, "Dexterity": 5},
                    {"Name": "Shocktrooper", "HP": 5, "Dexterity": 6},
-                   {"Name": "Imperial Officer", "HP": 5, "Dexterity": 4},
-                   {"Name": "Bounty Hunter", "HP": 5, "Dexterity": 6},
-                   {"Name": "Imperial Spy", "HP": 5, "Dexterity": 6},
-                   {"Name": "Sith Lord", "HP": 5, "Dexterity": 9},
-                   {"Name": "AT-AT Walker", "HP": 5, "Dexterity": 9}]
+                   {"Name": "Imperial Officer", "HP": 5, "Dexterity": 7},
+                   {"Name": "Bounty Hunter", "HP": 5, "Dexterity": 9},
+                   {"Name": "Imperial Spy", "HP": 5, "Dexterity": 10},
+                   {"Name": "Sith Lord", "HP": 5, "Dexterity": 13},
+                   {"Name": "AT-AT Walker", "HP": 5, "Dexterity": 15}]
 
 
 def encounter_imperial(rebel):
     if randint(1, 10) == 1:
-        imperial = imperial_forces[randint(0, 4)]
+        imperial = imperial_forces[randint(0, 6)]
         fight_or_run = 0
         while fight_or_run != "f" and fight_or_run != "r":
-            fight_or_run = input("You have encountered a(n) %s! Your current have %dHP. 'f' to fight, 'r' to run: "
-                                 % (imperial["Name"], rebel["HP"])).strip().lower()
+            fight_or_run = input("\nYou have encountered a(n) %s!\n\nYour current have %dHP. 'f' to fight"
+                                 ", 'r' to run away: " % (imperial["Name"], rebel["HP"])).strip().lower()
             if fight_or_run == "f":
                 combat_round(rebel, imperial)
                 if rebel["HP"] <= 0:
@@ -77,10 +77,9 @@ def encounter_imperial(rebel):
                 if randint(1, 10) == 1:
                     damage = randint(1, 4)
                     rebel["HP"] -= damage
-                    print("%s struck you as you fled! %s has taken a %d point hit."
-                          % (imperial["Name"], rebel["Name"], rebel["HP"]))
+                    print("%s struck you as you fled! You have taken a %d point hit." % (imperial["Name"], damage))
                 else:
-                    print("You have fled successfully!")
+                    print("\nYou fled the scene unharmed!")
         sud.print_game_map(sud.create_game_map(rebel))
     return rebel
 

@@ -12,7 +12,7 @@ def choose_name():
     return name.title()
 
 
-rebel_class_dict = {1: ["my knowledge", "jedi"], 2: ["My strength", "rebel fighter"], 3: ["my wit", "smuggler"]}
+rebel_class_dict = {1: ["Knowledge", "Jedi"], 2: ["Strength", "Rebel Fighter"], 3: ["Wit", "Smuggler"]}
 
 
 def choose_rebel_class():

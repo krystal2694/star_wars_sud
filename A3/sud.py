@@ -84,7 +84,7 @@ def move_character(rebel, direction):
     elif direction == "w" and rebel["Coordinates"][1] != 0:
             rebel["Coordinates"][1] -= 1
     else:
-        print("Stop %s, you cannot leave the galaxy in the hands of the Galactic Empire!" % rebel["Name"])
+        print("Don't leave the galaxy %s, you cannot leave us in the hands of the Galactic Empire!" % rebel["Name"])
         return rebel
 
     print_game_map(create_game_map(rebel))
@@ -115,15 +115,15 @@ def main():
                 rebel = battle.encounter_imperial(rebel)
                 if rebel["HP"] <= 0:
                     print(line)
-                    play_again = input("GAME OVER. Play again? (y/n): ")
+                    play_again = input("You have been defeated by the Galactic Empire. Play again? (y/n): ")
                     if play_again == "n":
                         action = "quit"
                     elif play_again == "y":
                         rebel["HP"] = 10
                         rebel["Coordinates"] = [5, 5]
                         print_game_map(create_game_map(rebel))
-    print(line)
-    print("Thanks for playing, see you next time!")
+    print("\n" + line + "\nThe Rebellion thanks you for your service.\n"
+                        "\nReturn soon, the battle against the Dark Side has only just begun.\n\n" + line)
 
 
 if __name__ == '__main__':
