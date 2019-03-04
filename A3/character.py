@@ -4,23 +4,25 @@ from random import randint
 # Krystal Wong
 
 
+line = "-------------------------------------------------------------------\n" \
+
+
 def choose_name():
     name = input("What is your name, young one? ")
     return name.title()
 
 
-rebel_class_dict = {1: ["My knowledge", "jedi"], 2: ["My strength", "rebel fighter"], 3: ["my wit", "Smuggler"]}
+rebel_class_dict = {1: ["my knowledge", "jedi"], 2: ["My strength", "rebel fighter"], 3: ["my wit", "smuggler"]}
 
 
 def choose_rebel_class():
     """Return user's selection of their desired rebel class."""
 
-    print("------------------------------------------------")
     for key, value in rebel_class_dict.items():
         print(key, value[0])
 
-    selection = int(input("Enter the corresponding number: ").strip())
-    print("------------------------------------------------")
+    selection = int(input("\n" + "Enter the corresponding number: ").strip())
+    print("\n" + line)
     for number, rebel_class in rebel_class_dict.items():
         if selection == number:
             return rebel_class[1]

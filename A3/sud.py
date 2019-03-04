@@ -19,9 +19,9 @@ ___________88ij8888ij88' j8PY8i    888   )88  Y88<88888___________
   .      .   Y8"  "8P  d8P    Y8b  888   Y888888888P  .     .    . 
 """
 
-line = "-------------------------------------------------------------------\n" + "\n" \
+line = "-------------------------------------------------------------------\n" \
 
-introduction = line + "Cloaked Figure: Wake up! Wake up!\n" + "\n" \
+introduction = line + "\n" + "Cloaked Figure: Wake up! Wake up!\n" + "\n" \
                "You: ..huh? Who are you? What are you doing in my home?!\n" + "\n" \
                "Cloaked Figure: There's no time, you must come with me.\n" + "\n" \
                "You: I'm not going anywhere with you until you tell me who you are!\n" + "\n" \
@@ -95,11 +95,12 @@ def main():
     print(starwars_art)
     print(introduction)
     name = character.choose_name()
-    print("Tell me, %s, what do you consider to be your most valuable trait?" % name)
+    print("\n" + line + "\n" + "Tell me, %s, what do you consider to be your most valuable trait?" % name + "\n")
     rebel_class = character.choose_rebel_class()
-    print("Ah! You would make a great.. %s!\n"
-          "Now, come with me %s. We have a galaxy to save." % (rebel_class, name))
-    print("------------------------------------------------")
+    print("Ah! You would make a great.. %s!\n" % rebel_class + "\n" +
+          "Now, come with me %s. We have a galaxy to save." % name
+          )
+    print("\n" + line)
     rebel = character.create_rebel(name, rebel_class)
     print(instructions)
     print_game_map(create_game_map(rebel))
