@@ -21,13 +21,13 @@ ___________88ij8888ij88' j8PY8i    888   )88  Y88<88888___________
 
 line = "-------------------------------------------------------------------\n" \
 
-introduction = line + "\n" + "Cloaked Figure: Wake up! Wake up!\n" + "\n" \
-               "You: ..huh? Who are you? What are you doing in my home?!\n" + "\n" \
-               "Cloaked Figure: There's no time, you must come with me.\n" + "\n" \
-               "You: I'm not going anywhere with you until you tell me who you are!\n" + "\n" \
-               "*The cloaked figure removes his hood*\n" + "\n" \
+introduction = line + "\nCloaked Figure: Wake up! Wake up!\n\n" \
+               "You: ..huh? Who are you? What are you doing in my home?!\n\n" \
+               "Cloaked Figure: There's no time, you must come with me.\n\n" \
+               "You: I'm not going anywhere with you until you tell me who you are!\n\n" \
+               "*The cloaked figure removes his hood*\n\n" \
                "Cloaked Figure: I.. am Luke Skywalker. I sense that you are strong\n" \
-               "with The Force, and I need your help.\n" + "\n" + line
+               "with The Force, and I need your help.\n\n" + line
 
 instructions = "This is your map. '⛒' represents where you are on the map.\n" \
                "\n" \
@@ -95,12 +95,10 @@ def main():
     print(starwars_art)
     print(introduction)
     name = character.choose_name()
-    print("\n" + line + "\n" + "Tell me, %s, what do you consider to be your most valuable trait?" % name + "\n")
+    print("\n" + line + "\nTell me, %s, what do you consider to be your most valuable trait?\n" % name)
     rebel_class = character.choose_rebel_class()
-    print("Ah! You would make a great.. %s!\n" % rebel_class + "\n" +
-          "Now, come with me %s. We have a galaxy to save." % name
-          )
-    print("\n" + line)
+    print("Ah! You would make a great.. %s!\n" % rebel_class +
+          "\nNow, come with me %s.\n\nWe have a galaxy to save.\n\n" % name + line)
     rebel = character.create_rebel(name, rebel_class)
     print(instructions)
     print_game_map(create_game_map(rebel))
@@ -116,7 +114,7 @@ def main():
                 rebel = heal_rebel(rebel)
                 rebel = battle.encounter_imperial(rebel)
                 if rebel["HP"] <= 0:
-                    print("------------------------------------------------")
+                    print(line)
                     play_again = input("GAME OVER. Play again? (y/n): ")
                     if play_again == "n":
                         action = "quit"
@@ -124,7 +122,7 @@ def main():
                         rebel["HP"] = 10
                         rebel["Coordinates"] = [5, 5]
                         print_game_map(create_game_map(rebel))
-    print("------------------------------------------------")
+    print(line)
     print("Thanks for playing, see you next time!")
 
 

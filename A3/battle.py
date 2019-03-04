@@ -2,6 +2,8 @@
 from random import randint
 import sud
 
+line = "-------------------------------------------------------------------\n"
+
 
 def attack(offence_char, defence_char):
     """Simulate the attack of the character on offence on the character on defense.
@@ -19,14 +21,13 @@ def attack(offence_char, defence_char):
     offence_attack = randint(1, 20)
     if offence_attack > defence_char["Dexterity"]:
         defence_char["HP"] -= damage
-        print(defence_char["Name"] + " has taken a " + str(damage) + " point hit!")
+        print("%s has taken a %d point hit!" % (defence_char["Name"], damage))
         if defence_char["HP"] <= 0:
-            print(defence_char["Name"] + " has perished.")
-            print(offence_char["Name"] + " is the winner!")
+            print("%s has been defeated.\n" % defence_char["Name"])
         else:
-            print("Their HP has dropped to " + str(defence_char["HP"]) + ".")
+            print("Their HP has dropped to %d.\n" % defence_char["HP"])
     else:
-        print("They missed!")
+        print("%s evaded the attack!\n" % defence_char["Name"])
     return defence_char
 
 
@@ -38,6 +39,7 @@ def combat_round(rebel, imperial):
     PRECONDITION: opponent_one must be a dictionary containing a complete jedi
     PRECONDITION: opponent_two must be a dictionary containing a complete jedi
     """
+    print("\n" + line)
     while rebel["HP"] > 0 and imperial["HP"] > 0:
         rebel = attack(imperial, rebel)
         if rebel["HP"] <= 0:
@@ -46,7 +48,7 @@ def combat_round(rebel, imperial):
             imperial = attack(rebel, imperial)
 
     if rebel["HP"] > 0:
-        print("%s's HP is %d." % (rebel["Name"], rebel["HP"]))
+        print("%s's HP is %d.\n" % (rebel["Name"], rebel["HP"]) + line + "\n")
     imperial["HP"] = 5
     return rebel
 
@@ -84,7 +86,9 @@ def encounter_imperial(rebel):
 
 
 def main():
-    pass
+    imperial = {"Name": "Stormtrooper", "HP": 5, "Dexterity": 5}
+    rebel = {"Name": "Krystal", "HP": 10, "Dexterity": 5}
+    combat_round(rebel, imperial)
 
 
 if __name__ == '__main__':
