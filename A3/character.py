@@ -6,13 +6,12 @@ from random import randint
 
 line = "-------------------------------------------------------------------\n"
 
+rebel_class_dict = {"1": ["Knowledge", "Jedi"], "2": ["Strength", "Rebel Fighter"], "3": ["Wit", "Smuggler"]}
+
 
 def choose_name():
     name = input("What is your name, young one? ")
     return name.title()
-
-
-rebel_class_dict = {"1": ["Knowledge", "Jedi"], "2": ["Strength", "Rebel Fighter"], "3": ["Wit", "Smuggler"]}
 
 
 def choose_rebel_class(name):
