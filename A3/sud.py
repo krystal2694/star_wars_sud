@@ -43,13 +43,7 @@ directions = ["n", "s", "e", "w"]
 
 
 def create_game_map(rebel):
-    game_map = []
-    for _ in range(11):
-        row = []
-        game_map.append(row)
-        for _ in range(11):
-            row.append("   ")
-
+    game_map = [["   " for _ in range(11)] for _ in range(11)]
     rebel_symbol = " ⛒"
     game_map[rebel["Coordinates"][0]][rebel["Coordinates"][1]] = rebel_symbol
 
@@ -83,7 +77,7 @@ def move_character(rebel, direction):
     elif direction == "w" and rebel["Coordinates"][1] != 0:
             rebel["Coordinates"][1] -= 1
     else:
-        print("Don't leave the galaxy %s, you cannot leave us in the hands of the Galactic Empire!" % rebel["Name"])
+        print("Do not leave the galaxy %s, you cannot leave us in the hands of the Galactic Empire!" % rebel["Name"])
         return rebel
 
     print_game_map(create_game_map(rebel))

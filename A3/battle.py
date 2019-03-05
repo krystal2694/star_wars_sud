@@ -35,10 +35,10 @@ def combat_round(rebel, imperial):
 
     PARAM: opponent_one, a dictionary
     PARAM: opponent_two, a dictionary
-    PRECONDITION: opponent_one must be a dictionary containing a complete jedi
-    PRECONDITION: opponent_two must be a dictionary containing a complete jedi
+    PRECONDITION: opponent_one must be a dictionary containing a complete rebel
+    PRECONDITION: opponent_two must be a dictionary containing a complete rebel
     """
-    print("\n" + line + "\nMay The Force be with you..\n")
+    print("\n" + line + "\n%s: Prepare to die, rebel scum!!\n" % imperial["Name"])
     while rebel["HP"] > 0 and imperial["HP"] > 0:
         imperial = attack(rebel, imperial)
         if imperial["HP"] <= 0:
@@ -98,4 +98,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
