@@ -56,10 +56,10 @@ def combat_round(rebel, imperial):
 imperial_forces = [{"Name": "Stormtrooper", "HP": 5, "Dexterity": 5},
                    {"Name": "Shocktrooper", "HP": 5, "Dexterity": 6},
                    {"Name": "Imperial Officer", "HP": 5, "Dexterity": 7},
-                   {"Name": "Bounty Hunter", "HP": 5, "Dexterity": 9},
-                   {"Name": "Imperial Spy", "HP": 5, "Dexterity": 10},
-                   {"Name": "Sith Lord", "HP": 5, "Dexterity": 13},
-                   {"Name": "AT-AT Walker", "HP": 5, "Dexterity": 15}]
+                   {"Name": "Bounty Hunter", "HP": 5, "Dexterity": 7},
+                   {"Name": "Imperial Spy", "HP": 5, "Dexterity": 8},
+                   {"Name": "Sith Lord", "HP": 5, "Dexterity": 9},
+                   {"Name": "AT-AT Walker", "HP": 5, "Dexterity": 10}]
 
 
 def encounter_imperial(rebel):

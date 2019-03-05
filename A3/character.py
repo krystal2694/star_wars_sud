@@ -20,10 +20,9 @@ def choose_rebel_class(name):
 
     selection = input("\n" + line + "\nTell me, %s, what do you consider to be your most valuable trait?\n\n"
                                     "1 Knowledge\n2 Strength\n3 Wit\n\nEnter the corresponding number: " % name).strip()
-
     for number, rebel_class in rebel_class_dict.items():
         if selection == number:
-            print("\n" + line + "\nAh! You would make a great.. %s!\n" % rebel_class[1] +
+            print("\n" + line + "\nAh! I think you would make a great.. %s!\n" % rebel_class[1] +
                   "\nNow, come with me %s.\n\nWe have a galaxy to save!\n\n" % name + line)
             return rebel_class[1]
     else:
@@ -38,16 +37,15 @@ def create_rebel(name, rebel_class):
     PARAM: rebel class, a string
     PRECONDITION: name must be a string
     PRECONDITION: rebel class must be a string
-    POSTCONDITION: create a rebel complete with name, Type, HP, Dexterity
+    POSTCONDITION: create a rebel complete with name, class, HP, Dexterity
     RETURN: a dictionary consisting of all information required for a new member of the Rebellion
     """
 
     rebel = {"Name": name,
              "Class": rebel_class,
              "HP": 10,
-             "Dexterity": randint(1, 10),
+             "Dexterity": randint(5, 10),
              "Coordinates": [5, 5]}
-
     return rebel
 
 

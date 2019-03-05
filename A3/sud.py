@@ -34,7 +34,7 @@ instructions = "This is your map. '⛒' represents where you are on the map.\n" 
                "      's' to move south.\n" \
                "      'e' to move east.\n" \
                "      'w' to move west.\n" \
-               "\n" \
+               "      'quit' to exit game.\n\n" \
                "BEWARE, there are many disturbances in the force.."
 
 commands = ["quit", "n", "s", "w", "e"]
@@ -98,12 +98,15 @@ def reset_game(rebel):
 
 
 def main():
+    # introduction and create character
     print(introduction)
     name = character.choose_name()
     rebel_class = character.choose_rebel_class(name)
     rebel = character.create_rebel(name, rebel_class)
     print(instructions)
     print_game_map(create_game_map(rebel))
+
+    # game play
     action = 0
     while action != "quit":
         action = input().strip().lower()
@@ -112,16 +115,20 @@ def main():
         elif action in directions:
             temp = rebel["Coordinates"][:]
             rebel = move_character(rebel, action)
+
+            # if character moved, they heal and have a chance of encountering an enemy
             if temp[0] != rebel["Coordinates"][0] or temp[1] != rebel["Coordinates"][1]:
                 rebel = heal_rebel(rebel)
                 rebel = battle.encounter_imperial(rebel)
+
+                # if character is defeated, they can play again or quit
                 if rebel["HP"] <= 0:
-                    print(line)
-                    play_again = input("You have been defeated by the Galactic Empire. Play again? (y/n): ")
+                    play_again = input(line + "\nYou have been defeated by the Galactic Empire. Play again? (y/n): ")
                     if play_again == "n":
                         action = "quit"
                     elif play_again == "y":
                         rebel = reset_game(rebel)
+
     print("\n" + line + "\nThe Rebellion thanks you for your service.\n"
                         "\nReturn soon, the battle against the Dark Side has only just begun.\n\n" + line)
 
