@@ -85,6 +85,10 @@ def move_character(direction):
     sud.print_game_map()
 
 
+def get_player_info():
+    return rebel
+
+
 def main():
     print(get_hp())
     increment_hp()
