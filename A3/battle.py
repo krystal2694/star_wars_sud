@@ -1,36 +1,30 @@
 """Battle between two Star Wars characters."""
 from random import randint
 import sud
+import imperial
+import rebel
+
 
 line = "-------------------------------------------------------------------\n"
 
-imperial_forces = [{"Name": "Stormtrooper", "HP": 5, "Dexterity": 5},
-                   {"Name": "Shocktrooper", "HP": 5, "Dexterity": 6},
-                   {"Name": "Imperial Officer", "HP": 5, "Dexterity": 7},
-                   {"Name": "Bounty Hunter", "HP": 5, "Dexterity": 7},
-                   {"Name": "Imperial Spy", "HP": 5, "Dexterity": 8},
-                   {"Name": "Sith Lord", "HP": 5, "Dexterity": 9},
-                   {"Name": "AT-AT Walker", "HP": 5, "Dexterity": 10}]
 
-
-def encounter_imperial(rebel):
+def encounter_imperial():
     if randint(1, 5) == 1:
-        imperial = imperial_forces[randint(0, 6)]
+        index = randint(0, 6)
         fight_or_run = 0
         while fight_or_run != "f" and fight_or_run != "r":
             fight_or_run = input("\nYou have encountered a(n) %s!\n\nYour current have %dHP. 'f' to fight"
-                                 ", 'r' to run away: " % (imperial["Name"], rebel["HP"])).strip().lower()
+                                 ", 'r' to run away: " % (imperial.get_name(index), rebel.get_hp())).strip().lower()
             if fight_or_run == "f":
-                combat_round(rebel, imperial)
-                if rebel["HP"] <= 0:
-                    return rebel
+                combat_round(index)
+                if rebel.get_hp() <= 0:
+                    return None
             elif fight_or_run == "r":
-                rebel = run_away(rebel, imperial)
+                run_away(index)
         sud.print_game_map(sud.create_game_map(rebel))
-    return rebel
 
 
-def combat_round(rebel, imperial):
+def combat_round(index):
     """ Allow user to play one single round of combat.
 
     PARAM: opponent_one, a dictionary
@@ -38,62 +32,62 @@ def combat_round(rebel, imperial):
     PRECONDITION: opponent_one must be a dictionary containing a complete rebel
     PRECONDITION: opponent_two must be a dictionary containing a complete rebel
     """
-    print("\n" + line + "\n%s: Prepare to die, rebel scum!!\n" % imperial["Name"])
-    while rebel["HP"] > 0 and imperial["HP"] > 0:
-        imperial = attack(rebel, imperial)
-        if imperial["HP"] <= 0:
+
+    print("\n" + line + "\n%s: Prepare to die, rebel scum!!\n" % imperial.get_name(index))
+    while rebel.get_hp() > 0 and imperial.get_hp(index) > 0:
+        attack(index)
+        if imperial.get_hp(index) <= 0:
             break
         else:
-            rebel = attack(imperial, rebel)
+            defend(index)
 
-    if rebel["HP"] > 0:
-        print("%s's HP is %d.\n\n" % (rebel["Name"], rebel["HP"]) + line + "\n")
-    imperial["HP"] = 5
-    return rebel
+    if rebel.get_hp() > 0:
+        print("%s's HP is %d.\n\n" % (rebel.get_name(), rebel.get_hp()) + line + "\n")
+    imperial.set_hp(index, 5)
 
 
-def attack(offence_char, defence_char):
-    """Simulate the attack of the character on offence on the character on defense.
-
-    PARAM: offence_char, a dictionary
-    PARAM: defence_chr, a dictionary
-    PRECONDITION: offence_char must be a dictionary containing a complete character
-    PRECONDITION: defence_char must be a dictionary containing a complete character
-    POSTCONDITION: determine if the attack was successful, modify defence_char's HP accordingly
-    RETURN: defence_char as a dictionary """
-
-    print(offence_char["Name"] + " strikes!")
+def attack(index):
+    print("%s strikes!" % rebel.get_name())
     damage = randint(1, 6)
 
-    offence_attack = randint(1, 20)
-    if offence_attack > defence_char["Dexterity"]:
-        defence_char["HP"] -= damage
-        print("%s has taken a %d point hit!" % (defence_char["Name"], damage))
-        if defence_char["HP"] <= 0:
-            print("%s has been defeated.\n" % defence_char["Name"])
+    if randint(1, 20) > imperial.get_dexterity(index):
+        imperial.decrease_hp(index, damage)
+        print("%s has taken a %d point hit!" % (imperial.get_name(index), damage))
+        if imperial.get_hp(index) <= 0:
+            print("%s has been defeated.\n" % imperial.get_name(index))
         else:
-            print("Their HP has dropped to %d.\n" % defence_char["HP"])
+            print("Their HP has dropped to %d.\n" % imperial.get_hp(index))
     else:
-        print("%s evaded the attack!\n" % defence_char["Name"])
-    return defence_char
+        print("%s evaded the attack!\n" % imperial.get_name(index))
 
 
-def run_away(rebel, imperial):
+def defend(index):
+    print("%s strikes!" % imperial.get_name(index))
+    damage = randint(1, 6)
+
+    if randint(1, 20) > rebel.get_dexterity():
+        rebel.decrease_hp(damage)
+        print("%s has taken a %d point hit!" % (rebel.get_name(), damage))
+        if rebel.get_hp() <= 0:
+            print("%s has been defeated.\n" % rebel.get_name())
+        else:
+            print("Their HP has dropped to %d.\n" % rebel.get_hp())
+    else:
+        print("%s evaded the attack!\n" % rebel.get_name())
+
+
+def run_away(index):
     if randint(1, 7) == 1:
         damage = randint(1, 4)
-        rebel["HP"] -= damage
+        rebel.decrease_hp(damage)
         print("\n" + line + "\nThe %s struck you as you fled!\n\nYou have taken a %d point hit, your HP is %d."
-              % (imperial["Name"], damage, rebel["HP"]))
+              % (imperial.get_name(index), damage, rebel.get_hp()))
     else:
         print("\n" + line + "\nYou fled the scene unharmed!")
-    return rebel
 
 
 def main():
-    imperial = {"Name": "Stormtrooper", "HP": 5, "Dexterity": 5}
-    rebel = {"Name": "Krystal", "HP": 10, "Dexterity": 5}
-    # combat_round(rebel, imperial)
-    run_away(rebel, imperial)
+    encounter_imperial()
 
 
 if __name__ == '__main__':
