@@ -86,15 +86,10 @@ def move_character(direction):
     sud.print_game_map()
 
 
-def get_rebel_info():
-    return copy.deepcopy(rebel)
-
-
 def main():
-    # print(get_hp())
-    # increment_hp()
-    # print(get_hp())
-    print(get_rebel_info())
+    print(get_hp())
+    increment_hp()
+    print(get_hp())
 
 
 if __name__ == '__main__':
