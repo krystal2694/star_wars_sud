@@ -1,5 +1,4 @@
 """Rebel character for Star Wars game."""
-import copy
 import sud
 
 line = "-------------------------------------------------------------------\n"

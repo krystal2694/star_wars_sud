@@ -1,5 +1,4 @@
 """Imperial forces that the player may encounter."""
-import copy
 
 imperial_forces = [{"Name": "Stormtrooper", "Type": "imperial", "HP": 5, "Dexterity": 5},
                    {"Name": "Shocktrooper", "Type": "imperial", "HP": 5, "Dexterity": 6},
