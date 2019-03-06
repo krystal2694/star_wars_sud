@@ -1,11 +1,12 @@
 """Rebel character for Star Wars game."""
 import copy
+import sud
 
 line = "-------------------------------------------------------------------\n"
 
 rebel_class_dict = {"1": ["Knowledge", "Jedi"], "2": ["Strength", "Rebel Fighter"], "3": ["Wit", "Smuggler"]}
 
-rebel = {"Name": "", "Type": "rebel", "Class": "", "HP": 10, "Dexterity": 10, "Coordinates": [5, 5]}
+rebel = {"Name": "", "Type": "rebel", "Class": "", "HP": 10, "Dexterity": 8, "Coordinates": [5, 5]}
 
 
 def get_name():
@@ -82,6 +83,7 @@ def move_character(direction):
             rebel["Coordinates"][1] -= 1
     else:
         print("Do not leave the galaxy %s, you cannot leave us in the hands of the Galactic Empire!" % rebel["Name"])
+    sud.print_game_map()
 
 
 def get_rebel_info():

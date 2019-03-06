@@ -1,7 +1,6 @@
 """A Star Wars SUD Game."""
 import battle
 import rebel
-import imperial
 # A01089672
 # Krystal Wong
 
@@ -41,7 +40,7 @@ instructions = "This is your map. '⛒' represents where you are on the map.\n" 
 exit_statement = "\n" + line + "\nThe Rebellion thanks you for your service.\n\n" \
                                "Return soon, the battle against the Dark Side has only just begun.\n\n" + line
 
-commands = ["quit", "n", "s", "w", "e"]
+commands = ["quit", "continue", "n", "s", "w", "e"]
 
 directions = ["n", "s", "e", "w"]
 
@@ -66,27 +65,20 @@ def heal_rebel():
         print("You're healing! Your HP is %d." % rebel.get_hp())
 
 
-# def move_character(rebel, direction):
-#     if direction == "n" and rebel["Coordinates"][0] != 0:
-#             rebel["Coordinates"][0] -= 1
-#     elif direction == "s" and rebel["Coordinates"][0] != 10:
-#             rebel["Coordinates"][0] += 1
-#     elif direction == "e" and rebel["Coordinates"][1] != 10:
-#             rebel["Coordinates"][1] += 1
-#     elif direction == "w" and rebel["Coordinates"][1] != 0:
-#             rebel["Coordinates"][1] -= 1
-#     else:
-#         print("Do not leave the galaxy %s, you cannot leave us in the hands of the Galactic Empire!" % rebel["Name"])
-#         return rebel
-#
-#     print_game_map(create_game_map(rebel))
-#     return rebel
-
-
 def reset_game():
     rebel.set_hp(10)
     rebel.set_coordinates([5, 5])
     print_game_map()
+
+
+def continue_or_exit():
+    if rebel.get_hp() <= 0:
+        play_again = input(line + "\nYou have been defeated by the Galactic Empire. Play again? (y/n): ")
+        if play_again == "n":
+            return "quit"
+        elif play_again == "y":
+            reset_game()
+            return "continue"
 
 
 def game_play():
@@ -96,21 +88,14 @@ def game_play():
         if action not in commands:
             print("I do not understand.")
         elif action in directions:
-            temp = rebel.get_coordinates()
+            temp = rebel.get_coordinates()[:]
             rebel.move_character(action)
 
             # if character moved, they heal and have a chance of encountering an enemy
             if temp[0] != rebel.get_coordinates()[0] or temp[1] != rebel.get_coordinates()[1]:
                 heal_rebel()
                 battle.encounter_imperial()
-
-                # if character is defeated, they can play again or quit
-                if rebel.get_hp() <= 0:
-                    play_again = input(line + "\nYou have been defeated by the Galactic Empire. Play again? (y/n): ")
-                    if play_again == "n":
-                        action = "quit"
-                    elif play_again == "y":
-                        reset_game()
+                action = continue_or_exit()
 
 
 def main():

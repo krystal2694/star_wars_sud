@@ -21,7 +21,7 @@ def encounter_imperial():
                     return None
             elif fight_or_run == "r":
                 run_away(index)
-        sud.print_game_map(sud.create_game_map(rebel))
+        sud.print_game_map()
 
 
 def combat_round(index):
@@ -77,7 +77,7 @@ def defend(index):
 
 
 def run_away(index):
-    if randint(1, 7) == 1:
+    if randint(1, 5) == 1:
         damage = randint(1, 4)
         rebel.decrease_hp(damage)
         print("\n" + line + "\nThe %s struck you as you fled!\n\nYou have taken a %d point hit, your HP is %d."
