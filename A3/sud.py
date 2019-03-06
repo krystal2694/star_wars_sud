@@ -37,6 +37,9 @@ instructions = "This is your map. '⛒' represents where you are on the map.\n" 
                "      'quit' to exit game.\n\n" \
                "BEWARE, there are many disturbances in the force.."
 
+exit_statement = "\n" + line + "\nThe Rebellion thanks you for your service.\n\n" \
+                               "Return soon, the battle against the Dark Side has only just begun.\n\n" + line
+
 commands = ["quit", "n", "s", "w", "e"]
 
 directions = ["n", "s", "e", "w"]
@@ -91,16 +94,7 @@ def reset_game(rebel):
     return rebel
 
 
-def main():
-    # introduction and create character
-    print(introduction)
-    name = character.choose_name()
-    rebel_class = character.choose_rebel_class(name)
-    rebel = character.create_rebel(name, rebel_class)
-    print(instructions)
-    print_game_map(create_game_map(rebel))
-
-    # game play
+def game_play(rebel):
     action = 0
     while action != "quit":
         action = input().strip().lower()
@@ -123,8 +117,16 @@ def main():
                     elif play_again == "y":
                         rebel = reset_game(rebel)
 
-    print("\n" + line + "\nThe Rebellion thanks you for your service.\n"
-                        "\nReturn soon, the battle against the Dark Side has only just begun.\n\n" + line)
+
+def main():
+    print(introduction)
+    name = character.choose_name()
+    rebel_class = character.choose_rebel_class(name)
+    rebel = character.create_rebel(name, rebel_class)
+    print(instructions)
+    print_game_map(create_game_map(rebel))
+    game_play(rebel)
+    print(exit_statement)
 
 
 if __name__ == '__main__':

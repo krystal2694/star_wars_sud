@@ -14,7 +14,7 @@ imperial_forces = [{"Name": "Stormtrooper", "HP": 5, "Dexterity": 5},
 
 
 def encounter_imperial(rebel):
-    if randint(1, 10) == 1:
+    if randint(1, 5) == 1:
         imperial = imperial_forces[randint(0, 6)]
         fight_or_run = 0
         while fight_or_run != "f" and fight_or_run != "r":
