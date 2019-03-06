@@ -1,4 +1,5 @@
 """Imperial forces that the player may encounter."""
+import copy
 
 imperial_forces = [{"Name": "Stormtrooper", "Type": "imperial", "HP": 5, "Dexterity": 5},
                    {"Name": "Shocktrooper", "Type": "imperial", "HP": 5, "Dexterity": 6},
@@ -33,3 +34,8 @@ def decrease_hp(imperial_index, damage):
 
 def get_dexterity(imperial_index):
     return imperial_forces[imperial_index]["Dexterity"]
+
+
+def get_imperial_info(imperial_index):
+    return copy.deepcopy(imperial_forces[imperial_index])
+
