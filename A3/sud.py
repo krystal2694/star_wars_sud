@@ -1,6 +1,7 @@
 """A Star Wars SUD Game."""
 import battle
-import character
+import rebel
+import imperial
 # A01089672
 # Krystal Wong
 
@@ -45,15 +46,11 @@ commands = ["quit", "n", "s", "w", "e"]
 directions = ["n", "s", "e", "w"]
 
 
-def create_game_map(rebel):
+def print_game_map():
     game_map = [["   " for _ in range(11)] for _ in range(11)]
     rebel_symbol = " ⛒"
-    game_map[rebel["Coordinates"][0]][rebel["Coordinates"][1]] = rebel_symbol
+    game_map[rebel.get_coordinates()[0]][rebel.get_coordinates()[1]] = rebel_symbol
 
-    return game_map
-
-
-def print_game_map(game_map):
     print("\n" + "✨ " * 14)
     for i in game_map:
         print("✨", end="")
@@ -63,69 +60,66 @@ def print_game_map(game_map):
     print("✨ " * 14 + "\n")
 
 
-def heal_rebel(rebel):
-    if rebel["HP"] < 10:
-        rebel["HP"] += 1
-        print("You're healing! Your HP is %d." % rebel["HP"])
-    return rebel
+def heal_rebel():
+    if rebel.get_hp() < 10:
+        rebel.increment_hp()
+        print("You're healing! Your HP is %d." % rebel.get_hp())
 
 
-def move_character(rebel, direction):
-    if direction == "n" and rebel["Coordinates"][0] != 0:
-            rebel["Coordinates"][0] -= 1
-    elif direction == "s" and rebel["Coordinates"][0] != 10:
-            rebel["Coordinates"][0] += 1
-    elif direction == "e" and rebel["Coordinates"][1] != 10:
-            rebel["Coordinates"][1] += 1
-    elif direction == "w" and rebel["Coordinates"][1] != 0:
-            rebel["Coordinates"][1] -= 1
-    else:
-        print("Do not leave the galaxy %s, you cannot leave us in the hands of the Galactic Empire!" % rebel["Name"])
-        return rebel
-
-    print_game_map(create_game_map(rebel))
-    return rebel
-
-
-def reset_game(rebel):
-    rebel["HP"] = 10
-    rebel["Coordinates"] = [5, 5]
-    print_game_map(create_game_map(rebel))
-    return rebel
+# def move_character(rebel, direction):
+#     if direction == "n" and rebel["Coordinates"][0] != 0:
+#             rebel["Coordinates"][0] -= 1
+#     elif direction == "s" and rebel["Coordinates"][0] != 10:
+#             rebel["Coordinates"][0] += 1
+#     elif direction == "e" and rebel["Coordinates"][1] != 10:
+#             rebel["Coordinates"][1] += 1
+#     elif direction == "w" and rebel["Coordinates"][1] != 0:
+#             rebel["Coordinates"][1] -= 1
+#     else:
+#         print("Do not leave the galaxy %s, you cannot leave us in the hands of the Galactic Empire!" % rebel["Name"])
+#         return rebel
+#
+#     print_game_map(create_game_map(rebel))
+#     return rebel
 
 
-def game_play(rebel):
+def reset_game():
+    rebel.set_hp(10)
+    rebel.set_coordinates([5, 5])
+    print_game_map()
+
+
+def game_play():
     action = 0
     while action != "quit":
         action = input().strip().lower()
         if action not in commands:
             print("I do not understand.")
         elif action in directions:
-            temp = rebel["Coordinates"][:]
-            rebel = move_character(rebel, action)
+            temp = rebel.get_coordinates()
+            rebel.move_character(action)
 
             # if character moved, they heal and have a chance of encountering an enemy
-            if temp[0] != rebel["Coordinates"][0] or temp[1] != rebel["Coordinates"][1]:
-                rebel = heal_rebel(rebel)
-                rebel = battle.encounter_imperial(rebel)
+            if temp[0] != rebel.get_coordinates()[0] or temp[1] != rebel.get_coordinates()[1]:
+                heal_rebel()
+                battle.encounter_imperial()
 
                 # if character is defeated, they can play again or quit
-                if rebel["HP"] <= 0:
+                if rebel.get_hp() <= 0:
                     play_again = input(line + "\nYou have been defeated by the Galactic Empire. Play again? (y/n): ")
                     if play_again == "n":
                         action = "quit"
                     elif play_again == "y":
-                        rebel = reset_game(rebel)
+                        reset_game()
 
 
 def main():
     print(introduction)
-    name = character.choose_name()
-    rebel_class = character.choose_rebel_class(name)
-    rebel = character.create_rebel(name, rebel_class)
+    rebel.choose_name()
+    rebel.choose_rebel_class(rebel.get_name())
     print(instructions)
-    print_game_map(create_game_map(rebel))
-    game_play(rebel)
+    print_game_map()
+    game_play()
     print(exit_statement)
 
 

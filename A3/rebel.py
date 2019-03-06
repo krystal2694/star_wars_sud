@@ -32,13 +32,19 @@ def choose_rebel_class(name):
             print("\n" + line + "\nAh! I think you would make a great.. %s!\n" % rebel_class[1] +
                   "\nNow, come with me %s.\n\nWe have a galaxy to save!\n\n" % name + line)
             rebel["Class"] = rebel_class[1]
+            return None
     else:
         print("You must choose one from the list above.")
-        return choose_rebel_class(name)
+        return choose_rebel_class(rebel["Name"])
 
 
 def get_hp():
     return rebel["HP"]
+
+
+def set_hp(new_hp):
+    global rebel
+    rebel["HP"] = new_hp
 
 
 def increment_hp():
@@ -59,7 +65,12 @@ def get_coordinates():
     return rebel["Coordinates"]
 
 
-def set_coordinates(direction):
+def set_coordinates(coordinates):
+    global rebel
+    rebel["Coordinates"] = coordinates
+
+
+def move_character(direction):
     global rebel
     if direction == "n" and rebel["Coordinates"][0] != 0:
             rebel["Coordinates"][0] -= 1
