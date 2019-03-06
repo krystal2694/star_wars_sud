@@ -17,11 +17,10 @@ def encounter_imperial():
                                  ", 'r' to run away: " % (imperial.get_name(index), rebel.get_hp())).strip().lower()
             if fight_or_run == "f":
                 combat_round(index)
-                if rebel.get_hp() <= 0:
-                    return None
             elif fight_or_run == "r":
                 run_away(index)
-        sud.print_game_map()
+        if rebel.get_hp() > 0:
+            sud.print_game_map()
 
 
 def combat_round(index):
