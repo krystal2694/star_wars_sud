@@ -36,6 +36,3 @@ def get_dexterity(imperial_index):
     return imperial_forces[imperial_index]["Dexterity"]
 
 
-def get_imperial_info(imperial_index):
-    return copy.deepcopy(imperial_forces[imperial_index])
-
