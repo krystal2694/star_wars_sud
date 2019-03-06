@@ -1,4 +1,5 @@
 """Rebel character for Star Wars game."""
+import copy
 
 line = "-------------------------------------------------------------------\n"
 
@@ -72,10 +73,15 @@ def set_coordinates(direction):
         print("Do not leave the galaxy %s, you cannot leave us in the hands of the Galactic Empire!" % rebel["Name"])
 
 
+def get_rebel_info():
+    return copy.deepcopy(rebel)
+
+
 def main():
-    print(get_hp())
-    increment_hp()
-    print(get_hp())
+    # print(get_hp())
+    # increment_hp()
+    # print(get_hp())
+    print(get_rebel_info())
 
 
 if __name__ == '__main__':
