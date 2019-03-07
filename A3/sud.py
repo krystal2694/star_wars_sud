@@ -52,10 +52,10 @@ def print_game_map():
     game_map[rebel.get_coordinates()[0]][rebel.get_coordinates()[1]] = rebel_symbol
 
     print("\n" + "✨ " * 14)
-    for i in game_map:
+    for row in game_map:
         print("✨", end="")
-        for x in i:
-            print(x, end="")
+        for column in row:
+            print(column, end="")
         print("✨")
     print("✨ " * 14 + "\n")
 
