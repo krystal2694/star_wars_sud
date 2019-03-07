@@ -1,12 +1,12 @@
 """Imperial forces that the player may encounter."""
 
-imperial_forces = [{"Name": "Stormtrooper", "Type": "imperial", "HP": 5, "Dexterity": 5},
-                   {"Name": "Shocktrooper", "Type": "imperial", "HP": 5, "Dexterity": 6},
-                   {"Name": "Imperial Officer", "Type": "imperial", "HP": 5, "Dexterity": 7},
-                   {"Name": "Bounty Hunter", "Type": "imperial", "HP": 5, "Dexterity": 7},
-                   {"Name": "Imperial Spy", "Type": "imperial", "HP": 5, "Dexterity": 8},
-                   {"Name": "Sith Lord", "Type": "imperial", "HP": 5, "Dexterity": 9},
-                   {"Name": "AT-AT Walker", "Type": "imperial", "HP": 5, "Dexterity": 10}]
+imperial_forces = [{"Name": "Stormtrooper", "Type": "imperial", "HP": 5, "Dexterity": 2},
+                   {"Name": "Shocktrooper", "Type": "imperial", "HP": 5, "Dexterity": 3},
+                   {"Name": "Imperial Officer", "Type": "imperial", "HP": 5, "Dexterity": 4},
+                   {"Name": "Bounty Hunter", "Type": "imperial", "HP": 5, "Dexterity": 5},
+                   {"Name": "Imperial Spy", "Type": "imperial", "HP": 5, "Dexterity": 5},
+                   {"Name": "Sith Lord", "Type": "imperial", "HP": 5, "Dexterity": 6},
+                   {"Name": "AT-AT Walker", "Type": "imperial", "HP": 5, "Dexterity": 7}]
 
 
 def get_name(imperial_index):
