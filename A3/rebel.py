@@ -17,11 +17,12 @@ def get_name():
 
 
 def choose_name():
+    """Allow user to choose name for their rebel character."""
     global rebel
     rebel["Name"] = input("What is your name, young one? ").title()
 
 
-def choose_rebel_class(name):
+def choose_rebel_class(name: str):
     """Return user's selection of their desired rebel class."""
 
     global rebel
@@ -39,6 +40,10 @@ def choose_rebel_class(name):
 
 
 def get_hp():
+    """Return HP of rebel.
+    >>> get_hp()
+    10
+    """
     return rebel["HP"]
 
 
