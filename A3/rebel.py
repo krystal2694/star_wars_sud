@@ -8,7 +8,7 @@ rebel_class_dict = {"1": ["Knowledge", "Jedi"], "2": ["Strength", "Rebel Fighter
 rebel = {"Name": "", "Class": "", "HP": 10, "Dexterity": 5, "Coordinates": [5, 5]}
 
 
-def get_name():
+def get_name()-> str:
     """Return rebel name.
     >>> get_name()
     ''
@@ -39,7 +39,7 @@ def choose_rebel_class(name: str):
         return choose_rebel_class(get_name())
 
 
-def get_hp():
+def get_hp()-> int:
     """Return HP of rebel.
     >>> get_hp()
     10
@@ -67,7 +67,7 @@ def decrease_hp(damage: int):
     rebel["HP"] -= damage
 
 
-def get_dexterity():
+def get_dexterity()-> int:
     """Return dexterity of rebel.
     >>> get_dexterity()
     5
@@ -75,7 +75,7 @@ def get_dexterity():
     return rebel["Dexterity"]
 
 
-def get_coordinates():
+def get_coordinates()-> list:
     """Return coordinates of rebel.
     >>> get_coordinates()
     [5, 5]
@@ -106,7 +106,7 @@ def move_character(direction: str):
     sud.print_game_map()
 
 
-def get_player_info():
+def get_player_info()-> dict:
     """Return rebel dictionary.
     >>> get_player_info()
     {'Name': '', 'Class': '', 'HP': 10, 'Dexterity': 5, 'Coordinates': [5, 5]}
