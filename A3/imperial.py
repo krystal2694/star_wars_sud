@@ -13,10 +13,6 @@ def get_name(imperial_index):
     return imperial_forces[imperial_index]["Name"]
 
 
-def get_type():
-    return "imperial"
-
-
 def get_hp(imperial_index):
     return imperial_forces[imperial_index]["HP"]
 
