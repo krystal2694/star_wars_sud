@@ -65,7 +65,7 @@ def reset_game():
     rebel.set_coordinates([5, 5])
 
 
-def continue_or_exit():
+def continue_or_exit()-> str:
     if rebel.get_hp() <= 0:
         play_again = 0
         while play_again != "n" or play_again != "y":
