@@ -63,7 +63,6 @@ def print_game_map():
 def reset_game():
     rebel.set_hp(10)
     rebel.set_coordinates([5, 5])
-    print_game_map()
 
 
 def continue_or_exit():
@@ -75,6 +74,7 @@ def continue_or_exit():
                 return "quit"
             elif play_again == "y":
                 reset_game()
+                print_game_map()
                 return "continue"
 
 
