@@ -61,7 +61,7 @@ def increment_hp():
         print("You're healing! Your HP is %d." % rebel["HP"])
 
 
-def decrease_hp(damage):
+def decrease_hp(damage: int):
     """Decrease rebel HP by the damage amount."""
     global rebel
     rebel["HP"] -= damage
@@ -76,15 +76,22 @@ def get_dexterity():
 
 
 def get_coordinates():
+    """Return coordinates of rebel.
+    >>> get_coordinates()
+    [5, 5]
+    """
     return rebel["Coordinates"]
 
 
-def set_coordinates(coordinates):
+def set_coordinates(coordinates: list):
+    """Modify coordinates of rebel."""
     global rebel
     rebel["Coordinates"] = coordinates
 
 
-def move_character(direction):
+def move_character(direction: str):
+    """Move character north, south, east, or west."""
+
     global rebel
     if direction == "n" and rebel["Coordinates"][0] != 0:
             rebel["Coordinates"][0] -= 1
@@ -100,11 +107,16 @@ def move_character(direction):
 
 
 def get_player_info():
+    """Return rebel dictionary.
+    >>> get_player_info()
+    {'Name': '', 'Class': '', 'HP': 10, 'Dexterity': 5, 'Coordinates': [5, 5]}
+    """
     return rebel
 
 
 def main():
-    choose_rebel_class("Krystal")
+    # choose_rebel_class("Krystal")
+    sud.print_game_map()
 
 
 if __name__ == '__main__':
