@@ -9,6 +9,10 @@ rebel = {"Name": "", "Class": "", "HP": 10, "Dexterity": 5, "Coordinates": [5, 5
 
 
 def get_name():
+    """Return rebel name.
+    >>> get_name()
+    ''
+    """
     return rebel["Name"]
 
 
