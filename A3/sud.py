@@ -1,4 +1,5 @@
 """A Star Wars SUD Game."""
+import json
 import battle
 import rebel
 # A01089672
@@ -24,7 +25,7 @@ ___________88ij8888ij88' j8PY8i    888   )88  Y88<88888___________
                "Cloaked Figure: There's no time, you must come with me.\n\n" \
                "You: I'm not going anywhere with you until you tell me who you are!\n\n" \
                "*The cloaked figure removes his hood*\n\n" \
-               "Cloaked Figure: I.. am Luke Skywalker. I sense that you are strong\n" \
+               "Cloaked Figure: My name is.. Luke Skywalker. I sense that you are strong\n" \
                "with The Force, and I need your help.\n\n" + line
 
 
@@ -59,12 +60,6 @@ def print_game_map():
     print("✨ " * 14 + "\n")
 
 
-def heal_rebel():
-    if rebel.get_hp() < 10:
-        rebel.increment_hp()
-        print("You're healing! Your HP is %d." % rebel.get_hp())
-
-
 def reset_game():
     rebel.set_hp(10)
     rebel.set_coordinates([5, 5])
@@ -73,12 +68,14 @@ def reset_game():
 
 def continue_or_exit():
     if rebel.get_hp() <= 0:
-        play_again = input(line + "\nYou have been defeated by the Galactic Empire. Play again? (y/n): ")
-        if play_again == "n":
-            return "quit"
-        elif play_again == "y":
-            reset_game()
-            return "continue"
+        play_again = 0
+        while play_again != "n" or play_again != "y":
+            play_again = input(line + "\nYou have been defeated by the Galactic Empire. Play again? (y/n): ")
+            if play_again == "n":
+                return "quit"
+            elif play_again == "y":
+                reset_game()
+                return "continue"
 
 
 def game_play():
@@ -93,7 +90,7 @@ def game_play():
 
             # if character moved, they heal and have a chance of encountering an enemy
             if temp[0] != rebel.get_coordinates()[0] or temp[1] != rebel.get_coordinates()[1]:
-                heal_rebel()
+                rebel.increment_hp()
                 battle.encounter_imperial()
                 action = continue_or_exit()
 
@@ -106,6 +103,9 @@ def main():
     print_game_map()
     game_play()
     print(exit_statement)
+    # filename = 'player_info.json'
+    # with open(filename, 'w') as file_object:
+    #     json.dump(rebel.get_player_info(), file_object)
 
 
 if __name__ == '__main__':
