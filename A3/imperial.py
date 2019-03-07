@@ -43,7 +43,12 @@ def decrease_hp(index: int, damage: int):
 
 
 def get_dexterity(index: int):
-    """Return dexterity of imperial force."""
+    """Return dexterity of imperial force.
+    >>> get_dexterity(0)
+    2
+    >>> get_dexterity(4)
+    5
+    """
     return imperial_forces[index]["Dexterity"]
 
 
