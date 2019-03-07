@@ -9,6 +9,7 @@ line = "-------------------------------------------------------------------\n"
 
 
 def encounter_imperial():
+    """Encounter member of imperial force."""
     if randint(1, 5) == 1:
         index = randint(0, 6)
         fight_or_run = 0
@@ -24,13 +25,7 @@ def encounter_imperial():
 
 
 def combat_round(index: int):
-    """ Allow user to play one single round of combat.
-
-    PARAM: opponent_one, a dictionary
-    PARAM: opponent_two, a dictionary
-    PRECONDITION: opponent_one must be a dictionary containing a complete rebel
-    PRECONDITION: opponent_two must be a dictionary containing a complete rebel
-    """
+    """ Round of combat to the death."""
 
     print("\n" + line + "\n%s: Prepare to die, rebel scum!!\n" % imperial.get_name(index))
     while rebel.get_hp() > 0 and imperial.get_hp(index) > 0:
@@ -46,6 +41,7 @@ def combat_round(index: int):
 
 
 def attack(index: int):
+    """Attack a member of the imperial force."""
     print("You strike!")
     damage = randint(1, 6)
 
@@ -62,6 +58,7 @@ def attack(index: int):
 
 
 def defend(index: int):
+    """Member of imperial force's attack on player."""
     print("The %s strikes!" % imperial.get_name(index))
     damage = randint(1, 6)
 
@@ -77,6 +74,7 @@ def defend(index: int):
 
 
 def run_away(index: int):
+    """Run away from member of imperial force."""
     if randint(1, 5) == 1:
         damage = randint(1, 4)
         rebel.decrease_hp(damage)
