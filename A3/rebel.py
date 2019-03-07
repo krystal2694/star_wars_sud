@@ -5,7 +5,7 @@ line = "-------------------------------------------------------------------\n"
 
 rebel_class_dict = {"1": ["Knowledge", "Jedi"], "2": ["Strength", "Rebel Fighter"], "3": ["Wit", "Smuggler"]}
 
-rebel = {"Name": "", "Type": "rebel", "Class": "", "HP": 10, "Dexterity": 8, "Coordinates": [5, 5]}
+rebel = {"Name": "", "Class": "", "HP": 10, "Dexterity": 5, "Coordinates": [5, 5]}
 
 
 def get_name():
@@ -15,10 +15,6 @@ def get_name():
 def choose_name():
     global rebel
     rebel["Name"] = input("What is your name, young one? ").title()
-
-
-def get_type():
-    return "rebel"
 
 
 def choose_rebel_class(name):
@@ -35,7 +31,7 @@ def choose_rebel_class(name):
             return None
     else:
         print("You must choose one from the list above.")
-        return choose_rebel_class(rebel["Name"])
+        return choose_rebel_class(get_name())
 
 
 def get_hp():
@@ -49,7 +45,9 @@ def set_hp(new_hp):
 
 def increment_hp():
     global rebel
-    rebel["HP"] += 1
+    if rebel["HP"] < 10:
+        rebel["HP"] += 1
+        print("You're healing! Your HP is %d." % rebel["HP"])
 
 
 def decrease_hp(damage):
@@ -90,9 +88,7 @@ def get_player_info():
 
 
 def main():
-    print(get_hp())
-    increment_hp()
-    print(get_hp())
+    choose_rebel_class("Krystal")
 
 
 if __name__ == '__main__':
