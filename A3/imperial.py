@@ -1,4 +1,5 @@
 """Imperial forces that the player may encounter."""
+import doctest
 
 imperial_forces = [{"Name": "Stormtrooper", "HP": 5, "Dexterity": 2},
                    {"Name": "Shocktrooper", "HP": 5, "Dexterity": 3},
@@ -10,7 +11,12 @@ imperial_forces = [{"Name": "Stormtrooper", "HP": 5, "Dexterity": 2},
 
 
 def get_name(index: int):
-    """Return name of imperial force."""
+    """Return name of imperial force.
+    >>> get_name(3)
+    'Bounty Hunter'
+    >>> get_name(6)
+    'AT-AT Walker'
+    """
     return imperial_forces[index]["Name"]
 
 
@@ -36,3 +42,9 @@ def get_dexterity(index: int):
     return imperial_forces[index]["Dexterity"]
 
 
+def main():
+    doctest.testmod()
+
+
+if __name__ == '__main__':
+    main()
