@@ -23,7 +23,7 @@ def encounter_imperial():
             sud.print_game_map()
 
 
-def combat_round(index):
+def combat_round(index: int):
     """ Allow user to play one single round of combat.
 
     PARAM: opponent_one, a dictionary
@@ -45,7 +45,7 @@ def combat_round(index):
     imperial.set_hp(index, 5)
 
 
-def attack(index):
+def attack(index: int):
     print("You strike!")
     damage = randint(1, 6)
 
@@ -61,7 +61,7 @@ def attack(index):
         print("The %s evaded the attack!\n" % imperial.get_name(index))
 
 
-def defend(index):
+def defend(index: int):
     print("The %s strikes!" % imperial.get_name(index))
     damage = randint(1, 6)
 
@@ -76,7 +76,7 @@ def defend(index):
         print("You evaded the attack!\n")
 
 
-def run_away(index):
+def run_away(index: int):
     if randint(1, 5) == 1:
         damage = randint(1, 4)
         rebel.decrease_hp(damage)
