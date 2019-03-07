@@ -21,7 +21,12 @@ def get_name(index: int):
 
 
 def get_hp(index: int):
-    """Return HP of imperial force."""
+    """Return HP of imperial force.
+    >>> get_hp(5)
+    5
+    >>> get_hp(0)
+    5
+    """
     return imperial_forces[index]["HP"]
 
 
