@@ -41,38 +41,39 @@ def combat_round(index):
             defend(index)
 
     if rebel.get_hp() > 0:
-        print("%s's HP is %d.\n\n" % (rebel.get_name(), rebel.get_hp()) + line + "\n")
+        print("Your HP is %d.\n\n" % rebel.get_hp() + line)
     imperial.set_hp(index, 5)
 
 
 def attack(index):
-    print("%s strikes!" % rebel.get_name())
+    print("You strike!")
     damage = randint(1, 6)
 
     if randint(1, 20) > imperial.get_dexterity(index):
         imperial.decrease_hp(index, damage)
-        print("%s has taken a %d point hit!" % (imperial.get_name(index), damage))
+        print("The %s has taken a %d point hit!" % (imperial.get_name(index), damage))
         if imperial.get_hp(index) <= 0:
-            print("%s has been defeated.\n" % imperial.get_name(index))
+            print("\nYou have defeated the %s.\n"
+                  "We are one step closer to peace in the galaxy!\n" % imperial.get_name(index))
         else:
             print("Their HP has dropped to %d.\n" % imperial.get_hp(index))
     else:
-        print("%s evaded the attack!\n" % imperial.get_name(index))
+        print("The %s evaded the attack!\n" % imperial.get_name(index))
 
 
 def defend(index):
-    print("%s strikes!" % imperial.get_name(index))
+    print("The %s strikes!" % imperial.get_name(index))
     damage = randint(1, 6)
 
-    if randint(1, 20) > rebel.get_dexterity():
+    if randint(1, 15) > rebel.get_dexterity():
         rebel.decrease_hp(damage)
-        print("%s has taken a %d point hit!" % (rebel.get_name(), damage))
+        print("You have taken a %d point hit!" % damage)
         if rebel.get_hp() <= 0:
-            print("%s has been defeated.\n" % rebel.get_name())
+            print("You have been defeated by the %s.\n" % imperial.get_name(index))
         else:
-            print("Their HP has dropped to %d.\n" % rebel.get_hp())
+            print("Your HP has dropped to %d.\n" % rebel.get_hp())
     else:
-        print("%s evaded the attack!\n" % rebel.get_name())
+        print("You evaded the attack!\n")
 
 
 def run_away(index):
