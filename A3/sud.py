@@ -48,7 +48,7 @@ directions = ["n", "s", "e", "w"]
 def print_game_map():
     game_map = [["   " for _ in range(11)] for _ in range(11)]
     rebel_symbol = " ⛒"
-    game_map[rebel.get_position()[0]][rebel.get_position()[1]] = rebel_symbol
+    game_map[rebel.get_row()][rebel.get_column()] = rebel_symbol
 
     print("\n" + "✨ " * 14)
     for row in game_map:
@@ -60,27 +60,46 @@ def print_game_map():
 
 
 def is_valid_move(direction):
-    if direction == "n" and rebel.get_position()[0] == 0:
+    if direction == "n" and rebel.get_row() == 0:
         return False
-    elif direction == "s" and rebel.get_position()[0] == 10:
+    elif direction == "s" and rebel.get_row() == 10:
         return False
-    elif direction == "e" and rebel.get_position()[1] == 10:
+    elif direction == "e" and rebel.get_column() == 10:
         return False
-    elif direction == "w" and rebel.get_position()[1] == 0:
+    elif direction == "w" and rebel.get_column() == 0:
         return False
     return True
+
+
+rebel_class_dict = {"1": ["Knowledge", "Jedi"], "2": ["Strength", "Rebel Fighter"], "3": ["Wit", "Smuggler"]}
+
+
+def choose_rebel_class(name: str):
+    """Return user's selection of their desired rebel class."""
+
+    selection = input("\n" + line + "\nTell me, %s, what do you consider to be your most valuable trait?\n\n"
+                                    "1 Knowledge\n2 Strength\n3 Wit\n\nEnter the corresponding number: " % name).strip()
+    for number, rebel_class in rebel_class_dict.items():
+        if selection == number:
+            print("\n" + line + "\nAh! I think you would make a great.. %s!\n" % rebel_class[1] +
+                  "\nNow, come with me %s.\n\nWe have a galaxy to save!\n\n" % name + line)
+            rebel.set_class(rebel_class[1])
+            return None
+    else:
+        print("You must choose one from the list above.")
+        return choose_rebel_class(rebel.get_name())
 
 
 def move_character(action: str):
     """Move character north, south, east, or west."""
     if action == "n":
-        rebel.set_position([rebel.get_position()[0] - 1, rebel.get_position()[1]])
+        rebel.set_row(rebel.get_row() - 1)
     elif action == "s":
-        rebel.set_position([rebel.get_position()[0] + 1, rebel.get_position()[1]])
+        rebel.set_row(rebel.get_row() + 1)
     elif action == "e":
-        rebel.set_position([rebel.get_position()[0], rebel.get_position()[1] + 1])
+        rebel.set_column(rebel.get_column() + 1)
     elif action == "w":
-        rebel.set_position([rebel.get_position()[0], rebel.get_position()[1] - 1])
+        rebel.set_column(rebel.get_column() - 1)
     print_game_map()
 
 
@@ -122,8 +141,8 @@ def game_play():
 
 def main():
     print(introduction)
-    rebel.choose_name()
-    rebel.choose_rebel_class(rebel.get_name())
+    rebel.set_name()
+    choose_rebel_class(rebel.get_name())
     print(instructions)
     print_game_map()
     game_play()
