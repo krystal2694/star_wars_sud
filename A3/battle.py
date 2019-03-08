@@ -20,8 +20,6 @@ def encounter_imperial():
                 combat_round(index)
             elif fight_or_run == "r":
                 run_away(index)
-        if rebel.get_hp() > 0:
-            sud.print_game_map()
 
 
 def combat_round(index: int):
