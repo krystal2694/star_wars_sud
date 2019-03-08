@@ -4,9 +4,7 @@ import json
 
 line = "-------------------------------------------------------------------\n"
 
-rebel_class_dict = {"1": ["Knowledge", "Jedi"], "2": ["Strength", "Rebel Fighter"], "3": ["Wit", "Smuggler"]}
-
-rebel = {"Name": "", "Class": "", "HP": 10, "Dexterity": 5, "Position": [5, 5]}
+rebel = {"Name": "", "Class": "", "HP": 10, "Dexterity": 5, "Row": 5, "Column": 5}
 
 
 def get_name()-> str:
@@ -17,27 +15,14 @@ def get_name()-> str:
     return rebel["Name"]
 
 
-def choose_name():
+def set_name():
     """Allow user to choose name for their rebel character."""
     global rebel
     rebel["Name"] = input("What is your name, young one? ").title()
 
 
-def choose_rebel_class(name: str):
-    """Return user's selection of their desired rebel class."""
-
-    global rebel
-    selection = input("\n" + line + "\nTell me, %s, what do you consider to be your most valuable trait?\n\n"
-                                    "1 Knowledge\n2 Strength\n3 Wit\n\nEnter the corresponding number: " % name).strip()
-    for number, rebel_class in rebel_class_dict.items():
-        if selection == number:
-            print("\n" + line + "\nAh! I think you would make a great.. %s!\n" % rebel_class[1] +
-                  "\nNow, come with me %s.\n\nWe have a galaxy to save!\n\n" % name + line)
-            rebel["Class"] = rebel_class[1]
-            return None
-    else:
-        print("You must choose one from the list above.")
-        return choose_rebel_class(get_name())
+def set_class(rebel_class: str):
+    rebel["Class"] = rebel_class
 
 
 def get_hp()-> int:
@@ -76,37 +61,26 @@ def get_dexterity()-> int:
     return rebel["Dexterity"]
 
 
-def get_position()-> list:
-    """Return position of rebel.
-    >>> get_position()set_hp()
-    [5, 5]
-    """
-    return rebel["Position"]
-
-
-def set_position(position: list):
-    global rebel
-    rebel["Position"] = position
-
-
 def set_row(row: int):
     """Modify position of rebel by row."""
     global rebel
-    rebel["Position"][0] = row
+    rebel["Row"] = row
+
+
+def get_row():
+    """Return row position of rebel."""
+    return rebel["Row"]
 
 
 def set_column(column: int):
     """Modify position of rebel by row."""
     global rebel
-    rebel["Position"][1] = column
+    rebel["Column"] = column
 
 
-def get_player_info()-> dict:
-    """Return rebel dictionary.
-    >>> get_player_info()
-    {'Name': '', 'Class': '', 'HP': 10, 'Dexterity': 5, 'Position': [5, 5]}
-    """
-    return rebel
+def get_column():
+    """Return column position of rebel."""
+    return rebel["Column"]
 
 
 def save_character():
