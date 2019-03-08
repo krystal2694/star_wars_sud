@@ -1,11 +1,12 @@
 """Rebel character for Star Wars game."""
 import sud
+import json
 
 line = "-------------------------------------------------------------------\n"
 
 rebel_class_dict = {"1": ["Knowledge", "Jedi"], "2": ["Strength", "Rebel Fighter"], "3": ["Wit", "Smuggler"]}
 
-rebel = {"Name": "", "Class": "", "HP": 10, "Dexterity": 5, "Coordinates": [5, 5]}
+rebel = {"Name": "", "Class": "", "HP": 10, "Dexterity": 5, "Position": [5, 5]}
 
 
 def get_name()-> str:
@@ -75,43 +76,43 @@ def get_dexterity()-> int:
     return rebel["Dexterity"]
 
 
-def get_coordinates()-> list:
-    """Return coordinates of rebel.
-    >>> get_coordinates()
+def get_position()-> list:
+    """Return position of rebel.
+    >>> get_position()set_hp()
     [5, 5]
     """
-    return rebel["Coordinates"]
+    return rebel["Position"]
 
 
-def set_coordinates(coordinates: list):
-    """Modify coordinates of rebel."""
+def set_position(position: list):
     global rebel
-    rebel["Coordinates"] = coordinates
+    rebel["Position"] = position
 
 
-def move_character(direction: str):
-    """Move character north, south, east, or west."""
-
+def set_row(row: int):
+    """Modify position of rebel by row."""
     global rebel
-    if direction == "n" and rebel["Coordinates"][0] != 0:
-            rebel["Coordinates"][0] -= 1
-    elif direction == "s" and rebel["Coordinates"][0] != 10:
-            rebel["Coordinates"][0] += 1
-    elif direction == "e" and rebel["Coordinates"][1] != 10:
-            rebel["Coordinates"][1] += 1
-    elif direction == "w" and rebel["Coordinates"][1] != 0:
-            rebel["Coordinates"][1] -= 1
-    else:
-        print("Do not leave the galaxy %s, you cannot leave us in the hands of the Galactic Empire!" % rebel["Name"])
-    sud.print_game_map()
+    rebel["Position"][0] = row
+
+
+def set_column(column: int):
+    """Modify position of rebel by row."""
+    global rebel
+    rebel["Position"][1] = column
 
 
 def get_player_info()-> dict:
     """Return rebel dictionary.
     >>> get_player_info()
-    {'Name': '', 'Class': '', 'HP': 10, 'Dexterity': 5, 'Coordinates': [5, 5]}
+    {'Name': '', 'Class': '', 'HP': 10, 'Dexterity': 5, 'Position': [5, 5]}
     """
     return rebel
+
+
+def save_character():
+    filename = 'player_info.json'
+    with open(filename, 'w') as file_object:
+        json.dump(rebel, file_object)
 
 
 def main():
