@@ -1,5 +1,4 @@
 """A Star Wars SUD Game."""
-import json
 import battle
 import rebel
 # A01089672
@@ -49,7 +48,7 @@ directions = ["n", "s", "e", "w"]
 def print_game_map():
     game_map = [["   " for _ in range(11)] for _ in range(11)]
     rebel_symbol = " ⛒"
-    game_map[rebel.get_coordinates()[0]][rebel.get_coordinates()[1]] = rebel_symbol
+    game_map[rebel.get_position()[0]][rebel.get_position()[1]] = rebel_symbol
 
     print("\n" + "✨ " * 14)
     for row in game_map:
@@ -60,14 +59,40 @@ def print_game_map():
     print("✨ " * 14 + "\n")
 
 
+def is_valid_move(direction):
+    if direction == "n" and rebel.get_position()[0] == 0:
+        return False
+    elif direction == "s" and rebel.get_position()[0] == 10:
+        return False
+    elif direction == "e" and rebel.get_position()[1] == 10:
+        return False
+    elif direction == "w" and rebel.get_position()[1] == 0:
+        return False
+    return True
+
+
+def move_character(action: str):
+    """Move character north, south, east, or west."""
+    if action == "n":
+        rebel.set_position([rebel.get_position()[0] - 1, rebel.get_position()[1]])
+    elif action == "s":
+        rebel.set_position([rebel.get_position()[0] + 1, rebel.get_position()[1]])
+    elif action == "e":
+        rebel.set_position([rebel.get_position()[0], rebel.get_position()[1] + 1])
+    elif action == "w":
+        rebel.set_position([rebel.get_position()[0], rebel.get_position()[1] - 1])
+    print_game_map()
+
+
 def reset_game():
     rebel.set_hp(10)
-    rebel.set_coordinates([5, 5])
+    rebel.set_row(5)
+    rebel.set_column(5)
 
 
 def continue_or_exit()-> str:
     if rebel.get_hp() <= 0:
-        play_again = 0
+        play_again = ""
         while play_again != "n" or play_again != "y":
             play_again = input(line + "\nYou have been defeated by the Galactic Empire. Play again? (y/n): ")
             if play_again == "n":
@@ -85,14 +110,14 @@ def game_play():
         if action not in commands:
             print("I do not understand.")
         elif action in directions:
-            temp = rebel.get_coordinates()[:]
-            rebel.move_character(action)
-
-            # if character moved, they heal and have a chance of encountering an enemy
-            if temp[0] != rebel.get_coordinates()[0] or temp[1] != rebel.get_coordinates()[1]:
+            if is_valid_move(action) is True:
+                move_character(action)
                 rebel.increment_hp()
                 battle.encounter_imperial()
                 action = continue_or_exit()
+            else:
+                print("Do not leave the galaxy %s, you cannot leave us in the hands of the Galactic Empire!"
+                      % rebel.get_name())
 
 
 def main():
@@ -103,9 +128,7 @@ def main():
     print_game_map()
     game_play()
     print(exit_statement)
-    # filename = 'player_info.json'
-    # with open(filename, 'w') as file_object:
-    #     json.dump(rebel.get_player_info(), file_object)
+    rebel.save_character()
 
 
 if __name__ == '__main__':
