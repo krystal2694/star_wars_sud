@@ -59,7 +59,8 @@ def game_map():
     print("✨ " * 14 + "\n")
 
 
-def is_valid_move(direction: str):
+def is_valid_move(direction: str)-> bool:
+    """Determine if character move in within bounds."""
     if direction == "n" and rebel.get_row() == 0:
         return False
     elif direction == "s" and rebel.get_row() == 10:
@@ -74,8 +75,8 @@ def is_valid_move(direction: str):
 rebel_class_dict = {"1": ["Knowledge", "Jedi"], "2": ["Strength", "Rebel Fighter"], "3": ["Wit", "Smuggler"]}
 
 
-def choose_rebel_class(name: str):
-    """Return user's selection of their desired rebel class."""
+def determine_rebel_class(name: str)-> None:
+    """Determine class of character based on their most valuable trait."""
 
     selection = user_quit(input("\n" + line + "\nTell me, %s, what do you consider to be your most valuable trait?\n\n"
                                               "1 Knowledge\n2 Strength\n3 Wit\n\nEnter the number: " % name).strip())
@@ -87,7 +88,7 @@ def choose_rebel_class(name: str):
             return None
     else:
         print("You must choose one from the list above.")
-        return choose_rebel_class(rebel.get_name())
+        return determine_rebel_class(rebel.get_name())
 
 
 def move_character(action: str):
@@ -102,27 +103,8 @@ def move_character(action: str):
         rebel.set_column(rebel.get_column() - 1)
 
 
-def reset_game():
-    rebel.set_hp(10)
-    rebel.set_row(5)
-    rebel.set_column(5)
-
-
-def restart_or_exit():
-    if rebel.get_hp() <= 0:
-        play_again = ""
-        while play_again != "n" and play_again != "y":
-            play_again = input(line + "\nYou have been defeated by the Galactic Empire. Play again? (y/n): ")
-            if play_again == "n":
-                user_quit("quit")
-            elif play_again == "y":
-                reset_game()
-                game_map()
-    else:
-        game_map()
-
-
 def game_play():
+    """Game play, where the magic happens."""
     while True:
         action = user_quit(input().strip().lower())
         if action in directions:
@@ -138,7 +120,30 @@ def game_play():
             print("I do not understand.")
 
 
-def user_quit(message):
+def restart_or_exit():
+    """Restart or exit game when player is defeated."""
+    if rebel.get_hp() <= 0:
+        play_again = ""
+        while play_again != "n" and play_again != "y":
+            play_again = input(line + "\nYou have been defeated by the Galactic Empire. Play again? (y/n): ")
+            if play_again == "n":
+                user_quit("quit")
+            elif play_again == "y":
+                reset_game()
+                game_map()
+    else:
+        game_map()
+
+
+def reset_game():
+    """Reset character HP and position."""
+    rebel.set_hp(10)
+    rebel.set_row(5)
+    rebel.set_column(5)
+
+
+def user_quit(message)-> str:
+    """Exit and save game when user enters 'quit'."""
     if message == "quit":
         print(exit_statement)
         # rebel.save_character()
@@ -148,9 +153,10 @@ def user_quit(message):
 
 
 def main():
+    """Execute the program."""
     print(introduction)
     rebel.set_name()
-    choose_rebel_class(rebel.get_name())
+    determine_rebel_class(rebel.get_name())
     print(instructions)
     game_map()
     game_play()
