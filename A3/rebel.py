@@ -18,7 +18,7 @@ def get_name()-> str:
 def set_name():
     """Allow user to choose name for their rebel character."""
     global rebel
-    rebel["Name"] = input("What is your name, young one? ").title()
+    rebel["Name"] = sud.user_quit(input("What is your name, young one? ")).title()
 
 
 def set_class(rebel_class: str):
@@ -90,8 +90,7 @@ def save_character():
 
 
 def main():
-    # choose_rebel_class("Krystal")
-    sud.print_game_map()
+    pass
 
 
 if __name__ == '__main__':
