@@ -4,7 +4,7 @@ import rebel
 
 
 class TestSetColumn(TestCase):
-    def test_set_column(self):
+    def test_set_column_value_reflects_parameter_passed(self):
         set_column(9)
         self.assertIs(rebel.rebel["Column"], 9)
 
