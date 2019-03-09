@@ -105,7 +105,7 @@ def move_character(action: str):
 
 
 def heal_character():
-    """Increment character HP by 1."""
+    """Heal character if they are not already at full health."""
     if rebel.get_hp() < 10:
         rebel.set_hp(rebel.get_hp() + 1)
         print("You're healing! Your HP is %d." % rebel.get_hp())
