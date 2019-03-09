@@ -80,6 +80,7 @@ def determine_rebel_class(name: str)-> None:
 
     selection = user_quit(input("\n" + line + "\nTell me, %s, what do you consider to be your most valuable trait?\n\n"
                                               "1 Knowledge\n2 Strength\n3 Wit\n\nEnter the number: " % name).strip())
+
     for number, rebel_class in rebel_class_dict.items():
         if selection == number:
             print("\n" + line + "\nAh! I think you would make a great.. %s!\n" % rebel_class[1] +
@@ -121,7 +122,7 @@ def game_play():
 
 
 def restart_or_exit():
-    """Restart or exit game when player is defeated."""
+    """Restart or exit game if player is defeated."""
     if rebel.get_hp() <= 0:
         play_again = ""
         while play_again != "n" and play_again != "y":
