@@ -118,7 +118,7 @@ def game_play():
         if action in directions:
             if is_valid_move(action) is True:
                 move_character(action)
-                heal_character()
+                # heal_character()
                 battle.encounter_imperial()
                 restart_or_exit()
             else:
@@ -138,9 +138,7 @@ def restart_or_exit():
                 user_quit("quit")
             elif play_again == "y":
                 reset_game()
-                game_map()
-    else:
-        game_map()
+    game_map()
 
 
 def reset_game():
