@@ -1,6 +1,7 @@
 """A Star Wars SUD Game."""
 # A01089672
 # Krystal Wong
+import sys
 import battle
 import rebel
 
@@ -101,7 +102,6 @@ def move_character(action: str):
         rebel.set_column(rebel.get_column() + 1)
     elif action == "w":
         rebel.set_column(rebel.get_column() - 1)
-    game_map()
 
 
 def reset_game():
@@ -110,36 +110,43 @@ def reset_game():
     rebel.set_column(5)
 
 
-def continue_or_exit()-> str:
+def continue_or_exit():
     if rebel.get_hp() <= 0:
         play_again = ""
-        while play_again != "n" or play_again != "y":
+        while play_again != "n" and play_again != "y":
             play_again = input(line + "\nYou have been defeated by the Galactic Empire. Play again? (y/n): ")
             if play_again == "n":
-                return "quit"
+                user_quit("quit")
             elif play_again == "y":
                 reset_game()
                 game_map()
-                return "continue"
     else:
         game_map()
 
 
 def game_play():
-    action = ""
-    while action != "quit":
-        action = input().strip().lower()
-        if action not in commands:
+    while True:
+        action = user_quit(input().strip().lower())
+        if action not in directions:
             print("I do not understand.")
-        elif action in directions:
+        else:
             if is_valid_move(action) is True:
                 move_character(action)
                 rebel.increment_hp()
                 battle.encounter_imperial()
-                action = continue_or_exit()
+                continue_or_exit()
             else:
                 print("Do not leave the galaxy %s, you cannot leave us in the hands of the Galactic Empire!"
                       % rebel.get_name())
+
+
+def user_quit(message):
+    if message == "quit":
+        print(exit_statement)
+        # rebel.save_character()
+        sys.exit()
+    else:
+        return message
 
 
 def main():
@@ -149,8 +156,6 @@ def main():
     print(instructions)
     game_map()
     game_play()
-    print(exit_statement)
-    # rebel.save_character()
 
 
 if __name__ == '__main__':
