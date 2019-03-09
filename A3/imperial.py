@@ -36,12 +36,6 @@ def set_hp(index: int, new_hp: int):
     imperial_forces[index]["HP"] = new_hp
 
 
-def decrease_hp(index: int, damage: int):
-    """Decrease imperial force HP by the damage amount."""
-    global imperial_forces
-    imperial_forces[index]["HP"] -= damage
-
-
 def get_dexterity(index: int)-> int:
     """Return imperial force dexterity.
     >>> get_dexterity(0)

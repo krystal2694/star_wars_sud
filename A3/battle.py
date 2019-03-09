@@ -44,7 +44,7 @@ def attack(index: int):
     damage = randint(1, 6)
 
     if randint(1, 20) > imperial.get_dexterity(index):
-        imperial.decrease_hp(index, damage)
+        imperial.set_hp(index, imperial.get_hp(index) - damage)
         print("The %s has taken a %d point hit!" % (imperial.get_name(index), damage))
         if imperial.get_hp(index) <= 0:
             print("\nYou have defeated the %s.\n"
