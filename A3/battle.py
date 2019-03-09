@@ -64,7 +64,8 @@ def defend(index: int):
         rebel.decrease_hp(damage)
         print("You have taken a %d point hit!" % damage)
         if rebel.get_hp() <= 0:
-            print("You have been defeated by the %s.\n" % imperial.get_name(index))
+            print("You have been defeated.\n\n%s: Never underestimate the power of the Dark Side."
+                  % imperial.get_name(index))
         else:
             print("Your HP has dropped to %d.\n" % rebel.get_hp())
     else:
