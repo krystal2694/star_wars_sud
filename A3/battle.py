@@ -1,6 +1,5 @@
 """Battle between two Star Wars characters."""
 from random import randint
-import sud
 import imperial
 import rebel
 
@@ -11,6 +10,7 @@ line = "-------------------------------------------------------------------\n"
 def encounter_imperial():
     """Encounter member of imperial force."""
     if randint(1, 5) == 1:
+        # choose member of imperial force by random
         index = randint(0, 6)
         fight_or_run = 0
         while fight_or_run != "f" and fight_or_run != "r":
@@ -24,7 +24,6 @@ def encounter_imperial():
 
 def combat_round(index: int):
     """ Round of combat to the death."""
-
     print("\n" + line + "\n%s: Prepare to die, rebel scum!!\n" % imperial.get_name(index))
     while rebel.get_hp() > 0 and imperial.get_hp(index) > 0:
         attack(index)
@@ -35,11 +34,12 @@ def combat_round(index: int):
 
     if rebel.get_hp() > 0:
         print("Your HP is %d.\n\n" % rebel.get_hp() + line)
+    # reset imperial force's HP to 5 for next encounter
     imperial.set_hp(index, 5)
 
 
 def attack(index: int):
-    """Attack a member of the imperial force."""
+    """Attack the enemy."""
     print("You strike!")
     damage = randint(1, 6)
 
@@ -56,7 +56,7 @@ def attack(index: int):
 
 
 def defend(index: int):
-    """Member of imperial force's attack on player."""
+    """Character on defence against enemy attack."""
     print("The %s strikes!" % imperial.get_name(index))
     damage = randint(1, 6)
 
@@ -73,7 +73,7 @@ def defend(index: int):
 
 
 def run_away(index: int):
-    """Run away from member of imperial force."""
+    """Run away from enemy."""
     if randint(1, 5) == 1:
         damage = randint(1, 4)
         rebel.decrease_hp(damage)
