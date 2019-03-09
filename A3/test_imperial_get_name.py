@@ -11,3 +11,8 @@ class TestGetName(TestCase):
     def test_get_name_return_type(self):
         for i in range(len(imperial_forces)):
             self.assertIsInstance(get_name(i), str)
+
+    def test_get_name_with_non_int_objects(self):
+        with self.assertRaises(TypeError):
+            get_name("")
+            get_name(2.3)
