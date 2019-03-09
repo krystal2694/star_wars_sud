@@ -41,8 +41,6 @@ instructions = "This is your map. '⛒' represents where you are on the map.\n" 
 exit_statement = "\n" + line + "\nThe Rebellion thanks you for your service.\n\n" \
                                "Return soon, the battle against the Dark Side has only just begun.\n\n" + line
 
-commands = ["quit", "continue", "n", "s", "w", "e"]
-
 directions = ["n", "s", "e", "w"]
 
 
@@ -79,8 +77,8 @@ rebel_class_dict = {"1": ["Knowledge", "Jedi"], "2": ["Strength", "Rebel Fighter
 def choose_rebel_class(name: str):
     """Return user's selection of their desired rebel class."""
 
-    selection = input("\n" + line + "\nTell me, %s, what do you consider to be your most valuable trait?\n\n"
-                                    "1 Knowledge\n2 Strength\n3 Wit\n\nEnter the corresponding number: " % name).strip()
+    selection = user_quit(input("\n" + line + "\nTell me, %s, what do you consider to be your most valuable trait?\n\n"
+                                              "1 Knowledge\n2 Strength\n3 Wit\n\nEnter the number: " % name).strip())
     for number, rebel_class in rebel_class_dict.items():
         if selection == number:
             print("\n" + line + "\nAh! I think you would make a great.. %s!\n" % rebel_class[1] +
@@ -110,7 +108,7 @@ def reset_game():
     rebel.set_column(5)
 
 
-def continue_or_exit():
+def restart_or_exit():
     if rebel.get_hp() <= 0:
         play_again = ""
         while play_again != "n" and play_again != "y":
@@ -127,17 +125,17 @@ def continue_or_exit():
 def game_play():
     while True:
         action = user_quit(input().strip().lower())
-        if action not in directions:
-            print("I do not understand.")
-        else:
+        if action in directions:
             if is_valid_move(action) is True:
                 move_character(action)
                 rebel.increment_hp()
                 battle.encounter_imperial()
-                continue_or_exit()
+                restart_or_exit()
             else:
                 print("Do not leave the galaxy %s, you cannot leave us in the hands of the Galactic Empire!"
                       % rebel.get_name())
+        else:
+            print("I do not understand.")
 
 
 def user_quit(message):
