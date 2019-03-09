@@ -39,20 +39,6 @@ def set_hp(new_hp):
     rebel["HP"] = new_hp
 
 
-def increment_hp():
-    """Increment character HP by 1."""
-    global rebel
-    if rebel["HP"] < 10:
-        rebel["HP"] += 1
-        print("You're healing! Your HP is %d." % rebel["HP"])
-
-
-def decrease_hp(damage: int):
-    """Decrease character HP by the damage amount."""
-    global rebel
-    rebel["HP"] -= damage
-
-
 def get_dexterity()-> int:
     """Return character dexterity.
     >>> get_dexterity()

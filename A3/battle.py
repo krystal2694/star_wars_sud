@@ -61,7 +61,7 @@ def defend(index: int):
     damage = randint(1, 6)
 
     if randint(1, 15) > rebel.get_dexterity():
-        rebel.decrease_hp(damage)
+        rebel.set_hp(rebel.get_hp() - damage)
         print("You have taken a %d point hit!" % damage)
         if rebel.get_hp() <= 0:
             print("You have been defeated.\n\n%s: Never underestimate the power of the Dark Side."
@@ -76,7 +76,7 @@ def run_away(index: int):
     """Run away from enemy."""
     if randint(1, 5) == 1:
         damage = randint(1, 4)
-        rebel.decrease_hp(damage)
+        rebel.set_hp(rebel.get_hp() - damage)
         print("\n" + line + "\nThe %s struck you as you fled!\n\nYou have taken a %d point hit, your HP is %d."
               % (imperial.get_name(index), damage, rebel.get_hp()))
     else:
