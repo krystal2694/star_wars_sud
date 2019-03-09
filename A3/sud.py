@@ -164,7 +164,7 @@ def main():
     """Execute the program."""
     print(introduction)
     rebel.set_name()
-    determine_rebel_class(rebel.get_name())
+    determine_rebel_class()
     print(instructions)
     game_map()
     game_play()
