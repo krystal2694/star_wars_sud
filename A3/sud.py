@@ -75,21 +75,21 @@ def is_valid_move(direction: str)-> bool:
 rebel_class_dict = {"1": ["Knowledge", "Jedi"], "2": ["Strength", "Rebel Fighter"], "3": ["Wit", "Smuggler"]}
 
 
-def determine_rebel_class(name: str)-> None:
+def determine_rebel_class()-> None:
     """Determine class of character based on their most valuable trait."""
 
     selection = user_quit(input("\n" + line + "\nTell me, %s, what do you consider to be your most valuable trait?\n\n"
-                                              "1 Knowledge\n2 Strength\n3 Wit\n\nEnter the number: " % name).strip())
+                                "1 Knowledge\n2 Strength\n3 Wit\n\nEnter the number: " % rebel.get_name()).strip())
 
     for number, rebel_class in rebel_class_dict.items():
         if selection == number:
             print("\n" + line + "\nAh! I think you would make a great.. %s!\n" % rebel_class[1] +
-                  "\nNow, come with me %s.\n\nWe have a galaxy to save!\n\n" % name + line)
+                  "\nNow, come with me %s.\n\nWe have a galaxy to save!\n\n" % rebel.get_name() + line)
             rebel.set_class(rebel_class[1])
             return None
     else:
         print("You must choose one from the list above.")
-        return determine_rebel_class(rebel.get_name())
+        return determine_rebel_class()
 
 
 def move_character(action: str):
