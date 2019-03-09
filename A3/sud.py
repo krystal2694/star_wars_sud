@@ -1,8 +1,8 @@
 """A Star Wars SUD Game."""
-import battle
-import rebel
 # A01089672
 # Krystal Wong
+import battle
+import rebel
 
 
 line = "-------------------------------------------------------------------\n" \
@@ -45,13 +45,14 @@ commands = ["quit", "continue", "n", "s", "w", "e"]
 directions = ["n", "s", "e", "w"]
 
 
-def print_game_map():
-    game_map = [["   " for _ in range(11)] for _ in range(11)]
+def game_map():
+    """Print game map."""
+    game_board = [["   " for _ in range(11)] for _ in range(11)]
     rebel_symbol = " ⛒"
-    game_map[rebel.get_row()][rebel.get_column()] = rebel_symbol
+    game_board[rebel.get_row()][rebel.get_column()] = rebel_symbol
 
     print("\n" + "✨ " * 14)
-    for row in game_map:
+    for row in game_board:
         print("✨", end="")
         for column in row:
             print(column, end="")
@@ -59,7 +60,7 @@ def print_game_map():
     print("✨ " * 14 + "\n")
 
 
-def is_valid_move(direction):
+def is_valid_move(direction: str):
     if direction == "n" and rebel.get_row() == 0:
         return False
     elif direction == "s" and rebel.get_row() == 10:
@@ -100,7 +101,7 @@ def move_character(action: str):
         rebel.set_column(rebel.get_column() + 1)
     elif action == "w":
         rebel.set_column(rebel.get_column() - 1)
-    print_game_map()
+    game_map()
 
 
 def reset_game():
@@ -118,12 +119,14 @@ def continue_or_exit()-> str:
                 return "quit"
             elif play_again == "y":
                 reset_game()
-                print_game_map()
+                game_map()
                 return "continue"
+    else:
+        game_map()
 
 
 def game_play():
-    action = 0
+    action = ""
     while action != "quit":
         action = input().strip().lower()
         if action not in commands:
@@ -144,10 +147,10 @@ def main():
     rebel.set_name()
     choose_rebel_class(rebel.get_name())
     print(instructions)
-    print_game_map()
+    game_map()
     game_play()
     print(exit_statement)
-    rebel.save_character()
+    # rebel.save_character()
 
 
 if __name__ == '__main__':
