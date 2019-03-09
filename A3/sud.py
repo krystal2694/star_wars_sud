@@ -104,6 +104,13 @@ def move_character(action: str):
         rebel.set_column(rebel.get_column() - 1)
 
 
+def heal_character():
+    """Increment character HP by 1."""
+    if rebel.get_hp() < 10:
+        rebel.set_hp(rebel.get_hp() + 1)
+        print("You're healing! Your HP is %d." % rebel.get_hp())
+
+
 def game_play():
     """Game play, where the magic happens."""
     while True:
@@ -111,7 +118,7 @@ def game_play():
         if action in directions:
             if is_valid_move(action) is True:
                 move_character(action)
-                rebel.increment_hp()
+                heal_character()
                 battle.encounter_imperial()
                 restart_or_exit()
             else:
