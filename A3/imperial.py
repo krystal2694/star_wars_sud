@@ -11,7 +11,7 @@ imperial_forces = [{"Name": "Stormtrooper", "HP": 5, "Dexterity": 2},
 
 
 def get_name(index: int)-> str:
-    """Return name of imperial force.
+    """Return imperial force name.
     >>> get_name(3)
     'Bounty Hunter'
     >>> get_name(6)
@@ -21,7 +21,7 @@ def get_name(index: int)-> str:
 
 
 def get_hp(index: int)-> int:
-    """Return HP of imperial force.
+    """Return imperial force HP.
     >>> get_hp(5)
     5
     >>> get_hp(0)
@@ -31,19 +31,19 @@ def get_hp(index: int)-> int:
 
 
 def set_hp(index: int, new_hp: int):
-    """Modify HP of imperial force."""
+    """Modify imperial force HP."""
     global imperial_forces
     imperial_forces[index]["HP"] = new_hp
 
 
 def decrease_hp(index: int, damage: int):
-    """Decrease hp of imperial force by the damage amount."""
+    """Decrease imperial force HP by the damage amount."""
     global imperial_forces
     imperial_forces[index]["HP"] -= damage
 
 
 def get_dexterity(index: int)-> int:
-    """Return dexterity of imperial force.
+    """Return imperial force dexterity.
     >>> get_dexterity(0)
     2
     >>> get_dexterity(4)
