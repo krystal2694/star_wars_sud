@@ -8,7 +8,7 @@ rebel = {"Name": "", "Class": "", "HP": 10, "Dexterity": 5, "Row": 5, "Column": 
 
 
 def get_name()-> str:
-    """Return rebel name.
+    """Return character name.
     >>> get_name()
     ''
     """
@@ -16,7 +16,7 @@ def get_name()-> str:
 
 
 def set_name():
-    """Allow user to choose name for their rebel character."""
+    """Set character name."""
     global rebel
     rebel["Name"] = sud.user_quit(input("What is your name, young one? ")).title()
 
@@ -26,7 +26,7 @@ def set_class(rebel_class: str):
 
 
 def get_hp()-> int:
-    """Return HP of rebel.
+    """Return character HP.
     >>> get_hp()
     10
     """
@@ -34,13 +34,13 @@ def get_hp()-> int:
 
 
 def set_hp(new_hp):
-    """Modify HP of rebel."""
+    """Modify character HP."""
     global rebel
     rebel["HP"] = new_hp
 
 
 def increment_hp():
-    """Increment rebel HP by 1."""
+    """Increment character HP by 1."""
     global rebel
     if rebel["HP"] < 10:
         rebel["HP"] += 1
@@ -48,13 +48,13 @@ def increment_hp():
 
 
 def decrease_hp(damage: int):
-    """Decrease rebel HP by the damage amount."""
+    """Decrease character HP by the damage amount."""
     global rebel
     rebel["HP"] -= damage
 
 
 def get_dexterity()-> int:
-    """Return dexterity of rebel.
+    """Return character dexterity.
     >>> get_dexterity()
     5
     """
@@ -62,28 +62,35 @@ def get_dexterity()-> int:
 
 
 def set_row(row: int):
-    """Modify position of rebel by row."""
+    """Modify position of character by row."""
     global rebel
     rebel["Row"] = row
 
 
 def get_row():
-    """Return row position of rebel."""
+    """Return character's position by row.
+    >>> get_row()
+    5
+    """
     return rebel["Row"]
 
 
 def set_column(column: int):
-    """Modify position of rebel by row."""
+    """Modify position of character by column."""
     global rebel
     rebel["Column"] = column
 
 
 def get_column():
-    """Return column position of rebel."""
+    """Return character's position by column.
+    >>> get_column()
+    5
+    """
     return rebel["Column"]
 
 
 def save_character():
+    """Save character information."""
     filename = 'player_info.json'
     with open(filename, 'w') as file_object:
         json.dump(rebel, file_object)
