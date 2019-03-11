@@ -119,7 +119,7 @@ def game_play():
             if is_valid_move(action) is True:
                 move_character(action)
                 heal_character()
-                battle.encounter_imperial()
+                battle.encounter_enemy(battle.determine_enemy())
                 restart_or_exit()
             else:
                 print("Do not leave the galaxy %s, you cannot leave us in the hands of the Galactic Empire!"
