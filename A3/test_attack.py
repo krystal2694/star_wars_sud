@@ -8,7 +8,7 @@ import io
 class TestAttack(TestCase):
     @patch('sys.stdout', new_callable=io.StringIO)
     @patch('battle.randint', side_effect=[3, 1])
-    def test_attack_print_output_when_miss(self, mock_input, mock_stdout):
+    def test_attack_print_output_when_miss(self, mock_randint, mock_stdout):
         expected_output = "You strike!\n" \
                           "The Stormtrooper evaded the attack!\n\n"
         attack(0)
@@ -16,7 +16,7 @@ class TestAttack(TestCase):
 
     @patch('sys.stdout', new_callable=io.StringIO)
     @patch('battle.randint', side_effect=[2, 13])
-    def test_attack_print_output_when_hit_and_enemy_survives(self, mock_input, mock_stdout):
+    def test_attack_print_output_when_hit_and_enemy_survives(self, mock_randint, mock_stdout):
         expected_output = "You strike!\n" \
                           "The Shocktrooper has taken a 2 point hit!\n" \
                           "Their HP has dropped to 3.\n\n"
@@ -25,7 +25,7 @@ class TestAttack(TestCase):
 
     @patch('sys.stdout', new_callable=io.StringIO)
     @patch('battle.randint', side_effect=[5, 14])
-    def test_attack_print_output_when_hit_and_enemy_dies(self, mock_input, mock_stdout):
+    def test_attack_print_output_when_hit_and_enemy_dies(self, mock_randint, mock_stdout):
         expected_output = "You strike!\n" \
                           "The Imperial Officer has taken a 5 point hit!\n\n" \
                           "You have defeated the Imperial Officer.\n" \
@@ -34,13 +34,13 @@ class TestAttack(TestCase):
         self.assertEqual(expected_output, mock_stdout.getvalue())
 
     @patch('battle.randint', side_effect=[3, 15])
-    def test_attack_when_hit_damage_is_reflected_in_new_hp(self, mock_input):
+    def test_attack_when_hit_damage_is_reflected_in_new_hp(self, mock_randint):
         hp_before_attack = imperial_forces[3]["HP"]
         attack(3)
         self.assertEqual(imperial_forces[3]["HP"], hp_before_attack - 3)
 
     @patch('battle.randint', side_effect=[3, 4])
-    def test_attack_when_miss_hp_unchanged(self, mock_input):
+    def test_attack_when_miss_hp_unchanged(self, mock_randint):
         hp_before_attack = imperial_forces[4]["HP"]
         attack(4)
         self.assertEqual(imperial_forces[4]["HP"], hp_before_attack)

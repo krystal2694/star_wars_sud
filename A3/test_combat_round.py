@@ -15,7 +15,7 @@ class TestCombatRound(TestCase):
 
     @patch('sys.stdout', new_callable=io.StringIO)
     @patch('battle.randint', side_effect=[6, 12])
-    def test_combat_round_print_output_enemy_defeated_after_first_attack(self, mock_input, mock_stdout):
+    def test_combat_round_print_output_enemy_defeated_after_first_attack(self, mock_randint, mock_stdout):
         expected_output = "\n-------------------------------------------------------------------\n\n" \
                           "Imperial Officer: Prepare to die, rebel scum!!\n\n" \
                           "You strike!\n" \
@@ -29,7 +29,7 @@ class TestCombatRound(TestCase):
 
     @patch('sys.stdout', new_callable=io.StringIO)
     @patch('battle.randint', side_effect=[2, 12, 3, 8, 3, 9])
-    def test_combat_round_print_output_enemy_retaliates_if_they_survive_first_attack(self, mock_input, mock_stdout):
+    def test_combat_round_print_output_enemy_retaliates_if_they_survive_first_attack(self, mock_randint, mock_stdout):
         expected_output = "\n-------------------------------------------------------------------\n\n" \
                           "Bounty Hunter: Prepare to die, rebel scum!!\n\n" \
                           "You strike!\n" \
@@ -49,7 +49,7 @@ class TestCombatRound(TestCase):
 
     @patch('sys.stdout', new_callable=io.StringIO)
     @patch('battle.randint', side_effect=[1, 2, 6, 9, 2, 13, 5, 11])
-    def test_combat_round_print_output_round_continues_until_someone_defeated(self, mock_input, mock_stdout):
+    def test_combat_round_print_output_round_continues_until_someone_defeated(self, mock_randint, mock_stdout):
         expected_output = "\n-------------------------------------------------------------------\n\n" \
                           "Imperial Spy: Prepare to die, rebel scum!!\n\n" \
                           "You strike!\n" \
@@ -68,14 +68,14 @@ class TestCombatRound(TestCase):
         self.assertEqual(expected_output, mock_stdout.getvalue())
 
     @patch('battle.randint', side_effect=[1, 2, 6, 9, 2, 13, 5, 11])
-    def test_combat_round_enemy_hp_reset_to_5_at_end_of_round(self, mock_input):
+    def test_combat_round_enemy_hp_reset_to_5_at_end_of_round(self, mock_randint):
         for i in range(len(imperial_forces)):
             combat_round(i)
             self.assertEqual(imperial_forces[i]["HP"], 5)
 
     @patch('sys.stdout', new_callable=io.StringIO)
     @patch('battle.randint', side_effect=[5, 9])
-    def test_combat_round_print_output_print_character_HP_at_end_of_round(self, mock_input, mock_stdout):
+    def test_combat_round_print_output_print_character_HP_at_end_of_round(self, mock_randint, mock_stdout):
         character_hp_statement = "Your HP is 10.\n\n"
         combat_round(1)
         self.assertIn(character_hp_statement, mock_stdout.getvalue())
