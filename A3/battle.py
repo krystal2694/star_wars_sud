@@ -7,12 +7,19 @@ import rebel
 line = "-------------------------------------------------------------------\n"
 
 
-def encounter_imperial():
+def determine_enemy()-> int:
+    """Determine which enemy the character may encounter."""
+    if randint(1, 6) == 1:
+        index = randint(0, len(imperial.imperial_forces) - 1)
+        return index
+
+
+def encounter_enemy(index):
     """Encounter member of imperial force."""
-    if randint(1, 5) == 1:
-        # choose member of imperial force by random
-        index = randint(0, 6)
-        fight_or_run = 0
+    if index is None:
+        return
+    else:
+        fight_or_run = ""
         while fight_or_run != "f" and fight_or_run != "r":
             fight_or_run = input("\nYou have encountered a(n) %s!\n\nYour current have %dHP. 'f' to fight"
                                  ", 'r' to run away: " % (imperial.get_name(index), rebel.get_hp())).strip().lower()
@@ -84,7 +91,7 @@ def run_away(index: int):
 
 
 def main():
-    encounter_imperial()
+    encounter_enemy()
 
 
 if __name__ == '__main__':
