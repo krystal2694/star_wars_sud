@@ -5,6 +5,12 @@ import imperial
 
 
 class TestSetHp(TestCase):
+    def setUp(self):
+        """Reset each enemy HP to 5 before each unit test."""
+        # This makes it clear what the value of their HP is before the function is called
+        for i in range(len(imperial_forces)):
+            imperial_forces[i]["HP"] = 5
+
     def test_set_hp_with_0(self):
         for i in range(len(imperial_forces)):
             set_hp(i, 0)
@@ -14,11 +20,6 @@ class TestSetHp(TestCase):
         for i in range(len(imperial_forces)):
             set_hp(i, 8)
             self.assertIs(imperial_forces[i]["HP"], 8)
-
-    def test_set_hp_with_negative_int(self):
-        for i in range(len(imperial_forces)):
-            set_hp(i, -12)
-            self.assertEqual(imperial_forces[i]["HP"], -12)
 
     def test_set_hp_changed_from_original(self):
         for i in range(len(imperial_forces)):
