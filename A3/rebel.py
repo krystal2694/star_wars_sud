@@ -8,10 +8,7 @@ rebel = {"Name": "", "Class": "", "HP": 10, "Dexterity": 5, "Row": 5, "Column": 
 
 
 def get_name()-> str:
-    """Return character name.
-    >>> get_name()
-    ''
-    """
+    """Return character name."""
     return rebel["Name"]
 
 
@@ -26,10 +23,7 @@ def set_class(rebel_class: str)-> None:
 
 
 def get_hp()-> int:
-    """Return character HP.
-    >>> get_hp()
-    10
-    """
+    """Return character HP."""
     return rebel["HP"]
 
 
@@ -40,10 +34,7 @@ def set_hp(new_hp)-> None:
 
 
 def get_dexterity()-> int:
-    """Return character dexterity.
-    >>> get_dexterity()
-    5
-    """
+    """Return character dexterity."""
     return rebel["Dexterity"]
 
 
@@ -54,10 +45,7 @@ def set_row(row: int)-> None:
 
 
 def get_row()-> int:
-    """Return character's position by row.
-    >>> get_row()
-    5
-    """
+    """Return character's position by row."""
     return rebel["Row"]
 
 
@@ -68,10 +56,7 @@ def set_column(column: int)-> None:
 
 
 def get_column()-> int:
-    """Return character's position by column.
-    >>> get_column()
-    5
-    """
+    """Return character's position by column."""
     return rebel["Column"]
 
 
@@ -80,11 +65,3 @@ def save_character()-> None:
     filename = 'player_info.json'
     with open(filename, 'w') as file_object:
         json.dump(rebel, file_object)
-
-
-def main():
-    pass
-
-
-if __name__ == '__main__':
-    main()
