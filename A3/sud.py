@@ -122,7 +122,8 @@ def heal_character()-> None:
         print("You're healing! Your HP is %d." % rebel.get_hp())
 
 
-def user_input()-> str:
+def clean_user_input()-> str:
+    """Return user input stripped of white space, in lowercase."""
     user_choice = user_quit(input().strip().lower())
     if user_choice not in directions:
         print("I do not understand")
@@ -140,7 +141,7 @@ def roll_for_enemy()->bool():
 def game_play()-> None:
     """Game play, where the magic happens."""
     while True:
-        action = user_quit(user_input())
+        action = user_quit(clean_user_input())
         if is_valid_move(action) is True:
             move_character(action)
             heal_character()
