@@ -118,6 +118,7 @@ def move_character(action: str)-> None:
 
 def heal_character()-> None:
     """Heal character if they are not already at full health.
+
     >>> rebel.rebel["HP"] = 5
     >>> heal_character()
     You're healing! Your HP is 6.
@@ -185,8 +186,12 @@ def user_quit(message)-> str:
 def main():
     """Execute the program."""
     print(introduction)
+
+    # player creates their character
     rebel.set_name()
     determine_rebel_class()
+
+    # start playing!
     print(instructions)
     game_map()
     while True:
