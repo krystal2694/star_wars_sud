@@ -1,4 +1,7 @@
 """Battle between two Star Wars characters."""
+# A01089672
+# Krystal Wong
+# 28/02/2019
 from random import randint
 from random import seed
 import imperial
@@ -9,12 +12,7 @@ line = "-------------------------------------------------------------------\n"
 
 
 def determine_enemy()-> int:
-    """Determine which enemy the character may encounter.
-    >>> seed(2)
-    >>> determine_enemy()
-    6
-    >>> seed()
-    """
+    """Determine which enemy the character may encounter."""
     index = randint(0, len(imperial.imperial_forces) - 1)
     return index
 
@@ -22,7 +20,8 @@ def determine_enemy()-> int:
 def encounter_enemy(index: int)-> None:
     """Encounter member of imperial force.
 
-    PRECONDITION: index must be an int representing an existing index in imperial_forces"""
+    PRECONDITION: index must be an int representing an existing index in imperial_forces
+    POSTCONDITION: User encounters member of imperial force corresponding to index"""
 
     fight_or_run = ""
     while fight_or_run != "f" and fight_or_run != "r":
