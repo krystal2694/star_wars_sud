@@ -70,10 +70,3 @@ class TestCombatRound(TestCase):
         for i in range(len(imperial_forces)):
             combat_round(i)
             self.assertEqual(imperial_forces[i]["HP"], 5)
-
-    @patch('sys.stdout', new_callable=io.StringIO)
-    @patch('battle.randint', side_effect=[5, 9])
-    def test_combat_round_print_output_print_character_HP_at_end_of_round(self, mock_randint, mock_stdout):
-        character_hp_statement = "Your HP is 10.\n\n"
-        combat_round(1)
-        self.assertIn(character_hp_statement, mock_stdout.getvalue())
