@@ -54,6 +54,3 @@ class TestEncounterEnemy(TestCase):
                           "Imperial Spy: Never underestimate the power of the Dark Side.\n\n"
         encounter_enemy(4)
         self.assertEqual(expected_output, mock_stdout.getvalue())
-
-    def test_encounter_enemy_if_argument_is_none(self):
-        self.assertIsNone(encounter_enemy(None))
