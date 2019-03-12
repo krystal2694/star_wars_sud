@@ -1,5 +1,6 @@
 """Battle between two Star Wars characters."""
 from random import randint
+from random import seed
 import imperial
 import rebel
 
@@ -8,29 +9,36 @@ line = "-------------------------------------------------------------------\n"
 
 
 def determine_enemy()-> int:
-    """Determine which enemy the character may encounter."""
-    if randint(1, 6) == 1:
-        index = randint(0, len(imperial.imperial_forces) - 1)
-        return index
+    """Determine which enemy the character may encounter.
+    >>> seed(2)
+    >>> determine_enemy()
+    6
+    >>> seed()
+    """
+    index = randint(0, len(imperial.imperial_forces) - 1)
+    return index
 
 
-def encounter_enemy(index):
-    """Encounter member of imperial force."""
-    if index is None:
-        return
-    else:
-        fight_or_run = ""
-        while fight_or_run != "f" and fight_or_run != "r":
-            fight_or_run = input("\nYou have encountered a(n) %s!\n\nYour current have %dHP. 'f' to fight"
-                                 ", 'r' to run away: " % (imperial.get_name(index), rebel.get_hp())).strip().lower()
-            if fight_or_run == "f":
-                combat_round(index)
-            elif fight_or_run == "r":
-                run_away(index)
+def encounter_enemy(index: int)-> None:
+    """Encounter member of imperial force.
+
+    PRECONDITION: index must be an int representing an existing index in imperial_forces"""
+
+    fight_or_run = ""
+    while fight_or_run != "f" and fight_or_run != "r":
+        fight_or_run = input("\nYou have encountered a(n) %s!\n\nYour current have %dHP. 'f' to fight"
+                             ", 'r' to run away: " % (imperial.get_name(index), rebel.get_hp())).strip().lower()
+        if fight_or_run == "f":
+            combat_round(index)
+        elif fight_or_run == "r":
+            run_away(index)
 
 
-def combat_round(index: int):
-    """ Round of combat to the death."""
+def combat_round(index: int)-> None:
+    """ Round of combat to the death.
+
+    PRECONDITION: index must be an int representing an existing index in imperial_forces"""
+
     print("\n" + line + "\n%s: Prepare to die, rebel scum!!\n" % imperial.get_name(index))
     while rebel.get_hp() > 0 and imperial.get_hp(index) > 0:
         attack(index)
@@ -45,8 +53,11 @@ def combat_round(index: int):
     imperial.set_hp(index, 5)
 
 
-def attack(index: int):
-    """Attack the enemy."""
+def attack(index: int)-> None:
+    """Attack the enemy.
+
+    PRECONDITION: index must be an int representing an existing index in imperial_forces"""
+
     print("You strike!")
     damage = randint(1, 6)
 
@@ -62,8 +73,11 @@ def attack(index: int):
         print("The %s evaded the attack!\n" % imperial.get_name(index))
 
 
-def defend(index: int):
-    """Character on defence against enemy attack."""
+def defend(index: int)-> None:
+    """Character on defence against enemy attack.
+
+    PRECONDITION: index must be an int representing an existing index in imperial_forces"""
+
     print("The %s strikes!" % imperial.get_name(index))
     damage = randint(1, 6)
 
@@ -79,8 +93,11 @@ def defend(index: int):
         print("You evaded the attack!\n")
 
 
-def run_away(index: int):
-    """Run away from enemy."""
+def run_away(index: int)-> None:
+    """Run away from enemy.
+
+    PRECONDITION: index must be an int representing an existing index in imperial_forces"""
+
     if randint(1, 5) == 1:
         damage = randint(1, 4)
         rebel.set_hp(rebel.get_hp() - damage)
@@ -91,7 +108,7 @@ def run_away(index: int):
 
 
 def main():
-    encounter_enemy()
+    print(run_away(2))
 
 
 if __name__ == '__main__':
