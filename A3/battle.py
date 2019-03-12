@@ -101,6 +101,7 @@ def run_away(index: int)-> None:
     PRECONDITION: index must be an int representing an existing index in imperial_forces
     POSTCONDITION: Run away from member of imperial force corresponding to index"""
 
+    # determine if character was struck while running
     if randint(1, 5) == 1:
         damage = randint(1, 4)
         rebel.set_hp(rebel.get_hp() - damage)
