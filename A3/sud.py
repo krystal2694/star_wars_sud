@@ -102,7 +102,9 @@ def determine_rebel_class()-> None:
 def move_character(action: str)-> None:
     """Move character north, south, east, or west.
 
-    PRECONDITION: direction must be 'n', 's', 'e', or 'w'"""
+    PRECONDITION: direction must be 'n', 's', 'e', or 'w'
+    POSTCONDITION: Modify row/column of character position
+    """
 
     if action == "n":
         rebel.set_row(rebel.get_row() - 1)
