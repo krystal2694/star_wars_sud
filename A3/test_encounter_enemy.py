@@ -12,7 +12,7 @@ class TestEncounterEnemy(TestCase):
 
     @patch('sys.stdout', new_callable=io.StringIO)
     @patch('builtins.input', return_value="f")
-    @patch('battle.randint', side_effect=[5, 10])
+    @patch('battle.randint', side_effect=[10, 5])
     def test_encounter_enemy_character_fights(self, mock_randint, mock_input, mock_stdout):
         expected_output = "\n-------------------------------------------------------------------\n\n" \
                           "Imperial Officer: Prepare to die, rebel scum!!\n\n" \
@@ -36,7 +36,7 @@ class TestEncounterEnemy(TestCase):
 
     @patch('sys.stdout', new_callable=io.StringIO)
     @patch('builtins.input', side_effect=["no", "fight", "p", "f"])
-    @patch('battle.randint', side_effect=[1, 2, 6, 9, 2, 13, 5, 11])
+    @patch('battle.randint', side_effect=[2, 15, 6, 13, 2, 11, 5])
     def test_encounter_enemy_keep_asking_user_until_input_is_f_or_r(self, mock_randint, mock_input, mock_stdout):
         expected_output = "\n-------------------------------------------------------------------\n\n" \
                           "Imperial Spy: Prepare to die, rebel scum!!\n\n" \
