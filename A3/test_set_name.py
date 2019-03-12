@@ -5,6 +5,10 @@ from unittest.mock import patch
 
 
 class TestSetName(TestCase):
+    def setUp(self):
+        """Reset character name to empty string before each unit test."""
+        rebel["Name"] = ""
+
     @patch('builtins.input', return_value="Yoda")
     def test_set_name_reflects_user_input(self, mock_input):
         set_name()
