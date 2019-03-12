@@ -12,7 +12,7 @@ class TestCombatRound(TestCase):
         rebel["HP"] = 10
 
     @patch('sys.stdout', new_callable=io.StringIO)
-    @patch('battle.randint', side_effect=[6, 12])
+    @patch('battle.randint', side_effect=[12, 6])
     def test_combat_round_print_output_enemy_defeated_after_first_attack(self, mock_randint, mock_stdout):
         expected_output = "\n-------------------------------------------------------------------\n\n" \
                           "Imperial Officer: Prepare to die, rebel scum!!\n\n" \
@@ -26,7 +26,7 @@ class TestCombatRound(TestCase):
         self.assertEqual(expected_output, mock_stdout.getvalue())
 
     @patch('sys.stdout', new_callable=io.StringIO)
-    @patch('battle.randint', side_effect=[2, 12, 3, 8, 3, 9])
+    @patch('battle.randint', side_effect=[12, 2, 8, 3, 9, 3])
     def test_combat_round_print_output_enemy_retaliates_if_they_survive_first_attack(self, mock_randint, mock_stdout):
         expected_output = "\n-------------------------------------------------------------------\n\n" \
                           "Bounty Hunter: Prepare to die, rebel scum!!\n\n" \
@@ -46,7 +46,7 @@ class TestCombatRound(TestCase):
         self.assertEqual(expected_output, mock_stdout.getvalue())
 
     @patch('sys.stdout', new_callable=io.StringIO)
-    @patch('battle.randint', side_effect=[1, 2, 6, 9, 2, 13, 5, 11])
+    @patch('battle.randint', side_effect=[2, 15, 6, 13, 2, 11, 5])
     def test_combat_round_print_output_round_continues_until_someone_defeated(self, mock_randint, mock_stdout):
         expected_output = "\n-------------------------------------------------------------------\n\n" \
                           "Imperial Spy: Prepare to die, rebel scum!!\n\n" \
@@ -65,7 +65,7 @@ class TestCombatRound(TestCase):
         combat_round(4)
         self.assertEqual(expected_output, mock_stdout.getvalue())
 
-    @patch('battle.randint', side_effect=[1, 2, 6, 9, 2, 13, 5, 11])
+    @patch('battle.randint', side_effect=[2, 15, 6, 13, 2, 11, 5])
     def test_combat_round_enemy_hp_reset_to_5_at_end_of_round(self, mock_randint):
         for i in range(len(imperial_forces)):
             combat_round(i)
