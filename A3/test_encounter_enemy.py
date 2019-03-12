@@ -13,7 +13,7 @@ class TestEncounterEnemy(TestCase):
     @patch('sys.stdout', new_callable=io.StringIO)
     @patch('builtins.input', return_value="f")
     @patch('battle.randint', side_effect=[5, 10])
-    def test_encounter_enemy_with_user_input_f(self, mock_randint, mock_input, mock_stdout):
+    def test_encounter_enemy_character_fights(self, mock_randint, mock_input, mock_stdout):
         expected_output = "\n-------------------------------------------------------------------\n\n" \
                           "Imperial Officer: Prepare to die, rebel scum!!\n\n" \
                           "You strike!\n" \
@@ -28,7 +28,7 @@ class TestEncounterEnemy(TestCase):
     @patch('sys.stdout', new_callable=io.StringIO)
     @patch('builtins.input', return_value="r")
     @patch('battle.randint', return_value=3)
-    def test_encounter_enemy_with_user_input_r(self, mock_randint, mock_input, mock_stdout):
+    def test_encounter_enemy_character_runs(self, mock_randint, mock_input, mock_stdout):
         expected_output = "\n-------------------------------------------------------------------\n\n"\
                           "You fled the scene unharmed!\n"
         encounter_enemy(1)
