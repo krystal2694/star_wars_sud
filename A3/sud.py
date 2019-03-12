@@ -42,6 +42,8 @@ instructions = "This is your map. '⛒' represents where you are on the map.\n" 
 exit_statement = "\n" + line + "\nThe Rebellion thanks you for your service.\n\n" \
                                "Return soon, the battle against the Dark Side has only just begun.\n\n" + line
 
+rebel_class_dict = {"1": ["Knowledge", "Jedi"], "2": ["Strength", "Rebel Fighter"], "3": ["Wit", "Smuggler"]}
+
 directions = ["n", "s", "e", "w"]
 
 
@@ -74,9 +76,6 @@ def is_valid_move(direction: str)-> bool:
     elif direction == "w" and rebel.get_column() == 0:
         return False
     return True
-
-
-rebel_class_dict = {"1": ["Knowledge", "Jedi"], "2": ["Strength", "Rebel Fighter"], "3": ["Wit", "Smuggler"]}
 
 
 def determine_rebel_class()-> None:
@@ -122,16 +121,8 @@ def heal_character()-> None:
         print("You're healing! Your HP is %d." % rebel.get_hp())
 
 
-def clean_user_input()-> str:
-    """Return user input stripped of white space, in lowercase."""
-    user_choice = user_quit(input().strip().lower())
-    if user_choice not in directions:
-        print("I do not understand")
-    else:
-        return user_choice
-
-
 def roll_for_enemy()->bool():
+    """Determine if character encounters an enemy."""
     if randint(1, 6) == 1:
         return True
     else:
@@ -140,8 +131,8 @@ def roll_for_enemy()->bool():
 
 def game_play()-> None:
     """Game play, where the magic happens."""
-    while True:
-        action = user_quit(clean_user_input())
+    action = user_quit(input().strip().lower())
+    if action in directions:
         if is_valid_move(action) is True:
             move_character(action)
             heal_character()
@@ -151,6 +142,8 @@ def game_play()-> None:
         else:
             print("Do not leave the galaxy %s, you cannot leave us in the hands of the Galactic Empire!"
                   % rebel.get_name())
+    else:
+        print("I do not understand.")
 
 
 def restart_or_exit()-> None:
@@ -190,7 +183,8 @@ def main():
     determine_rebel_class()
     print(instructions)
     game_map()
-    game_play()
+    while True:
+        game_play()
 
 
 if __name__ == '__main__':
