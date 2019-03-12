@@ -1,4 +1,7 @@
 """Rebel character for Star Wars game."""
+# A01089672
+# Krystal Wong
+# 28/02/2019
 import sud
 import json
 
