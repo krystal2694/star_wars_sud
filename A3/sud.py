@@ -1,6 +1,7 @@
 """A Star Wars SUD Game."""
 # A01089672
 # Krystal Wong
+# 28/02/2019
 from random import randint
 import sys
 import battle
