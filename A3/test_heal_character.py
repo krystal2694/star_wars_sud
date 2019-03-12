@@ -29,7 +29,8 @@ class TestHealCharacter(TestCase):
                           "You're healing! Your HP is 10.\n"
         self.assertEqual(expected_output, mock_stdout.getvalue())
 
-    def test_heal_character_when_at_full_health(self):
+    def test_heal_character_when_hp_is_10(self):
+        # does not increase hp when character already at full health
         rebel["HP"] = 10
         hp_before_heal = rebel["HP"]
         heal_character()
