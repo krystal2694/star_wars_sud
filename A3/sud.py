@@ -67,7 +67,8 @@ def game_map()-> None:
 def is_valid_move(direction: str)-> bool:
     """Determine if character move in within bounds.
 
-    PRECONDITION: direction must be 'n', 's', 'e', or 'w'"""
+    PRECONDITION: direction must be 'n', 's', 'e', or 'w'
+    POSTCONDITION: Determine if move is valid based on current location"""
 
     if direction == "n" and rebel.get_row() == 0:
         return False
@@ -86,6 +87,7 @@ def determine_rebel_class()-> None:
     selection = user_quit(input("\n" + line + "\nTell me, %s, what do you consider to be your most valuable trait?\n\n"
                                 "1 Knowledge\n2 Strength\n3 Wit\n\nEnter the number: " % rebel.get_name()).strip())
 
+    # set corresponding rebel class based on selection made
     for number, rebel_class in rebel_class_dict.items():
         if selection == number:
             print("\n" + line + "\nAh! I think you would make a great.. %s!\n" % rebel_class[1] +
