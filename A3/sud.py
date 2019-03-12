@@ -60,7 +60,10 @@ def game_map():
 
 
 def is_valid_move(direction: str)-> bool:
-    """Determine if character move in within bounds."""
+    """Determine if character move in within bounds.
+
+    PRECONDITION: direction must be 'n', 's', 'e', or 'w'"""
+
     if direction == "n" and rebel.get_row() == 0:
         return False
     elif direction == "s" and rebel.get_row() == 10:
@@ -93,7 +96,10 @@ def determine_rebel_class()-> None:
 
 
 def move_character(action: str):
-    """Move character north, south, east, or west."""
+    """Move character north, south, east, or west.
+
+    PRECONDITION: direction must be 'n', 's', 'e', or 'w'"""
+
     if action == "n":
         rebel.set_row(rebel.get_row() - 1)
     elif action == "s":
@@ -152,7 +158,7 @@ def user_quit(message)-> str:
     """Exit and save game when user enters 'quit'."""
     if message == "quit":
         print(exit_statement)
-        # rebel.save_character()
+        rebel.save_character()
         sys.exit()
     else:
         return message
