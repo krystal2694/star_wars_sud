@@ -8,10 +8,8 @@ import io
 
 class TestCombatRound(TestCase):
     def setUp(self):
-        """Reset HP for character and enemies before each test."""
+        """Reset HP for character before each test."""
         rebel["HP"] = 10
-        for i in range(len(imperial_forces)):
-            imperial_forces[i]["HP"] = 5
 
     @patch('sys.stdout', new_callable=io.StringIO)
     @patch('battle.randint', side_effect=[6, 12])
