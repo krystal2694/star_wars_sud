@@ -3,7 +3,6 @@
 # Krystal Wong
 # 28/02/2019
 from random import randint
-from random import seed
 import imperial
 import rebel
 
@@ -21,7 +20,7 @@ def encounter_enemy(index: int)-> None:
     """Encounter member of imperial force.
 
     PRECONDITION: index must be an int representing an existing index in imperial_forces
-    POSTCONDITION: User encounters member of imperial force corresponding to index"""
+    POSTCONDITION: Encounters member of imperial force corresponding to index"""
 
     fight_or_run = ""
     while fight_or_run != "f" and fight_or_run != "r":
@@ -34,9 +33,10 @@ def encounter_enemy(index: int)-> None:
 
 
 def combat_round(index: int)-> None:
-    """ Round of combat to the death.
+    """Round of combat to the death.
 
-    PRECONDITION: index must be an int representing an existing index in imperial_forces"""
+    PRECONDITION: index must be an int representing an existing index in imperial_forces
+    POSTCONDITION: Fight member of imperial force corresponding to index"""
 
     print("\n" + line + "\n%s: Prepare to die, rebel scum!!\n" % imperial.get_name(index))
     while rebel.get_hp() > 0 and imperial.get_hp(index) > 0:
@@ -48,6 +48,7 @@ def combat_round(index: int)-> None:
 
     if rebel.get_hp() > 0:
         print("Your HP is %d.\n\n" % rebel.get_hp() + line)
+
     # reset imperial force's HP to 5 for next encounter
     imperial.set_hp(index, 5)
 
@@ -55,12 +56,13 @@ def combat_round(index: int)-> None:
 def attack(index: int)-> None:
     """Attack the enemy.
 
-    PRECONDITION: index must be an int representing an existing index in imperial_forces"""
+    PRECONDITION: index must be an int representing an existing index in imperial_forces
+    POSTCONDITION: Attack member of imperial force corresponding to index"""
 
     print("You strike!")
-    damage = randint(1, 6)
-
+    # determine if hit was effective
     if randint(1, 15) > imperial.get_dexterity(index):
+        damage = randint(1, 6)
         imperial.set_hp(index, imperial.get_hp(index) - damage)
         print("The %s has taken a %d point hit!" % (imperial.get_name(index), damage))
         if imperial.get_hp(index) <= 0:
@@ -75,12 +77,13 @@ def attack(index: int)-> None:
 def defend(index: int)-> None:
     """Character on defence against enemy attack.
 
-    PRECONDITION: index must be an int representing an existing index in imperial_forces"""
+    PRECONDITION: index must be an int representing an existing index in imperial_forces
+    POSTCONDITION: Defend against member of imperial force corresponding to index"""
 
     print("The %s strikes!" % imperial.get_name(index))
-    damage = randint(1, 6)
-
+    # determine if hit was effective
     if randint(1, 15) > rebel.get_dexterity():
+        damage = randint(1, 6)
         rebel.set_hp(rebel.get_hp() - damage)
         print("You have taken a %d point hit!" % damage)
         if rebel.get_hp() <= 0:
@@ -95,7 +98,8 @@ def defend(index: int)-> None:
 def run_away(index: int)-> None:
     """Run away from enemy.
 
-    PRECONDITION: index must be an int representing an existing index in imperial_forces"""
+    PRECONDITION: index must be an int representing an existing index in imperial_forces
+    POSTCONDITION: Run away from member of imperial force corresponding to index"""
 
     if randint(1, 5) == 1:
         damage = randint(1, 4)
