@@ -50,6 +50,8 @@ directions = ["n", "s", "e", "w"]
 def game_map()-> None:
     """Print game map."""
     game_board = [["   " for _ in range(11)] for _ in range(11)]
+
+    # symbol to represent where the player is on the game board
     rebel_symbol = " ⛒"
     game_board[rebel.get_row()][rebel.get_column()] = rebel_symbol
 
