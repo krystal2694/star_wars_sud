@@ -12,6 +12,8 @@ imperial_forces = [{"Name": "Stormtrooper", "HP": 5, "Dexterity": 2},
 
 def get_name(index: int)-> str:
     """Return imperial force name.
+
+    PRECONDITION: index must be an int representing an existing index in imperial_forces
     >>> get_name(3)
     'Bounty Hunter'
     >>> get_name(6)
@@ -22,6 +24,8 @@ def get_name(index: int)-> str:
 
 def get_hp(index: int)-> int:
     """Return imperial force HP.
+
+    PRECONDITION: index must be an int representing an existing index in imperial_forces
     >>> get_hp(5)
     5
     >>> get_hp(0)
@@ -30,14 +34,18 @@ def get_hp(index: int)-> int:
     return imperial_forces[index]["HP"]
 
 
-def set_hp(index: int, new_hp: int):
-    """Modify imperial force HP."""
+def set_hp(index: int, new_hp: int)-> None:
+    """Modify imperial force HP.
+
+    PRECONDITION: index must be an int representing an existing index in imperial_forces"""
     global imperial_forces
     imperial_forces[index]["HP"] = new_hp
 
 
 def get_dexterity(index: int)-> int:
     """Return imperial force dexterity.
+
+    PRECONDITION: index must be an int representing an existing index in imperial_forces
     >>> get_dexterity(0)
     2
     >>> get_dexterity(4)
