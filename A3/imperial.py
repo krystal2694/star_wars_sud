@@ -1,4 +1,7 @@
 """Imperial forces that the player may encounter."""
+# A01089672
+# Krystal Wong
+# 28/02/2019
 import doctest
 
 imperial_forces = [{"Name": "Stormtrooper", "HP": 5, "Dexterity": 2},
