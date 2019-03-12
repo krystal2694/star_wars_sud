@@ -1,6 +1,7 @@
 """A Star Wars SUD Game."""
 # A01089672
 # Krystal Wong
+from random import randint
 import sys
 import battle
 import rebel
@@ -44,7 +45,7 @@ exit_statement = "\n" + line + "\nThe Rebellion thanks you for your service.\n\n
 directions = ["n", "s", "e", "w"]
 
 
-def game_map():
+def game_map()-> None:
     """Print game map."""
     game_board = [["   " for _ in range(11)] for _ in range(11)]
     rebel_symbol = " ⛒"
@@ -89,13 +90,13 @@ def determine_rebel_class()-> None:
             print("\n" + line + "\nAh! I think you would make a great.. %s!\n" % rebel_class[1] +
                   "\nNow, come with me %s.\n\nWe have a galaxy to save!\n\n" % rebel.get_name() + line)
             rebel.set_class(rebel_class[1])
-            return None
+            return
     else:
         print("You must choose one from the list above.")
         return determine_rebel_class()
 
 
-def move_character(action: str):
+def move_character(action: str)-> None:
     """Move character north, south, east, or west.
 
     PRECONDITION: direction must be 'n', 's', 'e', or 'w'"""
@@ -110,31 +111,48 @@ def move_character(action: str):
         rebel.set_column(rebel.get_column() - 1)
 
 
-def heal_character():
-    """Heal character if they are not already at full health."""
+def heal_character()-> None:
+    """Heal character if they are not already at full health.
+    >>> rebel.rebel["HP"] = 5
+    >>> heal_character()
+    You're healing! Your HP is 6.
+    """
     if rebel.get_hp() < 10:
         rebel.set_hp(rebel.get_hp() + 1)
         print("You're healing! Your HP is %d." % rebel.get_hp())
 
 
-def game_play():
+def user_input()-> str:
+    user_choice = user_quit(input().strip().lower())
+    if user_choice not in directions:
+        print("I do not understand")
+    else:
+        return user_choice
+
+
+def roll_for_enemy()->bool():
+    if randint(1, 6) == 1:
+        return True
+    else:
+        return False
+
+
+def game_play()-> None:
     """Game play, where the magic happens."""
     while True:
-        action = user_quit(input().strip().lower())
-        if action in directions:
-            if is_valid_move(action) is True:
-                move_character(action)
-                heal_character()
+        action = user_quit(user_input())
+        if is_valid_move(action) is True:
+            move_character(action)
+            heal_character()
+            if roll_for_enemy() is True:
                 battle.encounter_enemy(battle.determine_enemy())
-                restart_or_exit()
-            else:
-                print("Do not leave the galaxy %s, you cannot leave us in the hands of the Galactic Empire!"
-                      % rebel.get_name())
+            restart_or_exit()
         else:
-            print("I do not understand.")
+            print("Do not leave the galaxy %s, you cannot leave us in the hands of the Galactic Empire!"
+                  % rebel.get_name())
 
 
-def restart_or_exit():
+def restart_or_exit()-> None:
     """Restart or exit game if player is defeated."""
     if rebel.get_hp() <= 0:
         play_again = ""
@@ -147,7 +165,7 @@ def restart_or_exit():
     game_map()
 
 
-def reset_game():
+def reset_game()-> None:
     """Reset character HP and position."""
     rebel.set_hp(10)
     rebel.set_row(5)
