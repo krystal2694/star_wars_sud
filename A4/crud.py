@@ -5,8 +5,29 @@ import sys
 # A01089672
 
 
+def enter_grades()-> list:
+    print("Enter the student's final grades. Enter 'done' when finished.")
+    user_input = ""
+    final_grades = []
+    while user_input != "done":
+        user_input = input("Enter a grade: ")
+        final_grades.append(user_input)
+    return final_grades[:-1]
+
+
 def add_student():
-    pass
+    first_name = input("First Name: ")
+    print(first_name)
+    last_name = input("Last Name: ")
+    student_num = input("Student Number - format(A12345678): ")
+    status = bool(input("Student Status - True for in good standing, False for not in good standing: ").upper())
+    final_grades = enter_grades()
+    try:
+        new_student = Student(first_name, last_name, student_num, status, final_grades)
+    except ValueError:
+        print("Could not add student, please try again.")
+    else:
+        return new_student
 
 
 def file_write(student: object)-> bool:
@@ -40,6 +61,7 @@ def menu():
 
 def main():
     print_menu()
+    add_student()
 
 
 if __name__ == '__main__':
