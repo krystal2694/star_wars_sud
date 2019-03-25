@@ -2,7 +2,12 @@ class Student:
     """A class representing a student."""
 
     def __init__(self, first_name: str, last_name: str, student_num: str, status: bool, final_grades: list):
-        self.first_name = first_name.title()
+        if len(first_name.split()) == 0:
+            raise ValueError("First name cannot be blank!")
+        else:
+            self.first_name = first_name.title()
+        if len(last_name.split()) == 0:
+            raise ValueError("Last name cannot be blank!")
         self.last_name = last_name.title()
         if len(student_num) == 9 and student_num[0] == "A" and student_num[1:].isdigit():
             self.student_num = student_num
