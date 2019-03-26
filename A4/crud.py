@@ -46,25 +46,25 @@ def file_write(new_student: Student)-> bool:
     return True if start != end else False
 
 
-def student_exists(student_num: str)-> bool:
+def verify_student_exists(student_num: str)-> bool:
     with open('students.txt') as file_obj:
         contents = file_obj.read()
     if student_num in contents.split():
         return True
     else:
-        print("The student does not exist in the file.")
         return False
 
 
-def file_delete_student(student_num: str)->bool:
+def file_delete_student(student_num: str):
     pass
 
 
 def delete_student(student_num: str):
     student_num = input("Enter the student number: ").title()
-
-
-
+    if verify_student_exists(student_num):
+        file_delete_student(student_num)
+    else:
+        print("The student does not exist in the file.")
 
 
 menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class average", 4: "Print class list", 5: "Quit"}
@@ -96,9 +96,10 @@ def menu():
 
 def main():
     print("Welcome to the Student Database Management System")
-    menu()
+    # menu()
     # student_num = "a01089672"
     # print(student_num.title())
+    file_delete_student("A01089672")
 
 
 if __name__ == '__main__':
