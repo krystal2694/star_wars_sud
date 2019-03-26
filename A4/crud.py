@@ -27,7 +27,10 @@ def add_student():
     except ValueError:
         print("Could not add student, please try again.")
     else:
-        file_write(new_student)
+        if file_write(new_student):
+            print("Student successfully added.")
+        else:
+            print("Student could not be written to file.")
 
 
 def file_write(new_student)-> bool:
@@ -35,12 +38,7 @@ def file_write(new_student)-> bool:
         start = file_obj.tell()
         file_obj.write(new_student.get_info() + "\n")
         end = file_obj.tell()
-    if start != end:
-        print("\nStudent successfully added.")
-        return True
-    else:
-        print("Student could not be written to file, please try again.")
-        return False
+    return True if start != end else False
 
 
 menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class average", 4: "Print class list", 5: "Quit"}
