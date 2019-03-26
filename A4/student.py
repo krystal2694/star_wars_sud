@@ -25,9 +25,14 @@ class Student:
             grades += str(grade) + " "
         return grades
 
+    def get_info(self):
+        return (self.first_name + " " + self.last_name + " " + self.student_num + " " + str(self.status)
+                + " " + self.get_grades_string())
+
 
 def main():
     krystal = Student("Krystal", "Wong", "A01089662", True, [94, 95, 94, 99])
+    print(krystal.get_info())
 
 
 if __name__ == '__main__':
