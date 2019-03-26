@@ -16,7 +16,7 @@ def enter_grades()-> list:
 
 
 def add_student():
-    print("Please enter the student's information.")
+    print("\nPlease enter the student's information.")
     first_name = input("First Name: ")
     last_name = input("Last Name: ")
     student_num = input("Student Number - format(A12345678): ")
@@ -35,7 +35,12 @@ def file_write(new_student)-> bool:
         start = file_obj.tell()
         file_obj.write(new_student.get_info() + "\n")
         end = file_obj.tell()
-    return True if start != end else False
+    if start != end:
+        print("\nStudent successfully added.")
+        return True
+    else:
+        print("Student could not be written to file, please try again.")
+        return False
 
 
 menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class average", 4: "Print class list", 5: "Quit"}
