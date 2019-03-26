@@ -15,30 +15,43 @@ def enter_grades()-> list:
     return final_grades[:-1]
 
 
-def add_student():
+def collect_student_info()-> list:
     print("\nPlease enter the student's information.")
     first_name = input("First Name: ")
     last_name = input("Last Name: ")
-    student_num = input("Student Number - format(A12345678): ")
+    student_num = input("Student Number - format(A12345678): ").title()
     status = bool(input("Student Status - True for in good standing, False for not in good standing: ").title())
     final_grades = enter_grades()
+    student_info = [first_name, last_name, student_num, status, final_grades]
+    return student_info
+
+
+def add_student(student_info: list)-> None:
     try:
-        new_student = Student(first_name, last_name, student_num, status, final_grades)
+        new_student = Student(student_info[0], student_info[1], student_info[2], student_info[3], student_info[4])
     except ValueError:
         print("Could not add student, please try again.")
     else:
         if file_write(new_student):
-            print("Student successfully added.")
+            print("\nStudent successfully added.")
         else:
             print("Student could not be written to file.")
 
 
-def file_write(new_student)-> bool:
+def file_write(new_student: Student)-> bool:
     with open('students.txt', 'a') as file_obj:
         start = file_obj.tell()
         file_obj.write(new_student.get_info() + "\n")
         end = file_obj.tell()
     return True if start != end else False
+
+
+def delete_student():
+    student_num = input("Enter the student number of the student you would like to delete: ").title()
+
+
+def file_delete_student(student_num: str)-> bool:
+    pass
 
 
 menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class average", 4: "Print class list", 5: "Quit"}
@@ -55,7 +68,7 @@ def menu():
         print_menu()
         user_input = input("\nEnter the corresponding number: ")
         if user_input == "1":
-            add_student()
+            add_student(collect_student_info())
         elif user_input == "2":
             pass
         elif user_input == "3":
@@ -71,6 +84,8 @@ def menu():
 def main():
     print("Welcome to the Student Database Management System")
     menu()
+    # student_num = "a01089672"
+    # print(student_num.title())
 
 
 if __name__ == '__main__':
