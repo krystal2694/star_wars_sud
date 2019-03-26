@@ -46,12 +46,25 @@ def file_write(new_student: Student)-> bool:
     return True if start != end else False
 
 
-def delete_student():
-    student_num = input("Enter the student number of the student you would like to delete: ").title()
+def student_exists(student_num: str)-> bool:
+    with open('students.txt') as file_obj:
+        contents = file_obj.read()
+    if student_num in contents.split():
+        return True
+    else:
+        print("The student does not exist in the file.")
+        return False
 
 
-def file_delete_student(student_num: str)-> bool:
+def file_delete_student(student_num: str)->bool:
     pass
+
+
+def delete_student(student_num: str):
+    student_num = input("Enter the student number: ").title()
+
+
+
 
 
 menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class average", 4: "Print class list", 5: "Quit"}
