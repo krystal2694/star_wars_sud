@@ -16,8 +16,8 @@ def enter_grades()-> list:
 
 
 def add_student():
+    print("Please enter the student's information.")
     first_name = input("First Name: ")
-    print(first_name)
     last_name = input("Last Name: ")
     student_num = input("Student Number - format(A12345678): ")
     status = bool(input("Student Status - True for in good standing, False for not in good standing: ").title())
@@ -27,13 +27,13 @@ def add_student():
     except ValueError:
         print("Could not add student, please try again.")
     else:
-        return new_student
+        file_write(new_student)
 
 
 def file_write(new_student)-> bool:
     with open('students.txt', 'a') as file_obj:
         start = file_obj.tell()
-        file_obj.write(new_student.Student.get_info())
+        file_obj.write(new_student.get_info() + "\n")
         end = file_obj.tell()
     return True if start != end else False
 
@@ -42,32 +42,32 @@ menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class avera
 
 
 def print_menu():
-    print("What would you like to do?\n\n")
+    print("\nWhat would you like to do?\n")
     for num, options in menu_options.items():
-        print(str(num) + ". " + options + "\n")
+        print(str(num) + ". " + options)
 
 
 def menu():
     while True:
         print_menu()
-        user_input = input("Enter the corresponding number:\n")
-        if user_input == 1:
+        user_input = input("\nEnter the corresponding number: ")
+        if user_input == "1":
             add_student()
-        elif user_input == 2:
+        elif user_input == "2":
             pass
-        elif user_input == 3:
+        elif user_input == "3":
             pass
-        elif user_input == 4:
+        elif user_input == "4":
             pass
-        elif user_input == 5:
+        elif user_input == "5":
             sys.exit()
         else:
             print("That is not a valid choice.")
 
 
 def main():
-    print_menu()
-    add_student()
+    print("Welcome to the Student Database Management System")
+    menu()
 
 
 if __name__ == '__main__':
