@@ -56,10 +56,13 @@ def verify_student_exists(student_num: str)-> bool:
 
 
 def file_delete_student(student_num: str):
-    pass
+    with open('students.txt', 'r+') as file_obj:
+        new_list = [line for line in file_obj if student_num not in line]
+        for line in new_list:
+            file_obj.write(line + "\n")
 
 
-def delete_student(student_num: str):
+def delete_student():
     student_num = input("Enter the student number: ").title()
     if verify_student_exists(student_num):
         file_delete_student(student_num)
