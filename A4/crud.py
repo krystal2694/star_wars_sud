@@ -84,23 +84,6 @@ def delete_student()-> None:
         print("\nThe student does not exist.")
 
 
-# def calculate_class_average()-> float:
-#     class_average = []
-#     for student in file_read():
-#         grades = list(map(int, student[4:]))
-#         class_average.append(sum(grades)/len(grades))
-#     return sum(class_average)/len(class_average)
-
-#
-# def file_read()-> list:
-#     students_list = []
-#     with open('students.txt') as file_obj:
-#         lines = file_obj.readlines()
-#     for line in lines:
-#         students_list.append(line.split())
-#     return students_list
-
-
 def file_read():
     students_list = []
     with open('students.txt') as file_obj:
@@ -112,21 +95,19 @@ def file_read():
 
 
 def calculate_class_average():
-    class_average = []
+    student_averages = []
     for student in file_read():
-        class_average.append(sum(student.get_grades()))
-    return sum(class_average)
+        grades = list(map(int, student.get_final_grades()))
+        student_averages.append(sum(grades)/len(grades))
+    return sum(student_averages)/len(student_averages)
 
 
-
-# def print_class_list()-> None:
-#     print("Class List\n")
-#     for student in file_read():
-#         print("Name: %s %s, Student Number: %s, Status: %s, Grades: "
-#               % (student[0], student[1], student[2], student[3]), end="")
-#         for grade in student[4:-1]:
-#             print("%s " % grade, end="")
-#         print(str(student[-1]) + "\n")
+def print_class_list()-> None:
+    print("Class List\n")
+    for student in file_read():
+        print("Name: %s %s, Student Number: %s, Status: %s, Grades:%s"
+              % (student.get_first_name(), student.get_last_name(), student.get_student_num(),
+                 student.get_status(), student.get_final_grades_str()))
 
 
 menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class average", 4: "Print class list", 5: "Quit"}
@@ -149,7 +130,7 @@ def menu()-> None:
         elif user_input == "3":
             print("\nThe class average is %.2f." % calculate_class_average())
         elif user_input == "4":
-            pass
+            print_class_list()
         elif user_input == "5":
             sys.exit()
         else:
@@ -158,8 +139,8 @@ def menu()-> None:
 
 def main():
     print(separator + "Welcome to the Student Database Management System\n" + separator)
-    # menu()
-    print(file_read())
+    menu()
+    # print(file_read())
     # print_class_list()
 
 
