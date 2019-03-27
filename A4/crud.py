@@ -84,6 +84,14 @@ def delete_student():
         print("\nThe student does not exist.")
 
 
+def calculate_class_average():
+    class_average = []
+    for student in file_read():
+        grades = list(map(int, student[4:]))
+        class_average.append(sum(grades)/len(grades))
+    return sum(class_average)/len(class_average)
+
+
 def file_read()-> list:
     with open('students.txt') as file_obj:
         lines = file_obj.readlines()
