@@ -84,6 +84,15 @@ def delete_student():
         print("\nThe student does not exist.")
 
 
+def file_read()-> list:
+    with open('students.txt') as file_obj:
+        lines = file_obj.readlines()
+    students_list = []
+    for line in lines:
+        students_list.append(line.split())
+    return students_list
+
+
 menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class average", 4: "Print class list", 5: "Quit"}
 
 
@@ -113,7 +122,8 @@ def menu():
 
 def main():
     print(separator + "Welcome to the Student Database Management System\n" + separator)
-    menu()
+    # menu()
+    # print(file_read())
 
 
 if __name__ == '__main__':
