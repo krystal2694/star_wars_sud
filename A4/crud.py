@@ -9,7 +9,7 @@ separator = "--------------------------------------------------\n"
 
 
 def enter_grades()-> list:
-    print("Enter the student's final grades. Enter 'done' when finished.")
+    print("Enter the student's final grades.\nEnter 'done' when finished or if there are no grades to enter.")
     user_input = ""
     final_grades = []
     while user_input != "done":
@@ -101,6 +101,16 @@ def file_read()-> list:
     return students_list
 
 
+def print_class_list():
+    print("Class List\n")
+    for student in file_read():
+        print("Name: %s %s, Student Number: %s, Status: %s, Grades: "
+              % (student[0], student[1], student[2], student[3]), end="")
+        for grade in student[4:-1]:
+            print("%s " % grade, end="")
+        print(str(student[-1]) + "\n")
+
+
 menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class average", 4: "Print class list", 5: "Quit"}
 
 
@@ -119,7 +129,7 @@ def menu():
         elif user_input == "2":
             delete_student()
         elif user_input == "3":
-            pass
+            print("\nThe class average is %.2f." % calculate_class_average())
         elif user_input == "4":
             pass
         elif user_input == "5":
@@ -132,6 +142,7 @@ def main():
     print(separator + "Welcome to the Student Database Management System\n" + separator)
     # menu()
     # print(file_read())
+    print_class_list()
 
 
 if __name__ == '__main__':
