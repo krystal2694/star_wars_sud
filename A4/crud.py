@@ -23,7 +23,7 @@ def collect_student_info()-> list:
     first_name = input("First Name: ")
     last_name = input("Last Name: ")
     student_num = input("Student Number - format(A12345678): ").title()
-    status = bool(input("Student Status - True for in good standing, False for not in good standing: ").title())
+    status = (input("Student Status - True for in good standing, False for not in good standing: ").title())
     final_grades = enter_grades()
     student_info = [first_name, last_name, student_num, status, final_grades]
     return student_info
@@ -31,7 +31,7 @@ def collect_student_info()-> list:
 
 def add_student(student_info: list)-> None:
     try:
-        new_student = Student(student_info[0], student_info[1], student_info[2], student_info[3], student_info[4])
+        new_student = Student(student_info[0], student_info[1], student_info[2], student_info[3], *student_info[4])
     except ValueError:
         print("Could not add student, please try again.")
     else:
@@ -73,7 +73,7 @@ def file_delete_student(student_num: str)-> bool:
     return True if original_file_size != new_file_size else False
 
 
-def delete_student():
+def delete_student()-> None:
     student_num = input("Enter the student number: ").title()
     if verify_student_exists(student_num):
         if file_delete_student(student_num):
@@ -84,43 +84,61 @@ def delete_student():
         print("\nThe student does not exist.")
 
 
-def calculate_class_average():
-    class_average = []
-    for student in file_read():
-        grades = list(map(int, student[4:]))
-        class_average.append(sum(grades)/len(grades))
-    return sum(class_average)/len(class_average)
+# def calculate_class_average()-> float:
+#     class_average = []
+#     for student in file_read():
+#         grades = list(map(int, student[4:]))
+#         class_average.append(sum(grades)/len(grades))
+#     return sum(class_average)/len(class_average)
+
+#
+# def file_read()-> list:
+#     students_list = []
+#     with open('students.txt') as file_obj:
+#         lines = file_obj.readlines()
+#     for line in lines:
+#         students_list.append(line.split())
+#     return students_list
 
 
-def file_read()-> list:
-    with open('students.txt') as file_obj:
-        lines = file_obj.readlines()
+def file_read():
     students_list = []
-    for line in lines:
-        students_list.append(line.split())
+    with open('students.txt') as file_obj:
+        for line in file_obj:
+            tokens = line.split()
+            students_list.append(Student(*tokens))
+
     return students_list
 
 
-def print_class_list():
-    print("Class List\n")
+def calculate_class_average():
+    class_average = []
     for student in file_read():
-        print("Name: %s %s, Student Number: %s, Status: %s, Grades: "
-              % (student[0], student[1], student[2], student[3]), end="")
-        for grade in student[4:-1]:
-            print("%s " % grade, end="")
-        print(str(student[-1]) + "\n")
+        class_average.append(sum(student.get_grades()))
+    return sum(class_average)
+
+
+
+# def print_class_list()-> None:
+#     print("Class List\n")
+#     for student in file_read():
+#         print("Name: %s %s, Student Number: %s, Status: %s, Grades: "
+#               % (student[0], student[1], student[2], student[3]), end="")
+#         for grade in student[4:-1]:
+#             print("%s " % grade, end="")
+#         print(str(student[-1]) + "\n")
 
 
 menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class average", 4: "Print class list", 5: "Quit"}
 
 
-def print_menu():
+def print_menu()-> None:
     print("\nWhat would you like to do?\n")
     for num, options in menu_options.items():
         print(str(num) + ". " + options)
 
 
-def menu():
+def menu()-> None:
     while True:
         print_menu()
         user_input = input("\nEnter the corresponding number: ")
@@ -141,8 +159,8 @@ def menu():
 def main():
     print(separator + "Welcome to the Student Database Management System\n" + separator)
     # menu()
-    # print(file_read())
-    print_class_list()
+    print(file_read())
+    # print_class_list()
 
 
 if __name__ == '__main__':
