@@ -5,6 +5,9 @@ import sys
 # A01089672
 
 
+separator = "--------------------------------------------------\n"
+
+
 def enter_grades()-> list:
     print("Enter the student's final grades. Enter 'done' when finished.")
     user_input = ""
@@ -55,19 +58,30 @@ def verify_student_exists(student_num: str)-> bool:
         return False
 
 
-def file_delete_student(student_num: str):
-    with open('students.txt', 'r+') as file_obj:
+def file_delete_student(student_num: str)-> bool:
+    with open('students.txt') as file_obj:
         new_list = [line for line in file_obj if student_num not in line]
-        for line in new_list:
-            file_obj.write(line + "\n")
+        original_file_size = len(file_obj.read())
+
+    with open('students.txt', 'w') as file_obj:
+        for student in new_list:
+            file_obj.write(student)
+
+    with open('students.txt') as file_obj:
+        new_file_size = len(file_obj.read())
+
+    return True if original_file_size != new_file_size else False
 
 
 def delete_student():
     student_num = input("Enter the student number: ").title()
     if verify_student_exists(student_num):
-        file_delete_student(student_num)
+        if file_delete_student(student_num):
+            print("\nStudent successfully deleted.")
+        else:
+            print("\nThe student could not be deleted.")
     else:
-        print("The student does not exist in the file.")
+        print("\nThe student does not exist.")
 
 
 menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class average", 4: "Print class list", 5: "Quit"}
@@ -86,7 +100,7 @@ def menu():
         if user_input == "1":
             add_student(collect_student_info())
         elif user_input == "2":
-            pass
+            delete_student()
         elif user_input == "3":
             pass
         elif user_input == "4":
@@ -98,11 +112,8 @@ def menu():
 
 
 def main():
-    print("Welcome to the Student Database Management System")
-    # menu()
-    # student_num = "a01089672"
-    # print(student_num.title())
-    file_delete_student("A01089672")
+    print(separator + "Welcome to the Student Database Management System\n" + separator)
+    menu()
 
 
 if __name__ == '__main__':
