@@ -39,6 +39,9 @@ class Student:
     def get_final_grades(self):
         return self.final_grades
 
+    def get_student_num(self):
+        return self.student_num
+
     def get_final_grades_str(self):
         grades = ""
         if len(self.final_grades) > 0:
