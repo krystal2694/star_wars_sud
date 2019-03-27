@@ -30,6 +30,9 @@ class Student:
             else:
                 self.final_grades.append(grade)
 
+    def get_first_name(self):
+        return self.first_name
+
 
     def get_final_grades(self):
         return self.final_grades
