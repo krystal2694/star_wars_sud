@@ -1,7 +1,7 @@
 class Student:
     """A class representing a student."""
 
-    def __init__(self, first_name: str, last_name: str, student_num: str, status: bool, final_grades: list):
+    def __init__(self, first_name: str, last_name: str, student_num: str, status: str, *final_grades: str):
         if first_name.isalpha():
             self.first_name = first_name.title()
         else:
@@ -22,26 +22,32 @@ class Student:
 
         self.status = status
 
+        self.final_grades = []
         for grade in final_grades:
             if int(grade) < 0 or int(grade) > 100:
                 print("A grade cannot be less than 0 or greater than 100!")
                 raise ValueError
             else:
-                self.final_grades = final_grades
+                self.final_grades.append(grade)
 
-    def get_grades(self):
+
+    def get_final_grades(self):
+        return self.final_grades
+
+    def get_final_grades_str(self):
         grades = ""
-        for grade in self.final_grades:
-            grades += grade + " "
+        if len(self.final_grades) > 0:
+            for grade in self.final_grades:
+                grades += grade + " "
         return grades
 
     def get_info(self):
-        return self.first_name + " " + self.last_name + " " + self.student_num + " " + str(self.status) \
-               + " " + self.get_grades()
+        return self.first_name + " " + self.last_name + " " + self.student_num + " " + self.status \
+               + " " + self.get_final_grades_str()
 
 
 def main():
-    krystal = Student("Krystal", "Wong", "A01089662", True, ["94", "95", "89", "99"])
+    krystal = Student("Krystal", "Wong", "A01089662", "True", "94", "95", "89", "99")
     print(krystal.get_info())
 
 
