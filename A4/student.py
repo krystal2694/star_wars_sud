@@ -33,6 +33,8 @@ class Student:
     def get_first_name(self):
         return self.first_name
 
+    def get_last_name(self):
+        return self.last_name
 
     def get_final_grades(self):
         return self.final_grades
