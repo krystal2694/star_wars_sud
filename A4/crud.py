@@ -110,7 +110,22 @@ def print_class_list()-> None:
                  student.get_status(), student.get_final_grades_str()))
 
 
-menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class average", 4: "Print class list", 5: "Quit"}
+def add_grade():
+    student_num = input("Enter the student number of the student you would like to add the grade to: ").strip()
+    if verify_student_exists(student_num):
+        new_grade = input("Enter the new grade: ").strip()
+        student_list = file_read()
+        for student in student_list:
+            if student.get_student_num() == student_num:
+                student.add_grade(new_grade)
+
+        with open('students.txt', 'w') as file_obj:
+            for each_student in student_list:
+                file_obj.write(each_student.get_info() + "\n")
+
+
+menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class average",
+                4: "Print class list", 5: "Add grade", 6: "Quit"}
 
 
 def print_menu()-> None:
@@ -132,6 +147,8 @@ def menu()-> None:
         elif user_input == "4":
             print_class_list()
         elif user_input == "5":
+            add_grade()
+        elif user_input == "6":
             sys.exit()
         else:
             print("That is not a valid choice.")
