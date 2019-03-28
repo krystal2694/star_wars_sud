@@ -56,6 +56,11 @@ class Student:
         return self.first_name + " " + self.last_name + " " + self.student_num + " " + self.status \
                + " " + self.get_final_grades_str()
 
+    def add_final_grade(self, new_grade):
+        final_grades_list = list(self.final_grades)
+        final_grades_list.append(new_grade)
+        self.final_grades = tuple(final_grades_list)
+
 
 def main():
     krystal = Student("Krystal", "Wong", "A01089662", "True", "94", "95", "89", "99")
