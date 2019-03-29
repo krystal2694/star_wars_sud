@@ -9,6 +9,7 @@ separator = "--------------------------------------------------"
 
 
 def enter_grades()-> list:
+    """Allow user to enter student grades."""
     print("Enter the student's final grades.\nEnter 'done' when finished or if there are no grades to enter.")
     user_input = ""
     final_grades = []
@@ -20,6 +21,7 @@ def enter_grades()-> list:
 
 
 def collect_student_info()-> list:
+    """Collect student information from user."""
     print("\nPlease enter the students' information.")
     first_name = input("First Name: ").title().strip()
     last_name = input("Last Name: ").title().strip()
@@ -31,6 +33,7 @@ def collect_student_info()-> list:
 
 
 def add_student(student_info: list)-> None:
+    """Add student to system."""
     try:
         new_student = Student(student_info[0], student_info[1], student_info[2], student_info[3], *student_info[4])
     except ValueError as e:
@@ -45,6 +48,7 @@ def add_student(student_info: list)-> None:
 
 
 def file_write(new_student: object)-> bool:
+    """Append student at the end of student file."""
     with open('students.txt', 'a') as file_obj:
         start = file_obj.tell()
         file_obj.write(str(new_student) + "\n")
@@ -52,7 +56,8 @@ def file_write(new_student: object)-> bool:
     return True if start != end else False
 
 
-def verify_student_exists(student_num: str)-> bool:
+def student_exists(student_num: str)-> bool:
+    """Verify that student exists in file."""
     with open('students.txt') as file_obj:
         contents = file_obj.read()
     if student_num in contents.split():
@@ -63,6 +68,7 @@ def verify_student_exists(student_num: str)-> bool:
 
 
 def file_delete_student(student_num: str)-> bool:
+    """Delete student from file."""
     with open('students.txt') as file_obj:
         new_list = [line for line in file_obj if student_num not in line]
         original_file_size = len(file_obj.read())
@@ -78,15 +84,17 @@ def file_delete_student(student_num: str)-> bool:
 
 
 def delete_student()-> None:
+    """Delete student from system."""
     student_num = input("Enter the student number: ").title()
-    if verify_student_exists(student_num):
+    if student_exists(student_num):
         if file_delete_student(student_num):
             print("\nStudent successfully deleted.")
         else:
             print("\nThe student could not be deleted.")
 
 
-def file_read():
+def file_read()-> list:
+    """Return list of student objects from students text file."""
     students_list = []
     with open('students.txt') as file_obj:
         for line in file_obj:
@@ -95,7 +103,8 @@ def file_read():
     return students_list
 
 
-def calculate_class_average():
+def calculate_class_average()-> float:
+    """Calculate the class average."""
     student_averages = []
     for student in file_read():
         if len(student.get_final_grades()) > 0:
@@ -105,6 +114,7 @@ def calculate_class_average():
 
 
 def print_class_list()-> None:
+    """Print a list of all students in the system."""
     print("\n--Class List--\n")
     for student in file_read():
         print("Name: %s %s, Student Number: %s, In Good Standing: %s, Grades:%s"
@@ -113,9 +123,10 @@ def print_class_list()-> None:
     print("\n")
 
 
-def add_grade():
+def add_grade()-> None:
+    """Add a grade for a specific student."""
     student_num = input("Enter the student number of the student you would like to add the grade to: ").strip()
-    if verify_student_exists(student_num):
+    if student_exists(student_num):
         new_grade = input("Enter the new grade: ").strip()
         student_list = file_read()
         for student in student_list:
@@ -125,6 +136,7 @@ def add_grade():
         with open('students.txt', 'w') as file_obj:
             for each_student in student_list:
                 file_obj.write(str(each_student) + "\n")
+        print("Grade successfully added!")
 
 
 menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class average",
@@ -132,12 +144,14 @@ menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class avera
 
 
 def print_menu()-> None:
+    """Print system menu."""
     print(separator)
     for num, options in menu_options.items():
         print(str(num) + ". " + options)
 
 
 def menu()-> None:
+    """Execute user's choice of option."""
     while True:
         print_menu()
         user_input = input("\nEnter the corresponding number: ")
@@ -158,6 +172,7 @@ def menu()-> None:
 
 
 def main():
+    """Execute the program."""
     print(separator + "\nWelcome to the Student Database Management System")
     menu()
 
