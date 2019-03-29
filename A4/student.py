@@ -35,6 +35,7 @@ class Student:
         return self.last_name
 
     def set_last_name(self, last_name):
+        """Set last name of student."""
         if last_name.isalpha():
             self.last_name = last_name.title()
         else:
@@ -53,11 +54,13 @@ class Student:
         return self.status
 
     def set_status(self, status):
+        """Set status of student."""
         if status != "True" and status != "False":
             raise ValueError("Status can only be 'True' or 'False'.")
         self.status = status
 
     def add_final_grade(self, new_grade):
+        """Add grade to list of student's final grades."""
         if int(new_grade) < 0 or int(new_grade) > 100:
             raise ValueError("A grade cannot be less than 0 or greater than 100!")
         self.final_grades.append(new_grade)
