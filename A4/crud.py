@@ -1,5 +1,6 @@
 """A Student Management System."""
 from student import Student
+import doctest
 import sys
 # Krystal Wong
 # A01089672
@@ -48,7 +49,13 @@ def add_student(student_info: list)-> None:
 
 
 def file_write(new_student: object)-> bool:
-    """Append student at the end of student file."""
+    """Append student at the end of student file.
+
+    PRECONDITION: new_student must be an object of the class Student
+    >>> new_student = Student("Krystal", "Wong", "A01089672", "True", "95")
+    >>> file_write(new_student)
+    True
+    """
     with open('students.txt', 'a') as file_obj:
         start = file_obj.tell()
         file_obj.write(str(new_student) + "\n")
@@ -175,6 +182,7 @@ def main():
     """Execute the program."""
     print(separator + "\nWelcome to the Student Database Management System")
     menu()
+    doctest.testmod()
 
 
 if __name__ == '__main__':
