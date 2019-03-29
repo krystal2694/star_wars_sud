@@ -5,7 +5,7 @@ import sys
 # A01089672
 
 
-separator = "--------------------------------------------------\n"
+separator = "--------------------------------------------------"
 
 
 def enter_grades()-> list:
@@ -14,16 +14,17 @@ def enter_grades()-> list:
     final_grades = []
     while user_input != "done":
         user_input = input("Enter a grade: ")
-        final_grades.append(user_input)
-    return final_grades[:-1]
+        if user_input.isdigit():
+            final_grades.append(user_input)
+    return final_grades
 
 
 def collect_student_info()-> list:
-    print("\nPlease enter the student's information.")
-    first_name = input("First Name: ")
-    last_name = input("Last Name: ")
-    student_num = input("Student Number - format(A12345678): ").title()
-    status = (input("Student Status - True for in good standing, False for not in good standing: ").title())
+    print("\nPlease enter the students' information.")
+    first_name = input("First Name: ").title().strip()
+    last_name = input("Last Name: ").title().strip()
+    student_num = input("Student Number - format(A12345678): ").title().strip()
+    status = (input("In Good Standing (True/False): ").title()).strip()
     final_grades = enter_grades()
     student_info = [first_name, last_name, student_num, status, final_grades]
     return student_info
@@ -32,19 +33,21 @@ def collect_student_info()-> list:
 def add_student(student_info: list)-> None:
     try:
         new_student = Student(student_info[0], student_info[1], student_info[2], student_info[3], *student_info[4])
-    except ValueError:
-        print("Could not add student, please try again.")
+    except ValueError as e:
+        print(e)
+        print("Student could not be added.")
     else:
         if file_write(new_student):
-            print("\nStudent successfully added.")
+            print("\nStudent successfully added:")
+            print(str(new_student) + "\n")
         else:
             print("Student could not be written to file.")
 
 
-def file_write(new_student: Student)-> bool:
+def file_write(new_student: object)-> bool:
     with open('students.txt', 'a') as file_obj:
         start = file_obj.tell()
-        file_obj.write(new_student.get_info() + "\n")
+        file_obj.write(str(new_student) + "\n")
         end = file_obj.tell()
     return True if start != end else False
 
@@ -55,6 +58,7 @@ def verify_student_exists(student_num: str)-> bool:
     if student_num in contents.split():
         return True
     else:
+        print("\nThe student does not exist.\n")
         return False
 
 
@@ -80,8 +84,6 @@ def delete_student()-> None:
             print("\nStudent successfully deleted.")
         else:
             print("\nThe student could not be deleted.")
-    else:
-        print("\nThe student does not exist.")
 
 
 def file_read():
@@ -90,24 +92,25 @@ def file_read():
         for line in file_obj:
             tokens = line.split()
             students_list.append(Student(*tokens))
-
     return students_list
 
 
 def calculate_class_average():
     student_averages = []
     for student in file_read():
-        grades = list(map(int, student.get_final_grades()))
-        student_averages.append(sum(grades)/len(grades))
+        if len(student.get_final_grades()) > 0:
+            grades = list(map(int, student.get_final_grades()))
+            student_averages.append(sum(grades)/len(grades))
     return sum(student_averages)/len(student_averages)
 
 
 def print_class_list()-> None:
-    print("Class List\n")
+    print("\n--Class List--\n")
     for student in file_read():
-        print("Name: %s %s, Student Number: %s, Status: %s, Grades:%s"
+        print("Name: %s %s, Student Number: %s, In Good Standing: %s, Grades:%s"
               % (student.get_first_name(), student.get_last_name(), student.get_student_num(),
-                 student.get_status(), student.get_final_grades_str()))
+                 student.get_status(), " ".join(student.get_final_grades())))
+    print("\n")
 
 
 def add_grade():
@@ -117,11 +120,11 @@ def add_grade():
         student_list = file_read()
         for student in student_list:
             if student.get_student_num() == student_num:
-                student.add_grade(new_grade)
+                student.add_final_grade(new_grade)
 
         with open('students.txt', 'w') as file_obj:
             for each_student in student_list:
-                file_obj.write(each_student.get_info() + "\n")
+                file_obj.write(str(each_student) + "\n")
 
 
 menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class average",
@@ -129,7 +132,7 @@ menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class avera
 
 
 def print_menu()-> None:
-    print("\nWhat would you like to do?\n")
+    print(separator)
     for num, options in menu_options.items():
         print(str(num) + ". " + options)
 
@@ -143,7 +146,7 @@ def menu()-> None:
         elif user_input == "2":
             delete_student()
         elif user_input == "3":
-            print("\nThe class average is %.2f." % calculate_class_average())
+            print("\nThe class average is %.2f.\n" % calculate_class_average())
         elif user_input == "4":
             print_class_list()
         elif user_input == "5":
@@ -155,10 +158,8 @@ def menu()-> None:
 
 
 def main():
-    print(separator + "Welcome to the Student Database Management System\n" + separator)
+    print(separator + "\nWelcome to the Student Database Management System")
     menu()
-    # print(file_read())
-    # print_class_list()
 
 
 if __name__ == '__main__':
