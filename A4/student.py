@@ -1,7 +1,7 @@
 class Student:
     """A class representing a student."""
 
-    def __init__(self, first_name: str, last_name: str, student_num: str, status: str, *final_grades: str):
+    def __init__(self, first_name: str, last_name: str, student_num: str, status: str, *final_grades: str)-> None:
         """Initialize student attributes."""
         self.last_name = None
         self.status = None
@@ -22,44 +22,44 @@ class Student:
                 raise ValueError("A grade cannot be less than 0 or greater than 100!")
             self.final_grades.append(grade)
 
-    def __str__(self):
+    def __str__(self)-> str:
         return self.first_name + " " + self.last_name + " " + self.__student_num + " " + self.status \
                + " " + " ".join(self.final_grades)
 
-    def get_first_name(self):
+    def get_first_name(self)-> str:
         """Return first name of student."""
         return self.first_name
 
-    def get_last_name(self):
+    def get_last_name(self)-> str:
         """Return last name of student."""
         return self.last_name
 
-    def set_last_name(self, last_name):
+    def set_last_name(self, last_name: str)-> None:
         """Set last name of student."""
         if last_name.isalpha():
             self.last_name = last_name.title()
         else:
             raise ValueError("Last name must only be made up of alphabetical characters!")
 
-    def get_student_num(self):
+    def get_student_num(self)-> str:
         """Return student number of student."""
         return self.__student_num
 
-    def get_final_grades(self):
+    def get_final_grades(self)-> list:
         """Return list of student's final grades."""
         return self.final_grades
 
-    def get_status(self):
+    def get_status(self)-> list:
         """Return status of student."""
         return self.status
 
-    def set_status(self, status):
+    def set_status(self, status: str)-> None:
         """Set status of student."""
         if status != "True" and status != "False":
             raise ValueError("Status can only be 'True' or 'False'.")
         self.status = status
 
-    def add_final_grade(self, new_grade):
+    def add_final_grade(self, new_grade: str)-> None:
         """Add grade to list of student's final grades."""
         if int(new_grade) < 0 or int(new_grade) > 100:
             raise ValueError("A grade cannot be less than 0 or greater than 100!")
