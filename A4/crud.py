@@ -38,17 +38,20 @@ def collect_student_info()-> list:
 def add_student(student_info: list)-> None:
     """Add student to system."""
 
-    try:
-        new_student = Student(student_info[0], student_info[1], student_info[2], student_info[3], *student_info[4])
-    except ValueError as e:
-        print(e)
-        print("Student could not be added.")
-    else:
-        if file_write(new_student):
-            print("\nStudent successfully added:")
-            print(str(new_student) + "\n")
+    if student_exists(student_info[2]) is False:
+        try:
+            new_student = Student(student_info[0], student_info[1], student_info[2], student_info[3], *student_info[4])
+        except ValueError as e:
+            print(e)
+            print("Student could not be added.")
         else:
-            print("Student could not be written to file.")
+            if file_write(new_student):
+                print("\nStudent successfully added:")
+                print(str(new_student) + "\n")
+            else:
+                print("Student could not be written to file.")
+    else:
+        print("\nThe student number you entered already exists in the system!\n")
 
 
 def file_write(new_student: object)-> bool:
@@ -152,7 +155,7 @@ def add_grade()-> None:
         with open('students.txt', 'w') as file_obj:
             for each_student in student_list:
                 file_obj.write(str(each_student) + "\n")
-        print("Grade successfully added!")
+        print("\nGrade successfully added!\n")
 
 
 menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class average",
