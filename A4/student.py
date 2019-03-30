@@ -55,12 +55,14 @@ class Student:
 
     def set_status(self, status: str)-> None:
         """Set status of student."""
+
         if status != "True" and status != "False":
             raise ValueError("Status can only be 'True' or 'False'.")
         self.status = status
 
     def add_final_grade(self, new_grade: str)-> None:
         """Add grade to list of student's final grades."""
+
         if int(new_grade) < 0 or int(new_grade) > 100:
             raise ValueError("A grade cannot be less than 0 or greater than 100!")
         self.final_grades.append(new_grade)
