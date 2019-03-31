@@ -18,6 +18,10 @@ class TestStudent(TestCase):
         mock_student = Student("Jordan", "Jenkins", "A45687563", "True", "89", "91", "85")
         self.assertEqual(mock_student.get_student_num(), "A45687563")
 
+    def test___init__successful_correct_status(self):
+        mock_student = Student("Jordan", "Jenkins", "A45687563", "True", "89", "91", "85")
+        self.assertEqual(mock_student.get_status(), "True")
+
     def test___init__successful_correct_final_grades(self):
         mock_student = Student("Jordan", "Jenkins", "A45687563", "True", "89", "91", "85")
         self.assertEqual(mock_student.get_final_grades(), ["89", "91", "85"])
@@ -42,7 +46,7 @@ class TestStudent(TestCase):
         with self.assertRaises(ValueError):
             Student("Jane", "S56m", "A45212564", "True", "85", "89")
 
-    def test___init__with_student_num_less_than_9_characters(self):
+    def test___init__with_student_num_wrong_length(self):
         with self.assertRaises(ValueError):
             Student("Jane", "Smith", "A1234567", "True", "85", "89")
 
@@ -53,6 +57,10 @@ class TestStudent(TestCase):
     def test___init__with_student_num_index_1_to_8_not_all_digits(self):
         with self.assertRaises(ValueError):
             Student("Jane", "Smith", "A4524h4d5", "True", "85", "89")
+
+    def test___init__with_status_not_True_or_False(self):
+        with self.assertRaises(ValueError):
+            Student("Jane", "Smith", "A4524h4d5", "Not in good standing", "85", "89")
 
     def test___init__with_grade_greater_than_100(self):
         with self.assertRaises(ValueError):
