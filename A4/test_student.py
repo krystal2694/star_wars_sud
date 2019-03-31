@@ -34,7 +34,7 @@ class TestStudent(TestCase):
         with self.assertRaises(ValueError):
             Student(" ", "Smith", "A45212564", "True", "85", "89")
 
-    def test___init__with_digits_in_first_name(self):
+    def test___init__with_non_alpha_first_name(self):
         with self.assertRaises(ValueError):
             Student("K45", "Smith", "A45212564", "True", "85", "89")
 
@@ -42,7 +42,7 @@ class TestStudent(TestCase):
         with self.assertRaises(ValueError):
             Student("Jane", " ", "A45212564", "True", "85", "89")
 
-    def test___init__with_digits_in_last_name(self):
+    def test___init__with_non_alpha_last_name(self):
         with self.assertRaises(ValueError):
             Student("Jane", "S56m", "A45212564", "True", "85", "89")
 
