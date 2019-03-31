@@ -43,7 +43,6 @@ def add_student(student_info: list)-> None:
             new_student = Student(student_info[0], student_info[1], student_info[2], student_info[3], *student_info[4])
         except ValueError as e:
             print(e)
-            print("Student could not be added.")
         else:
             if file_write(new_student):
                 print("\nStudent successfully added:")
@@ -58,15 +57,16 @@ def file_write(new_student: object)-> bool:
     """Append student at the end of student file.
 
     PRECONDITION: new_student must be an object of the class Student
-    >>> new_student = Student("George", "Clooney", "A045612352", "True", "95")
+    >>> new_student = Student("George", "Clooney", "A04561235", "True", "95")
     >>> file_write(new_student)
     True
     """
     with open('students.txt', 'a') as file_obj:
-        start = file_obj.tell()
         file_obj.write(str(new_student) + "\n")
-        end = file_obj.tell()
-    return True if start != end else False
+
+    with open('students.txt') as file_obj:
+        contents = file_obj.read()
+    return True if str(new_student) in contents else False
 
 
 def student_exists(student_num: str)-> bool:
@@ -110,7 +110,7 @@ def delete_student()-> None:
 
 
 def file_read()-> list:
-    """Return list of student objects from students text file."""
+    """Return list of student objects from students.txt."""
 
     students_list = []
     with open('students.txt') as file_obj:
@@ -144,9 +144,10 @@ def print_class_list()-> None:
 
 def add_grade()-> None:
     """Add a grade for a specific student."""
+
     student_num = input("Enter the student number of the student you would like to add the grade to: ").strip()
-    if student_exists(student_num):
-        new_grade = input("Enter the new grade: ").strip()
+    new_grade = input("Enter the new grade: ").strip()
+    if student_exists(student_num) and new_grade.isdigit():
         student_list = file_read()
         for student in student_list:
             if student.get_student_num() == student_num:
@@ -156,6 +157,8 @@ def add_grade()-> None:
             for each_student in student_list:
                 file_obj.write(str(each_student) + "\n")
         print("\nGrade successfully added!\n")
+    else:
+        print("Grade could not be added.\n")
 
 
 menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class average",
