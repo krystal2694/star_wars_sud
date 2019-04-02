@@ -1,7 +1,6 @@
 from unittest import TestCase
 from crud import file_delete_student
 from unittest import mock
-from unittest.mock import patch
 import io
 
 original_file = "Wanda Maximoff A7894512 True 85 65 86\n" \
