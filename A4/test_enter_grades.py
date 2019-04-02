@@ -19,12 +19,12 @@ class TestEnterGrades(TestCase):
 
     @patch('builtins.input', side_effect=["89", "78", "85", "done"])
     def test_enter_grades_elements_in_list_correspond_to_input_values(self, mock_input):
-        values_entered = ["89", "78", "85"]
+        values_entered = [89, 78, 85]
         grades = enter_grades()
         for i in range(len(values_entered)):
             self.assertEqual(grades[i], values_entered[i])
 
     @patch('builtins.input', side_effect=["89", "78", "85", "done"])
-    def test_enter_grades_elements_are_all_digits(self, mock_input):
+    def test_enter_grades_elements_are_all_ints(self, mock_input):
         for grade in enter_grades():
-            self.assertTrue(grade.isdigit())
+            self.assertIsInstance(grade, int)
