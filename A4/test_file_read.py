@@ -22,5 +22,3 @@ class TestFileRead(TestCase):
         with patch('builtins.open', mock_open(read_data=mock_file)):
             for student in file_read():
                 self.assertIsInstance(student, Student)
-
-
