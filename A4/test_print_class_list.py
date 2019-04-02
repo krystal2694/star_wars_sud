@@ -14,9 +14,9 @@ class TestPrintClassList(TestCase):
                     "Tom Holland A01236589 False\n"
         with patch('builtins.open', mock_open(read_data=mock_file)):
             expected_output = "\n--Class List--\n\n" \
-                              "Name: Chris Collins, Student Number: A54621542, In Good Standing: True, Grades:85 68\n" \
-                              "Name: Ryan Gosling, Student Number: A01245685, In Good Standing: True, Grades:87 74\n" \
-                              "Name: Chris Evans, Student Number: A04561325, In Good Standing: True, Grades:85 74\n" \
-                              "Name: Tom Holland, Student Number: A01236589, In Good Standing: False, Grades:\n\n\n"
+                              "Name: Chris Collins, Student Number: A54621542, In Good Standing: True, Grades: 85 68\n" \
+                              "Name: Ryan Gosling, Student Number: A01245685, In Good Standing: True, Grades: 87 74\n" \
+                              "Name: Chris Evans, Student Number: A04561325, In Good Standing: True, Grades: 85 74\n" \
+                              "Name: Tom Holland, Student Number: A01236589, In Good Standing: False, Grades: \n\n\n"
             print_class_list()
             self.assertEqual(mock_stdout.getvalue(), expected_output)
