@@ -17,7 +17,7 @@ class TestAddStudent(TestCase):
                                                       io.StringIO(file_after_add)]):
             mock_student_info = ["Jon", "Snow", "A01024575", "True", ["87", "98"]]
             expected_output = "\nStudent successfully added:\n" \
-                              "Jon Snow A01024575 True 87 98\n\n"
+                              "Name: Jon Snow, Student Number: A01024575, In Good Standing: True, Grades: 87 98\n\n"
             add_student(mock_student_info)
             self.assertEqual(mock_stdout.getvalue(), expected_output)
 
