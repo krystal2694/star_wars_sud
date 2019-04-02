@@ -1,7 +1,7 @@
 class Student:
     """A class representing a student."""
 
-    def __init__(self, first_name: str, last_name: str, student_num: str, status: str, *final_grades: str)-> None:
+    def __init__(self, first_name: str, last_name: str, student_num: str, status: bool, *final_grades: int)-> None:
         """Initialize student attributes."""
         self.__last_name = None
         self.__status = None
@@ -21,11 +21,22 @@ class Student:
         for grade in final_grades:
             if int(grade) < 0 or int(grade) > 100:
                 raise ValueError("A grade cannot be less than 0 or greater than 100!\n Student could not be added.")
-            self.__final_grades.append(grade)
+            self.__final_grades.append(int(grade))
+
+    def __repr__(self)-> str:
+        """Return a string representation of this student that looks like:
+        FirstName LastName A######## True 90 80 76 100 62 42"""
+
+        return "%s %s %s %s %s" % (self.__first_name, self.__last_name, self.__student_num,
+                                   str(self.__status), " ".join((map(str, self.__final_grades))))
 
     def __str__(self)-> str:
-        return self.__first_name + " " + self.__last_name + " " + self.__student_num + " " + self.__status \
-               + " " + " ".join(self.__final_grades)
+        """Return a string representation of this student that looks like:
+        Name: Krystal Wong, Student Number: A########, In Good Standing: True, Grades: 90 80 76 100 62 42"""
+
+        return "Name: %s %s, Student Number: %s, In Good Standing: %s, Grades: %s"\
+                % (self.__first_name, self.__last_name, self.__student_num,
+                   self.__status, " ".join((map(str, self.__final_grades))))
 
     def get_first_name(self)-> str:
         """Return first name of student."""
@@ -46,32 +57,26 @@ class Student:
         """Return student number of student."""
         return self.__student_num
 
-    def get_final_grades(self)-> list:
-        """Return list of student's final grades."""
-        return self.__final_grades
-
     def get_status(self)-> list:
         """Return status of student."""
         return self.__status
 
-    def set_status(self, status: str)-> None:
+    def set_status(self, status: bool)-> None:
         """Set status of student."""
-
-        if status != "True" and status != "False":
-            raise ValueError("Status can only be 'True' or 'False'.\n Student could not be added.")
         self.__status = status
 
-    def add_final_grade(self, new_grade: str)-> None:
+    def add_final_grade(self, new_grade: int)-> None:
         """Add grade to list of student's final grades."""
 
-        if int(new_grade) < 0 or int(new_grade) > 100:
+        if new_grade < 0 or new_grade > 100:
             raise ValueError("A grade cannot be less than 0 or greater than 100!\nGrade could not be added.")
         self.__final_grades.append(new_grade)
 
 
+
 def main():
-    krystal = Student("Krystal", "Wong", "A01089662", "True", "94", "95", "89", "99")
-    print(krystal)
+    krystal = Student("Krystal", "Wong", "A01089662", True, 94, 95, 89, 99)
+    print(repr(krystal))
 
 
 if __name__ == '__main__':
