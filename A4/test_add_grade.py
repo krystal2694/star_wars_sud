@@ -23,6 +23,6 @@ class TestAddGrade(TestCase):
     def test_add_grade_failed(self, mock_input, mock_stdout):
         with mock.patch('builtins.open', side_effect=[io.StringIO(mock_file), io.StringIO(mock_file),
                                                       io.StringIO(mock_file)]):
-            expected_output = "Grade could not be added.\n\n"
+            expected_output = "\nGrade could not be added.\n\n"
             add_grade()
             self.assertEqual(mock_stdout.getvalue(), expected_output)
