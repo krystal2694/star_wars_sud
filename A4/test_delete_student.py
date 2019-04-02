@@ -15,8 +15,7 @@ class TestDeleteStudent(TestCase):
     @patch('sys.stdout', new_callable=io.StringIO)
     @patch('builtins.input', return_value="A12345678")
     def test_delete_student_when_student_num_not_on_file(self, mock_input, mock_stdout):
-        with mock.patch('builtins.open', side_effect=[io.StringIO(original_file), io.StringIO(original_file),
-                                                      io.StringIO(original_file)]):
+        with mock.patch('builtins.open', return_value=io.StringIO(original_file)):
             expected_output = "\nThe student number you entered is not on file.\n\n"
             delete_student()
             self.assertEqual(mock_stdout.getvalue(), expected_output)
