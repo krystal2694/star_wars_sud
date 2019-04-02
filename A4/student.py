@@ -78,6 +78,13 @@ class Student:
         for grade in new_grades:
             self.add_final_grade(grade)
 
+    def get_student_average(self) -> float:
+        """Return student's average as a float."""
+        if len(self.__final_grades) == 0:
+            return -1
+        else:
+            return sum(self.__final_grades) / len(self.__final_grades)
+
 
 def main():
     krystal = Student("Krystal", "Wong", "A01089662", True, 94, 95, 89, 99)
