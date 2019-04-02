@@ -20,7 +20,7 @@ class Student:
         self.__final_grades = []
         for grade in final_grades:
             if int(grade) < 0 or int(grade) > 100:
-                raise ValueError("A grade cannot be less than 0 or greater than 100!")
+                raise ValueError("A grade cannot be less than 0 or greater than 100!\n Student could not be added.")
             self.__final_grades.append(grade)
 
     def __str__(self)-> str:
@@ -40,7 +40,7 @@ class Student:
         if last_name.isalpha():
             self.__last_name = last_name.title()
         else:
-            raise ValueError("Last name must only be made up of alphabetical characters!")
+            raise ValueError("Last name must only be made up of alphabetical characters!\n Student could not be added.")
 
     def get_student_num(self)-> str:
         """Return student number of student."""
@@ -58,14 +58,14 @@ class Student:
         """Set status of student."""
 
         if status != "True" and status != "False":
-            raise ValueError("Status can only be 'True' or 'False'.")
+            raise ValueError("Status can only be 'True' or 'False'.\n Student could not be added.")
         self.__status = status
 
     def add_final_grade(self, new_grade: str)-> None:
         """Add grade to list of student's final grades."""
 
         if int(new_grade) < 0 or int(new_grade) > 100:
-            raise ValueError("A grade cannot be less than 0 or greater than 100!")
+            raise ValueError("A grade cannot be less than 0 or greater than 100!\nGrade could not be added.")
         self.__final_grades.append(new_grade)
 
 
