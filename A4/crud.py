@@ -84,8 +84,9 @@ def file_delete_student(student_num: str)-> bool:
     """Delete student from file."""
 
     with open('students.txt') as file_obj:
-        new_list = [line for line in file_obj if student_num not in line]
         original_file_size = len(file_obj.read())
+        file_obj.seek(0)
+        new_list = [line for line in file_obj if student_num not in line]
 
     with open('students.txt', 'w') as file_obj:
         for student in new_list:
@@ -94,7 +95,7 @@ def file_delete_student(student_num: str)-> bool:
     with open('students.txt') as file_obj:
         new_file_size = len(file_obj.read())
 
-    return True if original_file_size != new_file_size else False
+    return True if original_file_size > new_file_size else False
 
 
 def delete_student()-> None:
@@ -103,11 +104,11 @@ def delete_student()-> None:
     student_num = input("Enter the student number: ").title()
     if student_exists(student_num):
         if file_delete_student(student_num):
-            print("\nStudent successfully deleted.")
+            print("\nStudent successfully deleted.\n")
         else:
-            print("\nThe student could not be deleted.")
+            print("\nThe student could not be deleted.\n")
     else:
-        print("The student number you entered is not on file.")
+        print("\nThe student number you entered is not on file.\n")
 
 
 def file_read()-> list:
@@ -137,7 +138,7 @@ def print_class_list()-> None:
 
     print("\n--Class List--\n")
     for student in file_read():
-        print("Name: %s %s, Student Number: %s, In Good Standing: %s, Grades:%s"
+        print("Name: %s %s, Student Number: %s, In Good Standing: %s, Grades: %s"
               % (student.get_first_name(), student.get_last_name(), student.get_student_num(),
                  student.get_status(), " ".join(student.get_final_grades())))
     print("\n")
@@ -174,33 +175,39 @@ def print_menu()-> None:
         print(str(num) + ". " + options)
 
 
-def menu()-> None:
-    """Execute user's choice of option."""
+def menu_loop():
+    """Provide user with menu infinitely."""
 
     while True:
         print_menu()
-        user_input = input("\nEnter the corresponding number: ")
-        if user_input == "1":
-            add_student(collect_student_info())
-        elif user_input == "2":
-            delete_student()
-        elif user_input == "3":
-            print("\nThe class average is %.2f.\n" % calculate_class_average())
-        elif user_input == "4":
-            print_class_list()
-        elif user_input == "5":
-            add_grade()
-        elif user_input == "6":
-            sys.exit()
-        else:
-            print("That is not a valid choice.")
+        determine_user_choice()
+
+
+def determine_user_choice()-> None:
+    """Execute user's choice of option."""
+
+    user_input = input("\nEnter the corresponding number: ")
+    if user_input == "1":
+        add_student(collect_student_info())
+    elif user_input == "2":
+        delete_student()
+    elif user_input == "3":
+        print("\nThe class average is %.2f.\n" % calculate_class_average())
+    elif user_input == "4":
+        print_class_list()
+    elif user_input == "5":
+        add_grade()
+    elif user_input == "6":
+        sys.exit()
+    else:
+        print("That is not a valid choice.")
 
 
 def main():
     """Execute the program."""
-    print(separator + "\nWelcome to the Student Database Management System")
-    menu()
     doctest.testmod()
+    print(separator + "\nWelcome to the Student Database Management System")
+    menu_loop()
 
 
 if __name__ == '__main__':
