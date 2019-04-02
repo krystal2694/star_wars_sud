@@ -48,7 +48,7 @@ def add_student(student_info: list)-> None:
                 print("\nStudent successfully added:")
                 print(str(new_student) + "\n")
             else:
-                print("Student could not be written to file.")
+                print("\nStudent could not be written to file.\n")
     else:
         print("\nThe student number you entered already exists in the system!\n")
 
@@ -77,7 +77,6 @@ def student_exists(student_num: str)-> bool:
     if student_num in contents.split():
         return True
     else:
-        print("\nThe student does not exist.\n")
         return False
 
 
@@ -107,6 +106,8 @@ def delete_student()-> None:
             print("\nStudent successfully deleted.")
         else:
             print("\nThe student could not be deleted.")
+    else:
+        print("The student number you entered is not on file.")
 
 
 def file_read()-> list:
