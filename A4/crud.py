@@ -18,8 +18,18 @@ def enter_grades()-> list:
     while user_input != "done":
         user_input = input("Enter a grade: ")
         if user_input.isdigit():
-            final_grades.append(user_input)
+            final_grades.append(int(user_input))
     return final_grades
+
+
+def in_good_standing():
+    status = ""
+    while status != "Y" and status != "N":
+        status = (input("Is the student in good standing? (Y/N): ").upper()).strip()
+        if status == "Y":
+            return True
+        elif status == "N":
+            return False
 
 
 def collect_student_info()-> list:
@@ -28,8 +38,8 @@ def collect_student_info()-> list:
     print("\nPlease enter the students' information.")
     first_name = input("First Name: ").title().strip()
     last_name = input("Last Name: ").title().strip()
-    student_num = input("Student Number - format(A12345678): ").title().strip()
-    status = (input("In Good Standing (True/False): ").title()).strip()
+    student_num = input("Student Number in format A########: ").title().strip()
+    status = in_good_standing()
     final_grades = enter_grades()
     student_info = [first_name, last_name, student_num, status, final_grades]
     return student_info
@@ -57,16 +67,13 @@ def file_write(new_student: object)-> bool:
     """Append student at the end of student file.
 
     PRECONDITION: new_student must be an object of the class Student
-    >>> new_student = Student("George", "Clooney", "A04561235", "True", "95")
-    >>> file_write(new_student)
-    True
     """
     with open('students.txt', 'a') as file_obj:
-        file_obj.write(str(new_student) + "\n")
+        file_obj.write(repr(new_student))
 
     with open('students.txt') as file_obj:
         contents = file_obj.read()
-    return True if str(new_student) in contents else False
+    return True if repr(new_student) in contents else False
 
 
 def student_exists(student_num: str)-> bool:
@@ -127,9 +134,8 @@ def calculate_class_average()-> float:
 
     student_averages = []
     for student in file_read():
-        if len(student.get_final_grades()) > 0:
-            grades = list(map(int, student.get_final_grades()))
-            student_averages.append(sum(grades)/len(grades))
+        if student.get_student_average() > -1:
+            student_averages.append(student.get_student_average())
     return sum(student_averages)/len(student_averages)
 
 
@@ -138,9 +144,7 @@ def print_class_list()-> None:
 
     print("\n--Class List--\n")
     for student in file_read():
-        print("Name: %s %s, Student Number: %s, In Good Standing: %s, Grades: %s"
-              % (student.get_first_name(), student.get_last_name(), student.get_student_num(),
-                 student.get_status(), " ".join(student.get_final_grades())))
+        print(student)
     print("\n")
 
 
@@ -157,7 +161,7 @@ def add_grade()-> None:
 
         with open('students.txt', 'w') as file_obj:
             for each_student in student_list:
-                file_obj.write(str(each_student) + "\n")
+                file_obj.write(repr(each_student) + "\n")
         print("\nGrade successfully added!\n")
     else:
         print("Grade could not be added.\n")
@@ -175,7 +179,7 @@ def print_menu()-> None:
         print(str(num) + ". " + options)
 
 
-def menu_loop():
+def menu_loop()-> None:
     """Provide user with menu infinitely."""
 
     while True:
