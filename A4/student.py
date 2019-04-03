@@ -69,7 +69,7 @@ class Student:
         """Add grade to list of student's final grades."""
 
         if new_grade < 0 or new_grade > 100:
-            raise ValueError("A grade cannot be less than 0 or greater than 100!\nGrade could not be added.")
+            raise ValueError("\nA grade cannot be less than 0 or greater than 100!\nGrade could not be added.")
         self.__final_grades.append(new_grade)
 
     def add_final_grades(self, new_grades: list):

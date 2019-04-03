@@ -69,7 +69,7 @@ def file_write(new_student: object)-> bool:
     PRECONDITION: new_student must be an object of the class Student
     """
     with open('students.txt', 'a') as file_obj:
-        file_obj.write(repr(new_student))
+        file_obj.write(repr(new_student) + "\n")
 
     with open('students.txt') as file_obj:
         contents = file_obj.read()
@@ -148,6 +148,15 @@ def print_class_list()-> None:
     print("\n")
 
 
+def add_grade_attempt(student: Student, new_grade: str)-> None:
+    try:
+        student.add_final_grade(int(new_grade))
+    except ValueError as e:
+        print(e)
+    else:
+        print("\nGrade successfully added!\n")
+
+
 def add_grade()-> None:
     """Add a grade for a specific student."""
 
@@ -157,14 +166,13 @@ def add_grade()-> None:
         student_list = file_read()
         for student in student_list:
             if student.get_student_num() == student_num:
-                student.add_final_grade(new_grade)
+                add_grade_attempt(student, new_grade)
 
         with open('students.txt', 'w') as file_obj:
             for each_student in student_list:
                 file_obj.write(repr(each_student) + "\n")
-        print("\nGrade successfully added!\n")
     else:
-        print("Grade could not be added.\n")
+        print("\nGrade could not be added.\n")
 
 
 menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class average",
@@ -204,7 +212,7 @@ def determine_user_choice()-> None:
     elif user_input == "6":
         sys.exit()
     else:
-        print("That is not a valid choice.")
+        print("That is not a valid choice.\n")
 
 
 def main():
