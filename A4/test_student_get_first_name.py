@@ -1,7 +1,7 @@
 from unittest import TestCase
 from student import Student
 
-mock_student = Student("Karen", "Perry", "A45312546", "False", "65", "50")
+mock_student = Student("Karen", "Perry", "A45312546", False, 65, 50)
 
 
 class TestStudent(TestCase):
