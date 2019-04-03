@@ -148,9 +148,9 @@ def print_class_list()-> None:
     print("\n")
 
 
-def add_grade_attempt(student: Student, new_grade: str)-> None:
+def add_grade_to_student(student: Student, new_grade: int)-> None:
     try:
-        student.add_final_grade(int(new_grade))
+        student.add_final_grade(new_grade)
     except ValueError as e:
         print(e)
     else:
@@ -166,7 +166,7 @@ def add_grade()-> None:
         student_list = file_read()
         for student in student_list:
             if student.get_student_num() == student_num:
-                add_grade_attempt(student, new_grade)
+                add_grade_to_student(student, int(new_grade))
 
         with open('students.txt', 'w') as file_obj:
             for each_student in student_list:
