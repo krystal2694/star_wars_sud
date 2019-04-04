@@ -4,13 +4,14 @@ import doctest
 import sys
 # Krystal Wong
 # A01089672
+# 22/03/2019
 
 
 separator = "--------------------------------------------------"
 
 
 def enter_grades()-> list:
-    """Allow user to enter student grades."""
+    """Return list of student grades entered by user."""
 
     print("Enter the student's final grades.\nEnter 'done' when finished or if there are no grades to enter.")
     user_input = ""
@@ -22,7 +23,9 @@ def enter_grades()-> list:
     return final_grades
 
 
-def in_good_standing():
+def in_good_standing()-> bool:
+    """Return True if student is in good standing."""
+
     status = ""
     while status != "Y" and status != "N":
         status = (input("Is the student in good standing? (Y/N): ").upper()).strip()
@@ -33,7 +36,7 @@ def in_good_standing():
 
 
 def collect_student_info()-> list:
-    """Collect student information from user."""
+    """Return list of student information entered by user."""
 
     print("\nPlease enter the students' information.")
     first_name = input("First Name: ").title().strip()
@@ -46,7 +49,7 @@ def collect_student_info()-> list:
 
 
 def add_student(student_info: list)-> None:
-    """Add student to system."""
+    """Add student to student management system."""
 
     if student_exists(student_info[2]) is False:
         try:
@@ -63,21 +66,22 @@ def add_student(student_info: list)-> None:
         print("\nThe student number you entered already exists in the system!\n")
 
 
-def file_write(new_student: object)-> bool:
-    """Append student at the end of student file.
+def file_write(new_student: Student)-> bool:
+    """Append student at the end of students.txt.
 
-    PRECONDITION: new_student must be an object of the class Student
+    PRECONDITION: new_student must be an instance of the class Student
     """
     with open('students.txt', 'a') as file_obj:
         file_obj.write(repr(new_student) + "\n")
 
     with open('students.txt') as file_obj:
         contents = file_obj.read()
+
     return True if repr(new_student) in contents else False
 
 
 def student_exists(student_num: str)-> bool:
-    """Verify that student exists in file."""
+    """Return True if student exists in file."""
 
     with open('students.txt') as file_obj:
         contents = file_obj.read()
@@ -88,10 +92,9 @@ def student_exists(student_num: str)-> bool:
 
 
 def file_delete_student(student_num: str)-> bool:
-    """Delete student from file."""
+    """Delete student from students.txt."""
 
     with open('students.txt') as file_obj:
-        original_file_size = len(file_obj.read())
         file_obj.seek(0)
         new_list = [line for line in file_obj if student_num not in line]
 
@@ -100,13 +103,13 @@ def file_delete_student(student_num: str)-> bool:
             file_obj.write(student)
 
     with open('students.txt') as file_obj:
-        new_file_size = len(file_obj.read())
+        tokens = file_obj.read().split()
 
-    return True if original_file_size > new_file_size else False
+    return True if student_num not in tokens else False
 
 
 def delete_student()-> None:
-    """Delete student from system."""
+    """Delete student from student management system."""
 
     student_num = input("Enter the student number: ").title()
     if student_exists(student_num):
@@ -125,6 +128,7 @@ def file_read()-> list:
     with open('students.txt') as file_obj:
         for line in file_obj:
             tokens = line.split()
+            # create student object with tokens and add to students_list
             students_list.append(Student(*tokens))
     return students_list
 
@@ -134,6 +138,7 @@ def calculate_class_average()-> float:
 
     student_averages = []
     for student in file_read():
+        # add student average to list only if they have at least one grade on file
         if student.get_average() > -1:
             student_averages.append(student.get_average())
     return sum(student_averages)/len(student_averages)
@@ -162,12 +167,14 @@ def add_grade()-> None:
 
     student_num = input("Enter the student number of the student you would like to add the grade to: ").strip()
     new_grade = input("Enter the new grade: ").strip()
+
     if student_exists(student_num) and new_grade.isdigit():
         student_list = file_read()
         for student in student_list:
             if student.get_student_num() == student_num:
                 add_grade_to_student(student, int(new_grade))
 
+        # rewrite entire student list to file with new grade added
         with open('students.txt', 'w') as file_obj:
             for each_student in student_list:
                 file_obj.write(repr(each_student) + "\n")
@@ -175,12 +182,11 @@ def add_grade()-> None:
         print("\nGrade could not be added.\n")
 
 
-menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class average",
-                4: "Print class list", 5: "Add grade", 6: "Quit"}
-
-
 def print_menu()-> None:
-    """Print system menu."""
+    """Print system menu in a pleasing way."""
+
+    menu_options = {1: "Add student", 2: "Delete student", 3: "Calculate class average",
+                    4: "Print class list", 5: "Add grade", 6: "Quit"}
 
     print(separator)
     for num, options in menu_options.items():
@@ -217,6 +223,7 @@ def determine_user_choice()-> None:
 
 def main():
     """Execute the program."""
+
     doctest.testmod()
     print(separator + "\nWelcome to the Student Database Management System")
     menu_loop()
