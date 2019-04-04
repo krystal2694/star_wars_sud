@@ -165,7 +165,7 @@ def add_grade_to_student(student: Student, new_grade: int)-> None:
 def add_grade()-> None:
     """Add a grade for a specific student."""
 
-    student_num = input("Enter the student number of the student you would like to add the grade to: ").strip()
+    student_num = input("Enter the student number of the student you would like to add the grade to: ").strip().title()
     new_grade = input("Enter the new grade: ").strip()
 
     if student_exists(student_num) and new_grade.isdigit():
