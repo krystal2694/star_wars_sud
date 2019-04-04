@@ -94,6 +94,8 @@ class Student:
 
     def get_student_average(self) -> float:
         """Return student's average as a float."""
+
+        # if student has no grades, return -1 to signify that student has no average
         if len(self.__final_grades) == 0:
             return -1
         else:
