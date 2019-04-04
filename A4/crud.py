@@ -134,8 +134,8 @@ def calculate_class_average()-> float:
 
     student_averages = []
     for student in file_read():
-        if student.get_student_average() > -1:
-            student_averages.append(student.get_student_average())
+        if student.get_average() > -1:
+            student_averages.append(student.get_average())
     return sum(student_averages)/len(student_averages)
 
 

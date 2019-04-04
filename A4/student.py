@@ -92,7 +92,7 @@ class Student:
         for grade in new_grades:
             self.add_final_grade(grade)
 
-    def get_student_average(self) -> float:
+    def get_average(self) -> float:
         """Return student's average as a float."""
 
         # if student has no grades, return -1 to signify that student has no average
