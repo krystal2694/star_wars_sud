@@ -40,6 +40,30 @@ def remove_multiples(num: int, num_list: list)-> list:
     return new_list
 
 
+def sum_of_primes(upper_bound: int)-> int:
+    """Return the sum of all prime numbers in the range 0 to upper_bound.
+
+    >>> sum_of_primes(11)
+    28
+    >>> sum_of_primes(5)
+    10
+    """
+
+    if upper_bound <= 0:
+        raise ValueError("upper_bound must be a positive integer!")
+
+    num_list = list(range(0, upper_bound + 1))
+    prime_list = num_list[:]
+
+    for i in range(0, int(sqrt(upper_bound)) + 1):
+        if num_list[i] == 0 or num_list[i] == 1:
+            prime_list.remove(num_list[i])
+        elif is_prime_number(num_list[i]):
+            prime_list = remove_multiples(num_list[i], prime_list)
+
+    return sum(prime_list)
+
+
 def main():
     doctest.testmod()
 
