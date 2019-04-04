@@ -24,10 +24,12 @@ class TestStudent(TestCase):
 
     def test___init__successful_correct_final_grades(self):
         mock_student = Student("Jordan", "Jenkins", "A45687563", True, 89, 91, 85)
+        # assert that grades stored in mock_student correspond to arguments passed
         self.assertEqual(repr(mock_student).split()[4:7], ["89", "91", "85"])
 
     def test___init__successful_with_no_final_grades(self):
         mock_student = Student("Jordan", "Jenkins", "A45687563", True)
+        # assert that grades stored in mock_student correspond to arguments passed
         self.assertEqual(repr(mock_student).split()[4:], [])
 
     def test___init__with_blank_first_name(self):
