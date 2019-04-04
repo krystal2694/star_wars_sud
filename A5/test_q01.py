@@ -49,4 +49,13 @@ class TestIsPrimeNumber(TestCase):
         self.assertFalse(is_prime_number(-7))
 
 
+class TestSumOfPrimes(TestCase):
+    def test_sum_of_primes_return_type(self):
+        self.assertIsInstance(sum_of_primes(11), int)
 
+    def test_sum_of_primes_return_value(self):
+        self.assertEqual(sum_of_primes(11), 28)
+
+    def test_sum_of_primes_error(self):
+        with self.assertRaises(ValueError):
+            sum_of_primes(-1)
