@@ -26,6 +26,8 @@ def is_prime_number(num: int)-> bool:
 def remove_multiples(num: int, num_list: list)-> list:
     """Return a new list excluding multiples of num, but including num itself.
 
+    PRECONDITION: num must not be 0
+
     >>> list_1 = [1, 2, 3, 4, 5, 6]
     >>> remove_multiples(2, list_1 )
     [1, 2, 3, 5]
