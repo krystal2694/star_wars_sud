@@ -14,13 +14,13 @@ def is_prime_number(num: int)-> bool:
     False
     """
     counter = 0
-    for i in range(1, num + 1):
-        if num % i == 0:
-            counter += 1
-    if counter == 2:
-        return True
-    else:
-        return False
+    if num > 0:
+        for i in range(1, num + 1):
+            if num % i == 0:
+                counter += 1
+        if counter == 2:
+            return True
+    return False
 
 
 def remove_multiples(num: int, num_list: list)-> list:
