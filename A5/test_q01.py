@@ -35,3 +35,18 @@ class TestRemoveMultiples(TestCase):
         self.assertEqual(remove_multiples(num, my_list), expected)
 
 
+class TestIsPrimeNumber(TestCase):
+    def test_is_prime_number_return_type(self):
+        self.assertIsInstance(is_prime_number(5), bool)
+
+    def test_is_prime_number_return_true(self):
+        self.assertTrue(is_prime_number(5))
+
+    def test_is_prime_number_return_false(self):
+        self.assertFalse(is_prime_number(6))
+
+    def test_is_prime_number_with_negative_num(self):
+        self.assertFalse(is_prime_number(-7))
+
+
+
