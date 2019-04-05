@@ -1,5 +1,7 @@
 # Krystal Wong
 # A01089672
+# Theoren Leveille
+# A01070327
 # 03/04/2019
 from math import sqrt
 import doctest
