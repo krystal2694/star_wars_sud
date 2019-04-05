@@ -1,18 +1,10 @@
 from unittest import TestCase
 from q02 import gcd
-from unittest.mock import patch
-import io
 
 
 class TestGcd(TestCase):
     def test_gcd_return_type(self):
         self.assertIsInstance(gcd(120, 45), int)
-
-    @patch('sys.stdout', new_callable=io.StringIO)
-    def test_gcd_return_with_0(self, mock_stdout):
-        expected_output = "a and b have to be non-zero integers.\n"
-        gcd(64, 0)
-        self.assertEqual(mock_stdout.getvalue(), expected_output)
 
     def test_gcd_result_is_divisor_of_both_arguments(self):
         result = gcd(120, 45)
@@ -23,3 +15,12 @@ class TestGcd(TestCase):
 
     def test_gcd_with_one_negative_argument(self):
         self.assertEqual(gcd(-184, 98), 2)
+
+    def test_gcd_pass_0_as_argument_a(self):
+        with self.assertRaises(ValueError):
+            gcd(0, 24)
+
+    def test_gcd_pass_0_as_argument_b(self):
+        with self.assertRaises(ValueError):
+            gcd(125, 0)
+
