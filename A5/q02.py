@@ -16,11 +16,10 @@ def gcd(a: int, b: int)-> int:
     >>> gcd(270, 192)
     6
     """
-    try:
-        remainder = a % b
-    except ZeroDivisionError:
-        print('a and b have to be non-zero integers.')
+    if a == 0 or b == 0:
+        raise ValueError("a and b must be non-zero integers!")
     else:
+        remainder = a % b
         if remainder == 0:
             return b
         else:
