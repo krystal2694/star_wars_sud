@@ -6,6 +6,26 @@
 import doctest
 
 
+def selection_sort(my_list: list)-> list:
+    """Return a sorted copy of list.
+
+    PRECONDITION: my_list must be a non-empty list of sortable items.
+    POSTCONDITION: sort the list provided
+    >>> selection_sort(['a', 'the', 'bee', 'zoo', 'a', 'the'])
+    ['a', 'a', 'bee', 'the', 'the', 'zoo']
+    >>> selection_sort([10, 3, 7, 9, 3, 9, 1])
+    [1, 3, 3, 7, 9, 9, 10]
+    """
+
+    list_copy = my_list[:]
+    if len(list_copy) == 0:
+        raise ValueError('List cannot be empty')
+    if is_all_numbers(list_copy) or is_all_strings(list_copy):
+        return sort_items(0, list_copy)
+    else:
+        raise ValueError('list not sortable.')
+
+
 def sort_items(position: int, item_list: list):
     """Sort a list of sortable items.
 
