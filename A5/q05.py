@@ -18,7 +18,7 @@ def cashmoney(amount: float)-> dict:
     """
     denominations = {100: 0, 50: 0, 20: 0, 10: 0, 5: 0, 2: 0, 1: 0, 0.25: 0, 0.10: 0, 0.05: 0, 0.01: 0}
     if isinstance(amount, float) is False or amount <= 0:
-        raise TypeError('money must be a positive floating point number.')
+        raise ValueError('money must be a positive floating point number.')
     else:
         for key in denominations.keys():
             denominations[key] = int(amount // key)
@@ -28,7 +28,7 @@ def cashmoney(amount: float)-> dict:
 
 
 def main():
-    breakdown = cashmoney(478.14)
+    breakdown = cashmoney(328.63)
     print(breakdown)
     doctest.testmod()
 
