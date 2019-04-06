@@ -39,13 +39,14 @@ def sort_items(position: int, item_list: list):
     if position == len(item_list) - 1:
         return item_list
     else:
-        beginning_value = item_list[position]  # captures item at starting index
+        beginning_value = item_list[position]  # captures item at starting position
         for item in item_list[position:]:
             if item == min(item_list[position:]):
-                min_value_index = item_list[position:].index(item) + position
+                min_value_index = item_list[position:].index(item) + position  # captures index of smallest value
                 item_list[position] = item
                 item_list[min_value_index] = beginning_value
                 return sort_items(position + 1, item_list)
+
 
 def is_all_strings(my_list):
     """Determine if all items in the list are strings.
