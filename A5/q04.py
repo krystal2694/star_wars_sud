@@ -66,7 +66,7 @@ def is_all_strings(my_list):
 def is_all_numbers(my_list):
     """Determine if all items in the list are integers or floats.
 
-     >>> is_all_numbers([2, 8, 1, 2.3, 8.9, 100])
+    >>> is_all_numbers([2, 8, 1, 2.3, 8.9, 100])
     True
     >>> is_all_numbers(["a", "bee", 3, "d", 10])
     False
