@@ -12,7 +12,7 @@ def website():
 
     html_page = 'index.html'
 
-    name = input('\nHello user, what is your name?')
+    name = input('\nHello user, what is your name?').title().strip()
     description = input('\nHow would you describe yourself in a single sentence?')
 
     page_contents = """<!doctype html>
