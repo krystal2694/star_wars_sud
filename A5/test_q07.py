@@ -20,4 +20,3 @@ class TestIsStrongPassword(TestCase):
 
     def test_is_strong_password_with_password_no_number(self):
         self.assertFalse(is_strong_password("PeanutOne"))
-
