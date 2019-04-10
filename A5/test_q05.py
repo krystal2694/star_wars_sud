@@ -16,7 +16,7 @@ class TestCashMoney(TestCase):
 
     def test_cashmoney_correct_values_in_dict(self):
         self.assertEqual(cashmoney(328.63),
-                         {100: 3, 50: 0, 20: 1, 10: 0, 5: 1, 2: 1, 1: 1, 0.25: 2, 0.1: 1, 0.05: 0, 0.01: 2})
+                         {100: 3, 50: 0, 20: 1, 10: 0, 5: 1, 2: 1, 1: 1, 0.25: 2, 0.1: 1, 0.05: 0, 0.01: 3})
 
     def test_cashmoney_key_hundred(self):
         self.assertEqual(cashmoney(100.00)[100], 1)
