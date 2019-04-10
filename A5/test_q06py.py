@@ -20,11 +20,10 @@ class TestWebsite(TestCase):
     <title>HTML using python</title>
     <meta name="description" content="User’s webpage">
     <meta name="author" content="Your name goes here">
-   <link rel="stylesheet" href="css/theo_and_krystal.css">
     </head>
     <body id='bg'><h1 id='name'>Theoren</h1>
     a guy in CST
-    <h2>Nasa photo of the day<h2>
+    <h2>Nasa photo of the day</h2>
     <img id='image' src=""" + get_nasa_image() + """ alt='image could not load'>
     </body>
     </html>"""
@@ -60,3 +59,4 @@ class TestWebsite(TestCase):
 class TestGetNasaImage(TestCase):
     def test_get_nasa_image_return_type(self):
         self.assertIsInstance(get_nasa_image(), str)
+
