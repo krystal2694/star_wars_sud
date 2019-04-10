@@ -32,7 +32,7 @@ def database_shared_headings(dictionary):
 
 
 def main():
-    database_shared_headings(scientists)
+    print(database_shared_headings(scientists))
 
 
 if __name__ == '__main__':
