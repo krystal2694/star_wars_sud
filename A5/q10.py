@@ -1,3 +1,9 @@
+# Krystal Wong
+# A01089672
+# Theoren Leveille
+# A01070327
+# 09/04/2019
+
 scientists = {'jgoodall':
               {'surname': 'Goodall',
                'name': 'Jane',
