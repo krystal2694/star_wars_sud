@@ -20,7 +20,7 @@ def selection_sort(my_list: list)-> list:
     list_copy = my_list[:]
     if len(list_copy) == 0:
         raise ValueError('List cannot be empty')
-    if is_all_numbers(list_copy) or is_all_strings(list_copy):
+    if is_all_numbers(list_copy) or is_all_strings(list_copy) or check_data_structure(list_copy):
         return sort_items(0, list_copy)
     else:
         raise ValueError('list not sortable.')
@@ -78,10 +78,28 @@ def is_all_numbers(my_list):
         return False
 
 
+def check_data_structure(my_list: list)-> bool:
+    data_structure_type = type(my_list[0])
+    for item in my_list:
+        if type(item) == data_structure_type:
+            continue
+        else:
+            raise ValueError("Elements of list must be the same type!")
+    inner_item_type = type(my_list[0][0])
+    for item in my_list:
+        if type(item[0]) == inner_item_type:
+            continue
+        else:
+            raise ValueError("First element of each inner data structure must be of the same type!")
+    return True
+
+
 def main():
     # my_list = [9, 1, 6, 3, 10, 3, 3, 6]
-    my_list = ['a', 'the', 'bee', 'zoo', 'a', 'the']
+    my_list = [['a'], ['the', 2, []], ['bee', 3], ['sdha', 3]]
+    # check_data_structure(my_list)
     print(selection_sort(my_list))
+    # print(sort_items(0, my_list))
     # print(is_all_numbers(my_list))
     # print(sort_items(index, my_list))
     doctest.testmod()
