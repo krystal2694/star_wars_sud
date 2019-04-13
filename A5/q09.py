@@ -7,11 +7,10 @@ import doctest
 
 
 def base_conversion(original_base: int, original_number: int, destination_base: int) -> int:
-    """Convert a number in base 'n' to a number in base 'n'.
+    """Convert a number in base 'n' to a number in base 'n', where 2 <= n <= 10.
 
-    PRECONDITION:
-    POSTCONDITION:
-    :return converted number in base 'n' as a string
+    PRECONDITION: original base and destination base must be between 2 and 10
+    POSTCONDITION: original number is converted to number in specified base
 
     >>> base_conversion(6, 12452, 2)
     11101110000
@@ -38,7 +37,6 @@ def decimal_to_base_n(decimal_number: int, destination_base: int):
 
     PRECONDITION: decimal number and destination base must be integers
     POSTCONDITION: Number is converted from base 10 to base n
-    :return converted number in base n as a string reversed
     >>> decimal_to_base_n(1389, 2)
     '10101101101'
     >>> decimal_to_base_n(873, 9)
@@ -61,4 +59,4 @@ def main():
 
 
 if __name__ == '__main__':
-   main()
+    main()
