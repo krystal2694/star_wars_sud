@@ -18,6 +18,19 @@ superheroes = {'Captain America':
                 'superpower': 'breath underwater',
                 'born': 1986}}
 
+items = {'Pencil':
+               {'brand': 'H2',
+                'type': 'classic',
+                'eraser': True},
+               'Strawberry':
+               {'color': 'red',
+                'weight': '4lbs',
+                'date picked': 2019},
+               'Phone':
+               {'model': 'iPhone',
+                'service provider': 'virgin',
+                'owner': 'me'}}
+
 
 class TestDatabaseSharedHeadings(TestCase):
     def test_database_shared_headings_return_type(self):
@@ -25,4 +38,7 @@ class TestDatabaseSharedHeadings(TestCase):
 
     def test_database_shared_headings_correct_values_in_set(self):
         self.assertEqual(database_shared_headings(superheroes), {'name', 'superpower', 'born'})
+
+    def test_database_shared_headings_no_shared_headings(self):
+        self.assertEqual(database_shared_headings(items), set())
 
