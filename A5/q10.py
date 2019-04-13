@@ -26,7 +26,7 @@ scientists = {'jgoodall':
                'author': ['Systems of Logic based on Ordinals']}}
 
 
-def database_shared_headings(dictionary):
+def database_shared_headings(dictionary: dict)-> set:
     """Return a set containing all common keys in the inner dictionary."""
     headings_list = [{key for key in inner_dict.keys()} for inner_dict in dictionary.values()]
 
