@@ -28,7 +28,7 @@ def back_up(filename: str)-> None:
 
 
 def check_file(filename: str, original_file_contents: list)-> None:
-    """Print a message to indicate whether the file has been backed up successfully."""
+    """Print a message to indicate whether the list of contents are equal to the contents in the filename passed."""
 
     with open(filename) as file_object:
         new_file_contents = []
