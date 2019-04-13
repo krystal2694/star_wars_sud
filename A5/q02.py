@@ -27,7 +27,8 @@ def gcd(a: int, b: int)-> int:
 
 
 def main():
-    print(gcd(-25, -5))
+    the_gcd = gcd(-25, 15)
+    print(the_gcd)
     doctest.testmod()
 
 
