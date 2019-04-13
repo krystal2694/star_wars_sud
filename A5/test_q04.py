@@ -1,6 +1,7 @@
 from unittest import TestCase
 from q04 import is_all_numbers
 from q04 import is_all_strings
+from q04 import is_valid_data_structure
 from q04 import selection_sort
 from q04 import sort_items
 
@@ -57,3 +58,22 @@ class TestSortItems(TestCase):
     def test_sort_items_return_type(self):
         self.assertIsInstance(sort_items(0, [5, 2, 1, 9, 2, 10]), list)
 
+
+class TestIsValidDataStructure(TestCase):
+    def test_is_valid_data_structure_return_type(self):
+        my_list = [['a'], ['the', 2, []], ['bee', 3], ['sdha', 3]]
+        self.assertIsInstance(is_valid_data_structure(my_list), bool)
+
+    def test_is_valid_data_structure_with_list_of_different_data_structures(self):
+        with self.assertRaises(ValueError):
+            my_list = [['a'], ('the', 2, []), ['bee', 3], ['sdha', 3]]
+            is_valid_data_structure(my_list)
+
+    def test_is_valid_data_structure_with_list_of_non_sortable_data_structures(self):
+        with self.assertRaises(ValueError):
+            my_list = [['a'], [2, []], ['bee', 3], [4, 3]]
+            is_valid_data_structure(my_list)
+
+    def test_is_valid_data_structure_with_valid_data_structure(self):
+        my_list = [['a'], ['the', 2, []], ['bee', 3], ['sdha', 3]]
+        self.assertTrue(is_valid_data_structure(my_list))

@@ -20,7 +20,7 @@ def selection_sort(my_list: list)-> list:
     list_copy = my_list[:]
     if len(list_copy) == 0:
         raise ValueError('List cannot be empty')
-    if is_all_numbers(list_copy) or is_all_strings(list_copy) or check_data_structure(list_copy):
+    if is_all_numbers(list_copy) or is_all_strings(list_copy) or is_valid_data_structure(list_copy):
         return sort_items(0, list_copy)
     else:
         raise ValueError('list not sortable.')
@@ -78,7 +78,7 @@ def is_all_numbers(my_list):
         return False
 
 
-def check_data_structure(my_list: list)-> bool:
+def is_valid_data_structure(my_list: list)-> bool:
     data_structure_type = type(my_list[0])
     for item in my_list:
         if type(item) == data_structure_type:
