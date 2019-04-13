@@ -70,6 +70,10 @@ def sum_of_primes(upper_bound: int)-> int:
 
 def main():
     doctest.testmod()
+    primes_up_to_5 = sum_of_primes(5)
+    print(primes_up_to_5)
+    primes_up_to_11 = sum_of_primes(11)
+    print(primes_up_to_11)
 
 
 if __name__ == '__main__':
