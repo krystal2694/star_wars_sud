@@ -20,6 +20,7 @@ class TestWebsite(TestCase):
     <title>HTML using python</title>
     <meta name="description" content="User’s webpage">
     <meta name="author" content="Your name goes here">
+    <link rel="stylesheet" href="css/theo_and_krystal.css">
     </head>
     <body id='bg'><h1 id='name'>Theoren</h1>
     a guy in CST
