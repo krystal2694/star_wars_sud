@@ -36,7 +36,7 @@ def check_file(filename: str, original_file_contents: list)-> None:
             new_file_contents.append(line)
 
     if original_file_contents == new_file_contents:
-        print("Your file has been backed up successfully.")
+        print("Generated " + filename)
     else:
         print("Your file could not be backed up.")
 
