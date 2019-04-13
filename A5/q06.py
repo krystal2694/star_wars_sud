@@ -22,6 +22,7 @@ def website():
     <title>HTML using python</title>
     <meta name="description" content="User’s webpage">
     <meta name="author" content="Your name goes here">
+    <link rel="stylesheet" href="css/theo_and_krystal.css">
     </head>
     <body id='bg'><h1 id='name'>""" + name + """</h1>
     """ + description + """
